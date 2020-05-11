@@ -5,6 +5,7 @@ project(OOP_indie_studio_2019)
 
 
 # BINARY
+
 include_directories(./include)
 set(NAME bomberman)
 file(GLOB SRC   src/main.cpp)
@@ -13,11 +14,11 @@ add_executable(${NAME} ${SRC})
 
 
 # IRRLITCH LIB
-# include(${CMAKE_CURRENT_SOURCE_DIR}/Irrlicht/FindIrrlicht.cmake)
-# set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/irrlicht")
-# find_package(Irrlicht REQUIRED)
-# target_link_libraries(${NAME} ${IRRLICHT_LIBRARY})
-# target_include_directories(${NAME} PUBLIC ${IRRLICHT_INCLUDE_DIR})
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/irrlicht")
+set(Irrlicht_FIND_REQUIRED True)
+include(FindIrrlicht)
+include_directories(${Irrlicht_INCLUDE_DIRS})
+target_link_libraries(${NAME} Irrlicht)
 
 
 # BOOST LIB
