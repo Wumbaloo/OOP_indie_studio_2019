@@ -8,7 +8,7 @@
 #include <SFML/Audio.h>
 #include <boost/lambda/lambda.hpp>
 #include <irrlicht.h>
-#include "indie_studio.hpp"
+#include "IndieStudio.hpp"
 
 // using namespace irr;
 // using namespace core;
@@ -31,7 +31,11 @@ int main()
     irr::scene::ISceneManager* smgr = device->getSceneManager();
     irr::gui::IGUIEnvironment* guienv = device->getGUIEnvironment();
     guienv->addStaticText(L"Hello World! This is the Irrlicht Software renderer!",
-                irr::core::rect<irr::s32>(10,10,260,22), true);
+    irr::core::rect<irr::s32>(10,10,260,22), true);
+    irr::scene::IAnimatedMesh *player = createModel(driver, smgr, "BomberMan.3ds", "Bombermap.tga");
+    if (!player)
+        device->drop();
+    smgr->addCameraSceneNode(0, irr::core::vector3df(0,200,99), irr::core::vector3df(0,5,100));
      while(device->run()) {
         driver->beginScene(true, true, irr::video::SColor(255,100,101,140));
         smgr->drawAll();

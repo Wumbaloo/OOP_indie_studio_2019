@@ -8,7 +8,7 @@ project(OOP_indie_studio_2019)
 
 include_directories(./include)
 set(NAME bomberman)
-file(GLOB SRC   src/main.cpp)
+file(GLOB SRC src/Main.cpp src/Models.cpp)
 add_executable(${NAME} ${SRC})
 
 
