@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include "IndieStudio.hpp"
 #include "Irrlicht.hpp"
 
 using namespace irr;
@@ -64,15 +65,10 @@ Object *Irrlicht::createObject(std::string model, std::string texture)
 
 void Irrlicht::createMenu(void)
 {
-    // this->_window->setMouseCursorVisible(true);
+    // this->_window->getCursorControl()->setVisible(false);
     this->_objects.push_back(this->createObject("BomberMan.3ds", "Bombermap.tga"));
 }
 
 void Irrlicht::createGame()
 {
-    // this->_win.push_back(this->createSprite("lib/assets/you_win.bmp",sf::Vector2f(832, 416), "youWin", sf::IntRect(0, 0, 256, 248)));
-    // this->_lose.push_back(this->createSprite("lib/assets/game_over.bmp",sf::Vector2f(768, 408), "youLose", sf::IntRect(0, 0, 384, 264)));
-    // this->_endTexts.push_back(this->createText("Press B to get back to the menu", sf::Vector2f(150, 850), "backMenuText", 12));
-    // this->_endTexts.push_back(this->createText("Press R to restart the game", sf::Vector2f(150, 880), "restartGameText", 12));
-    // this->_endTexts.push_back(this->createText("", sf::Vector2f(150, 910), "gameScore", 12));
 }

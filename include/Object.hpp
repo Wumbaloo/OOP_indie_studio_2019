@@ -9,7 +9,7 @@
 #define OBJECT_HPP
 
 #include <iostream>
-#include "IndieStudio.hpp"
+#include <irrlicht/irrlicht.h>
 #include "Structure.hpp"
 
 using namespace irr;

@@ -6,19 +6,21 @@ project(OOP_indie_studio_2019)
 
 # BINARY
 
-include_directories(./include)
+include_directories(include)
 set(NAME bomberman)
 file(GLOB SRC
     src/Main.cpp
+    src/Game.cpp
     src/Irrlicht/Irrlicht.cpp
     src/Irrlicht/Close.cpp
     src/Irrlicht/Create.cpp
     src/Irrlicht/Display.cpp
     src/Irrlicht/Events.cpp
     src/Irrlicht/Get.cpp
-    src/Irrlicht/Objects/Object.cpp
-    src/Irrlicht/Objects/Getters.cpp
-    src/Irrlicht/Objects/Setters.cpp)
+    src/Objects/Object.cpp
+    src/Objects/Getters.cpp
+    src/Objects/Setters.cpp
+    src/EventReceiver/EventReceiver.cpp)
 add_executable(${NAME} ${SRC})
 
 

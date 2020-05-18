@@ -9,8 +9,11 @@
 #define INDIE_STUDIO_H
 
 #include <irrlicht/irrlicht.h>
+#include "Irrlicht.hpp"
 
 #define MODELS_PATH     "../assets/Models/"
 #define TEXTURES_PATH   "../assets/Textures/"
+
+int GameManager(Irrlicht *lib);
 
 #endif

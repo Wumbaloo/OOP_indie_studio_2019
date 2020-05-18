@@ -12,7 +12,6 @@
 #include <vector>
 #include <irrlicht/irrlicht.h>
 #include "IDisplayModule.hpp"
-#include "SpriteObject.hpp"
 #include "Object.hpp"
 
 using namespace irr;
