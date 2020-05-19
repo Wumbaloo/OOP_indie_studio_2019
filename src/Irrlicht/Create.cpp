@@ -66,6 +66,7 @@ Object *Irrlicht::createObject(std::string model, std::string texture)
 
 void Irrlicht::createMenu(void)
 {
+    // anicotte
     // this->_window->getCursorControl()->setVisible(false);
     this->_objects.push_back(this->createObject("BomberMan.3ds", "Bombermap.tga"));
 }

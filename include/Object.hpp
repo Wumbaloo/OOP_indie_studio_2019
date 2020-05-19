@@ -18,7 +18,7 @@ class Object
 {
     private:
         const int _id;
-        int _heal;
+        int _health;
         scene::IAnimatedMesh *_object;
         vector2_t _pos;
 
