@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <irrlicht/irrlicht.h>
-#include "Structure.hpp"
+#include "Structures.hpp"
 
 using namespace irr;
 

@@ -11,6 +11,7 @@
 #include <iostream>
 #include <vector>
 #include <irrlicht/irrlicht.h>
+#include "InputManager.hpp"
 #include "IDisplayModule.hpp"
 #include "Object.hpp"
 
@@ -25,6 +26,7 @@ class Irrlicht : public IDisplayModule
         scene::ISceneManager* _smgr;
         gui::IGUIEnvironment* _guienv;
         std::vector<Object *> _objects;
+        InputManager *_inputManager = NULL;
 
     public:
         Irrlicht(const std::string name);

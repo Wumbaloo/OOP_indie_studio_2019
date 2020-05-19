@@ -11,6 +11,8 @@ set(NAME bomberman)
 file(GLOB SRC
     src/Main.cpp
     src/Game.cpp
+    src/EventReceiver/InputManager.cpp
+    src/EventReceiver/EventReceiver.cpp
     src/Irrlicht/Irrlicht.cpp
     src/Irrlicht/Close.cpp
     src/Irrlicht/Create.cpp
@@ -20,7 +22,7 @@ file(GLOB SRC
     src/Objects/Object.cpp
     src/Objects/Getters.cpp
     src/Objects/Setters.cpp
-    src/EventReceiver/EventReceiver.cpp)
+)
 add_executable(${NAME} ${SRC})
 
 

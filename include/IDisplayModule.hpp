@@ -10,8 +10,8 @@
 
 #include <iostream>
 #include <vector>
-#include "Enum.hpp"
-#include "Structure.hpp"
+#include "Enums.hpp"
+#include "Structures.hpp"
 #include "Object.hpp"
 
 class IDisplayModule {

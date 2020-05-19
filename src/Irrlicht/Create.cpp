@@ -14,13 +14,14 @@ using namespace irr;
 
 void Irrlicht::createWindow(void)
 {
-    this->_window = createDevice( video::EDT_SOFTWARE,
+    this->_window = createDevice(video::EDT_SOFTWARE,
             core::dimension2d<u32>(1920, 1080), 16,
             false, false, false, 0);
     if (!this->_window) {
         std::cout << "Failed to create window" << std::endl;
         exit(84);
-    }
+    } else if (this->_inputManager)
+        this->_window->setEventReceiver(this->_inputManager);
     this->_window->setWindowCaption(L"Hello World! - Irrlicht Engine Demo");
     this->_driver = this->_window->getVideoDriver();
     this->_smgr = this->_window->getSceneManager();
