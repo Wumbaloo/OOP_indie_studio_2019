@@ -7,17 +7,23 @@
 
 #include <iostream>
 #include "Irrlicht.hpp"
+#include "IndieStudio.hpp"
 
 using namespace irr;
 
-void Irrlicht::KeyboardEvents(void)
+Events Irrlicht::KeyboardEvents(void)
 {
     core::vector3df nodePosition = this->getObjectByName("player")->getPos();
 
-    this->_inputManager->isKeyPressed(MOVE_UP) ? nodePosition.Y += 5.f * this->_frameDeltaTime : 0;
-    this->_inputManager->isKeyPressed(MOVE_DOWN) ? nodePosition.Y -= 5.f * this->_frameDeltaTime : 0;
+    this->_inputManager->isKeyPressed(MOVE_UP) ? nodePosition.Y += PLAYER_SPEED * this->_frameDeltaTime : 0;
+    this->_inputManager->isKeyPressed(MOVE_DOWN) ? nodePosition.Y -= PLAYER_SPEED * this->_frameDeltaTime : 0;
     this->_inputManager->isKeyPressed(MOVE_LEFT) ? NULL : NULL;
-    this->getObjectByName("player")->getSceneNode()->setPosition(nodePosition);
+    this->_inputManager->isKeyPressed(MOVE_RIGHT) ? NULL : NULL;
+    if (this->_inputManager->isKeyPressed(CLOSE))
+        return (CLOSE);
+    if (nodePosition != this->getObjectByName("player")->getPos())
+        this->getObjectByName("player")->getSceneNode()->setPosition(nodePosition);
+    return NONE;
 }
 
 Events Irrlicht::checkEvents(void)
@@ -26,6 +32,5 @@ Events Irrlicht::checkEvents(void)
 
     this->_frameDeltaTime = this->_frameDeltaTime = (f32)(now - this->_then) / 1000.f;
     this->_then = now;
-    KeyboardEvents();
-    return NONE;
+    return (KeyboardEvents());
 }

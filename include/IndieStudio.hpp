@@ -13,6 +13,7 @@
 
 #define MODELS_PATH     "../assets/Models/"
 #define TEXTURES_PATH   "../assets/Textures/"
+#define PLAYER_SPEED    10.f
 
 int GameManager(Irrlicht *lib);
 

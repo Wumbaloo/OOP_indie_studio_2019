@@ -14,7 +14,8 @@ int GameManager(Irrlicht *lib)
     while(lib->isWindowOpen()) {
         lib->display();
         lib->refreshWindow();
-        lib->checkEvents();
+        if (lib->checkEvents() == CLOSE)
+            break;
     }
     lib->destroy();
     lib->close();

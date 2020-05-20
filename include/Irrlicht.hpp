@@ -40,7 +40,7 @@ class Irrlicht : public IDisplayModule
         void refreshWindow(void) const;
         bool isWindowOpen(void) const;
         // events
-        void KeyboardEvents(void);
+        Events KeyboardEvents(void);
         Events checkEvents(void);
         // create
         scene::IAnimatedMeshSceneNode *createModel(video::IVideoDriver* driver,
