@@ -18,25 +18,27 @@ class Object
 {
     private:
         const int _id;
+        std::string _name;
         int _health;
-        scene::IAnimatedMesh *_object;
-        vector2_t _pos;
+        scene::IAnimatedMeshSceneNode *_object;
 
     public:
         Object() = delete;
-        Object(scene::IAnimatedMesh *object);
+        Object(scene::IAnimatedMeshSceneNode *object);
         ~Object() = default;
 
         void move(int x, int y);
-        void move(vector2_t pos);
 
         // getters
+        std::string getName(void) const;
         const int getId(void) const;
-        vector2_t getPos(void) const;
+        core::vector3df getPos(void) const;
+        scene::IAnimatedMeshSceneNode *getSceneNode() const;
 
         // setters
-        void setPos(int x, int y);
-        void setPos(vector2_t pos);
+        void setPos(int x, int y, int z);
+        void setPos(core::vector3df);
+        void setName(std::string name);
 };
 
 #endif

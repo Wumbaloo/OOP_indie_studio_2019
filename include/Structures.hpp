@@ -12,10 +12,11 @@
 
 using namespace std;
 
-typedef struct vector2_s
+typedef struct vector3_s
 {
     int x;
     int y;
-} vector2_t;
+    int z;
+} vector3_t;
 
 #endif

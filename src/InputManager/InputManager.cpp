@@ -13,9 +13,10 @@
 InputManager::InputManager(irr::EKEY_CODE upKey, irr::EKEY_CODE downKey, irr::EKEY_CODE leftKey, irr::EKEY_CODE rightKey)
 {
     this->bindActionToKey(MOVE_UP, upKey);
-    this->bindActionToKey(MOVE_UP, downKey);
+    this->bindActionToKey(MOVE_DOWN, downKey);
     this->bindActionToKey(MOVE_LEFT, leftKey);
     this->bindActionToKey(MOVE_RIGHT, rightKey);
+    // this->bindActionToKey(CLOSE, irr::KEY_DELETE);
     // for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i) {
     //     this->_events[i].codes.clear();
     //     this->_keys[i].isDown = false;

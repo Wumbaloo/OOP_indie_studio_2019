@@ -14,8 +14,8 @@ using namespace irr;
 Irrlicht::Irrlicht(const std::string name) : _name(name)
 {
     this->_inputManager = new InputManager();
-    this->_inputManager->bindActionToKey(MOVE_UP, irr::KEY_KEY_Z);
-    this->_inputManager->bindKeyToAction(irr::KEY_KEY_S, MOVE_UP);
+    this->_inputManager->bindActionToKey(MOVE_UP, KEY_KEY_Z);
+    this->_inputManager->bindKeyToAction(KEY_KEY_S, MOVE_DOWN);
 }
 
 bool Irrlicht::isWindowOpen(void) const

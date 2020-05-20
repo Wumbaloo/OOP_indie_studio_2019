@@ -28,9 +28,10 @@ void Irrlicht::createWindow(void)
     this->_guienv = this->_window->getGUIEnvironment();
     this->_guienv->addStaticText(L"Hello World! This is the Irrlicht Software renderer!", core::rect<s32>(10,10,260,22), true);
     this->_smgr->addCameraSceneNode(0, core::vector3df(0,200,99), core::vector3df(0,5,100));
+    this->_then = this->_window->getTimer()->getTime();
 }
 
-scene::IAnimatedMesh *Irrlicht::createModel(video::IVideoDriver* driver,
+scene::IAnimatedMeshSceneNode *Irrlicht::createModel(video::IVideoDriver* driver,
     scene::ISceneManager *smgr, std::string modelPath,
     std::string texturePath)
 {
@@ -46,14 +47,14 @@ scene::IAnimatedMesh *Irrlicht::createModel(video::IVideoDriver* driver,
         node->setMD2Animation(scene::EMAT_STAND);
         node->setMaterialTexture(0, driver->getTexture(std::string(TEXTURES_PATH + texturePath).c_str()));
     }
-    return (mesh);
+    return (node);
 }
 
-Object *Irrlicht::createObject(std::string model, std::string texture)
+Object *Irrlicht::createObject(std::string name, std::string model, std::string texture)
 {
 
     Object *NewObject = NULL;
-    scene::IAnimatedMesh *object;
+    scene::IAnimatedMeshSceneNode *object;
 
     object = createModel(this->_driver, this->_smgr, model, texture);
     if (!object) {
@@ -61,6 +62,7 @@ Object *Irrlicht::createObject(std::string model, std::string texture)
         exit(84);
     }
     NewObject = new Object(object);
+    NewObject->setName(name);
     return NewObject;
 }
 
@@ -68,7 +70,7 @@ void Irrlicht::createMenu(void)
 {
     // anicotte
     // this->_window->getCursorControl()->setVisible(false);
-    this->_objects.push_back(this->createObject("BomberMan.3ds", "Bombermap.tga"));
+    this->_objects.push_back(this->createObject("player", "BomberMan.3ds", "Bombermap.tga"));
 }
 
 void Irrlicht::createGame()

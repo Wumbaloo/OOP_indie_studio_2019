@@ -7,13 +7,22 @@
 
 #include "Object.hpp"
 
-void Object::setPos(int x, int y)
+void Object::setPos(int x, int y, int z)
 {
-    this->_pos.x = x;
-    this->_pos.y = y;
+    core::vector3df pos;
+
+    pos.X = x;
+    pos.Y = y;
+    pos.Z = z;
+    this->_object->setPosition(pos);
 }
 
-void Object::setPos(vector2_t pos)
+void Object::setPos(core::vector3df pos)
 {
-    this->_pos = pos;
+    this->_object->setPosition(pos);
+}
+
+void Object::setName(std::string name)
+{
+    this->_name = name;
 }

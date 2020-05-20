@@ -7,12 +7,24 @@
 
 #include "Object.hpp"
 
+using namespace irr;
+
 const int Object::getId(void) const
 {
     return this->_id;
 }
 
-vector2_t Object::getPos(void) const
+core::vector3df Object::getPos(void) const
 {
-    return this->_pos;
+    return this->_object->getPosition();
+}
+
+scene::IAnimatedMeshSceneNode *Object::getSceneNode() const
+{
+    return this->_object;
+}
+
+std::string Object::getName(void) const
+{
+    return this->_name;
 }

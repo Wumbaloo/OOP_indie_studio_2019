@@ -7,22 +7,25 @@
 
 #include <iostream>
 #include "Irrlicht.hpp"
-#include "EventReceiver.hpp"
 
 using namespace irr;
 
+void Irrlicht::KeyboardEvents(void)
+{
+    core::vector3df nodePosition = this->getObjectByName("player")->getPos();
+
+    this->_inputManager->isKeyPressed(MOVE_UP) ? nodePosition.Y += 5.f * this->_frameDeltaTime : 0;
+    this->_inputManager->isKeyPressed(MOVE_DOWN) ? nodePosition.Y -= 5.f * this->_frameDeltaTime : 0;
+    this->_inputManager->isKeyPressed(MOVE_LEFT) ? NULL : NULL;
+    this->getObjectByName("player")->getSceneNode()->setPosition(nodePosition);
+}
+
 Events Irrlicht::checkEvents(void)
 {
-    MyEventReceiver receiver;
+    const u32 now = this->_window->getTimer()->getTime();
 
-    if (receiver.IsKeyDown(irr::KEY_KEY_Z))
-        exit(84);
-    if (this->_inputManager->isKeyPressed(MOVE_UP)) {
-        std::cout << "HERE MOVE UP" << std::endl;
-    } else if (this->_inputManager->isKeyPressed(MOVE_RIGHT)) {
-        std::cout << "HERE MOVE RIGHT" << std::endl;
-    } else if (this->_inputManager->isKeyPressed(MOVE_LEFT)) {
-        std::cout << "HERE MOVE LEFT" << std::endl;
-    }
+    this->_frameDeltaTime = this->_frameDeltaTime = (f32)(now - this->_then) / 1000.f;
+    this->_then = now;
+    KeyboardEvents();
     return NONE;
 }

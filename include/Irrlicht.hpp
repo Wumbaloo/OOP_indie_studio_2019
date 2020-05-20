@@ -27,34 +27,33 @@ class Irrlicht : public IDisplayModule
         gui::IGUIEnvironment* _guienv;
         std::vector<Object *> _objects;
         InputManager *_inputManager = NULL;
+        u32 _then;
+        f32 _frameDeltaTime;
 
     public:
         Irrlicht(const std::string name);
         ~Irrlicht() = default;
 
         const std::string &getName() const;
-        // // gameManagement
+        Object *getObjectByName(std::string name) const;
+        // gameManagement
         void refreshWindow(void) const;
         bool isWindowOpen(void) const;
-        // // events
-        // bool mouseIsOverObject(sf::Vector2i mousePos, string objectName);
+        // events
+        void KeyboardEvents(void);
         Events checkEvents(void);
-        // Events clickEvents(sf::Event event);
-        // // create
-        scene::IAnimatedMesh *createModel(video::IVideoDriver* driver,
+        // create
+        scene::IAnimatedMeshSceneNode *createModel(video::IVideoDriver* driver,
             scene::ISceneManager *smgr, std::string modelPath,
             std::string texturePath);
-        Object *createObject(std::string model, std::string texture);
-        // TextObject *createText(string text, sf::Vector2f pos, string name, int fontSize);
+        Object *createObject(std::string name, std::string model, std::string texture);
         void createGame(void);
         void createWindow(void);
         void createMenu(void);
-        // // display
-        // void displaySprite(void);
-        // void displayText(string playerName);
+        // display
         void displayObjects(std::vector<Object *> objs, EndStatus endStatus, int score);
         void display(void);
-        // // destroy
+        // destroy
         void destroy(void);
         void close(void);
 };

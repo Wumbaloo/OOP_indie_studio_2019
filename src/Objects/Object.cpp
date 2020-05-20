@@ -11,7 +11,7 @@ using namespace irr;
 
 int id = 0;
 
-Object::Object(scene::IAnimatedMesh *object) : _id(id++)
+Object::Object(scene::IAnimatedMeshSceneNode *object) : _id(id++)
 {
     this->_object = object;
 }
