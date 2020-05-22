@@ -14,6 +14,8 @@
 #define MODELS_PATH     "../assets/Models/"
 #define TEXTURES_PATH   "../assets/Textures/"
 #define PLAYER_SPEED    10.f
+#define MAP_WIDTH       30
+#define MAP_HEIGHT      30
 
 int GameManager(Irrlicht *lib);
 

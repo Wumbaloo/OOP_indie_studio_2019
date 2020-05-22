@@ -56,6 +56,9 @@ class Irrlicht : public IDisplayModule
         // destroy
         void destroy(void);
         void close(void);
+
+        void makeBorderMap(void);
+        void generateMap(unsigned int seed);
 };
 
 #endif

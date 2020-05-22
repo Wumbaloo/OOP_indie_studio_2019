@@ -27,7 +27,7 @@ void Irrlicht::createWindow(void)
     this->_smgr = this->_window->getSceneManager();
     this->_guienv = this->_window->getGUIEnvironment();
     this->_guienv->addStaticText(L"Hello World! This is the Irrlicht Software renderer!", core::rect<s32>(10,10,260,22), true);
-    this->_smgr->addCameraSceneNode(0, core::vector3df(0,200,99), core::vector3df(0,5,100));
+    this->_smgr->addCameraSceneNode(0, core::vector3df(0,30,-15), core::vector3df(0,0,0));
     this->_then = this->_window->getTimer()->getTime();
 }
 
@@ -70,7 +70,12 @@ void Irrlicht::createMenu(void)
 {
     // anicotte
     // this->_window->getCursorControl()->setVisible(false);
-    this->_objects.push_back(this->createObject("player", "BomberMan.3ds", "Bombermap.tga"));
+    Object *player = this->createObject("player", "BomberMan.3ds", "Bombermap.tga");
+    player->getSceneNode()->setScale({0.02, 0.02, 0.02});
+    player->getSceneNode()->setRotation({-90, 0, 0});
+    player->getSceneNode()->setPosition({-(MAP_WIDTH / 2) + 2, 0, (MAP_HEIGHT / 2) - 4});
+    this->_objects.push_back(player);
+    this->generateMap(time(nullptr));
 }
 
 void Irrlicht::createGame()

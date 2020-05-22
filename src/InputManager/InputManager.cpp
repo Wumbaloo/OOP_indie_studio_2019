@@ -17,20 +17,6 @@ InputManager::InputManager(irr::EKEY_CODE upKey, irr::EKEY_CODE downKey, irr::EK
     this->bindActionToKey(MOVE_LEFT, leftKey);
     this->bindActionToKey(MOVE_RIGHT, rightKey);
     this->bindActionToKey(CLOSE, irr::KEY_DELETE);
-    // for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i) {
-    //     this->_events[i].codes.clear();
-    //     this->_keys[i].isDown = false;
-    //     if (i == forward)
-    //         this->_keys[i].event = MOVE_UP;
-    //     else if (i == backward)
-    //         this->_keys[i].event = MOVE_DOWN;
-    //     else if (i == left)
-    //         this->_keys[i].event = MOVE_LEFT;
-    //     else if (i == right)
-    //         this->_keys[i].event = MOVE_RIGHT;
-    //     else
-    //         this->_keys[i].event = NONE;
-    // }
 }
 
 InputManager::~InputManager()
@@ -38,8 +24,6 @@ InputManager::~InputManager()
     for (auto it = this->_events.begin(); it != this->_events.end(); it++)
         (*it).codes.clear();
     this->_events.clear();
-    // for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i)
-    //     this->_keys[i].codes.clear();
 }
 
 bool InputManager::OnEvent(const irr::SEvent &event)

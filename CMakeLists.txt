@@ -18,6 +18,7 @@ file(GLOB SRC
     src/Irrlicht/Display.cpp
     src/Irrlicht/Events.cpp
     src/Irrlicht/Get.cpp
+    src/Map/Generator.cpp
     src/Objects/Object.cpp
     src/Objects/Getters.cpp
     src/Objects/Setters.cpp

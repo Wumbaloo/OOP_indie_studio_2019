@@ -8,9 +8,6 @@
 #ifndef ENUM_HPP
 #define ENUM_HPP
 
-#define MAP_WIDTH 30
-#define MAP_HEIGHT 30
-
 enum Events
 {
     NONE,
