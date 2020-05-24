@@ -19,4 +19,10 @@ typedef struct vector3_s
     int z;
 } vector3_t;
 
+typedef struct vector2f_s
+{
+    float x;
+    float y;
+} vector2f_t;
+
 #endif

@@ -33,17 +33,39 @@ void Irrlicht::makeBorderMap(void)
     }
 }
 
+bool isBorderNext(vector2f_t pos, vector2f_t height, vector2f_t width, float step, float range)
+{
+    if ((pos.x <= width.x + range && pos.y >= height.x - range * 2) ||
+        (pos.x >= (width.y - step) - range && pos.y >= height.x + range) ||
+        (pos.x <= width.x + range && pos.y <= height.y + step + range) ||
+        (pos.x >= (width.y - step) - range && pos.y <= height.y + step + range))
+        return (true);
+    return (false);
+}
+
 void Irrlicht::generateMap(unsigned int seed)
 {
     float step = 2;
     srand(seed);
+    std::cout << "Map with seed: " << seed << std::endl;
+    float beginHeight = (MAP_HEIGHT / 2) - step * 2;
+    float beginWidth = -(MAP_WIDTH / 2) + step;
+    float endHeight = -(MAP_HEIGHT / 2);
+    float endWidth = MAP_WIDTH / 2;
 
     this->makeBorderMap();
-    // for (float z = -(MAP_HEIGHT / 2); z < MAP_HEIGHT / 2; z += 2) {
-    //     for (float x = -(MAP_WIDTH / 2); x < MAP_WIDTH / 2; x += 2) {
-    //         Object *wall = this->createObject("wall", "Square.obj", "Square.jpg");
-    //         scene::IAnimatedMeshSceneNode *node = wall->getSceneNode();
-    //         node->setPosition({(float) x, 0, (float) z});
-    //     }
-    // }
+    for (float z = beginHeight; z > endHeight; z -= step) {
+        for (float x = beginWidth; x < endWidth; x += step) {
+            int random = rand() % 4;
+            Object *obj = NULL;
+            if (random == 0 || isBorderNext({x, z}, {beginHeight, endHeight}, {beginWidth, endWidth}, step, 0))
+                continue;
+            else if ((random > 0 && random < 3) || isBorderNext({x, z}, {beginHeight, endHeight}, {beginWidth, endWidth}, step, 2))
+                obj = this->createObject("destructible", "Square.obj", "Destruct.jpg");
+            else
+                obj = this->createObject("wall", "Square.obj", "Square.jpg");
+            scene::IAnimatedMeshSceneNode *node = obj->getSceneNode();
+            node->setPosition({(float) x, 0, (float) z});
+        }
+    }
 }

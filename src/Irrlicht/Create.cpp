@@ -22,7 +22,7 @@ void Irrlicht::createWindow(void)
         exit(84);
     } else if (this->_inputManager)
         this->_window->setEventReceiver(this->_inputManager);
-    this->_window->setWindowCaption(L"Hello World! - Irrlicht Engine Demo");
+    this->_window->setWindowCaption(L"Bomberman - Indie Studio");
     this->_driver = this->_window->getVideoDriver();
     this->_smgr = this->_window->getSceneManager();
     this->_guienv = this->_window->getGUIEnvironment();
@@ -75,6 +75,7 @@ void Irrlicht::createMenu(void)
     player->getSceneNode()->setRotation({-90, 0, 0});
     player->getSceneNode()->setPosition({-(MAP_WIDTH / 2) + 2, 0, (MAP_HEIGHT / 2) - 4});
     this->_objects.push_back(player);
+    // this->generateMap(1590316001);
     this->generateMap(time(nullptr));
 }
 
