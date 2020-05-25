@@ -33,6 +33,7 @@ class Object
         std::string getName(void) const;
         const int getId(void) const;
         core::vector3df getPos(void) const;
+        core::vector3df getRotation(void) const;
         scene::IAnimatedMeshSceneNode *getSceneNode() const;
 
         // setters

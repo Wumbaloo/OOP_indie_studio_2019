@@ -19,6 +19,11 @@ core::vector3df Object::getPos(void) const
     return this->_object->getPosition();
 }
 
+core::vector3df Object::getRotation(void) const
+{
+    return this->_object->getRotation();
+}
+
 scene::IAnimatedMeshSceneNode *Object::getSceneNode() const
 {
     return this->_object;

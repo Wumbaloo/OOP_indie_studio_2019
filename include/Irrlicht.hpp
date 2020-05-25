@@ -40,6 +40,7 @@ class Irrlicht : public IDisplayModule
         void refreshWindow(void) const;
         bool isWindowOpen(void) const;
         // events
+        core::vector3df PlayerMovements(core::vector3df nodePosition, Object *player);
         Events KeyboardEvents(void);
         Events checkEvents(void);
         // create

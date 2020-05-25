@@ -11,18 +11,40 @@
 
 using namespace irr;
 
+core::vector3df Irrlicht::PlayerMovements(core::vector3df nodePosition, Object *player)
+{
+    nodePosition = player->getPos();
+    if (this->_inputManager->isKeyPressed(MOVE_UP)) {
+        nodePosition.Z += PLAYER_SPEED * this->_frameDeltaTime;
+        player->getSceneNode()->setRotation((core::vector3df){0.f, 180.f, .0f});
+    }
+    if (this->_inputManager->isKeyPressed(MOVE_DOWN)) {
+        nodePosition.Z -= PLAYER_SPEED * this->_frameDeltaTime;
+        player->getSceneNode()->setRotation((core::vector3df){0.f, 0.f, 0.f});
+    }
+    if (this->_inputManager->isKeyPressed(MOVE_LEFT)) {
+        nodePosition.X -= PLAYER_SPEED * this->_frameDeltaTime;
+        player->getSceneNode()->setRotation((core::vector3df){0.f, 90.f, 0.f});
+    }
+    if (this->_inputManager->isKeyPressed(MOVE_RIGHT)) {
+        nodePosition.X += PLAYER_SPEED * this->_frameDeltaTime;
+        player->getSceneNode()->setRotation((core::vector3df){0.f, -90.f, 0.f});
+    }
+    return nodePosition;
+}
+
 Events Irrlicht::KeyboardEvents(void)
 {
-    core::vector3df nodePosition = this->getObjectByName("player")->getPos();
+    Object *player = this->getObjectByName("player");
+    core::vector3df nodePosition;
 
-    this->_inputManager->isKeyPressed(MOVE_UP) ? nodePosition.Y += PLAYER_SPEED * this->_frameDeltaTime : 0;
-    this->_inputManager->isKeyPressed(MOVE_DOWN) ? nodePosition.Y -= PLAYER_SPEED * this->_frameDeltaTime : 0;
-    this->_inputManager->isKeyPressed(MOVE_LEFT) ? NULL : NULL;
-    this->_inputManager->isKeyPressed(MOVE_RIGHT) ? NULL : NULL;
+    if (!player)
+        return NONE;
     if (this->_inputManager->isKeyPressed(CLOSE))
-        return (CLOSE);
-    if (nodePosition != this->getObjectByName("player")->getPos())
-        this->getObjectByName("player")->getSceneNode()->setPosition(nodePosition);
+        return CLOSE;
+    nodePosition = PlayerMovements(nodePosition, player);
+    if (nodePosition != player->getPos())
+        player->getSceneNode()->setPosition(nodePosition);
     return NONE;
 }
 
