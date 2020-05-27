@@ -26,7 +26,6 @@ void Irrlicht::createWindow(void)
     this->_driver = this->_window->getVideoDriver();
     this->_smgr = this->_window->getSceneManager();
     this->_guienv = this->_window->getGUIEnvironment();
-    this->_guienv->addStaticText(L"Hello World! This is the Irrlicht Software renderer!", core::rect<s32>(10,10,260,22), true);
     this->_smgr->addCameraSceneNode(0, core::vector3df(0,30,-15), core::vector3df(0,0,0));
     this->_then = this->_window->getTimer()->getTime();
 }
@@ -37,12 +36,21 @@ scene::IAnimatedMeshSceneNode *Irrlicht::createModel(video::IVideoDriver* driver
 {
     scene::IAnimatedMesh *mesh;
     scene::IAnimatedMeshSceneNode *node = NULL;
+     scene::ISceneNodeAnimator* anim = NULL;
 
     mesh = smgr->getMesh(std::string(MODELS_PATH + modelPath).c_str());
     if (!mesh)
         return (NULL);
     node = smgr->addAnimatedMeshSceneNode(mesh);
     if (node) {
+        // anim = smgr->createFlyStraightAnimator({-(MAP_WIDTH / 2) + 2, 0, (MAP_HEIGHT / 2) - 4},
+        //     {-(MAP_WIDTH / 2) + 2, 0, (MAP_HEIGHT / 2) - 4}, 3500, true);
+        // if (!anim)
+        //     return (NULL);
+        // node->addAnimator(anim);
+        // anim->drop();
+        // node->setFrameLoop(0, 55);
+        node->setAnimationSpeed(15);
         node->setMaterialFlag(video::EMF_LIGHTING, false);
         node->setMD2Animation(scene::EMAT_STAND);
         node->setMaterialTexture(0, driver->getTexture(std::string(TEXTURES_PATH + texturePath).c_str()));
@@ -70,9 +78,8 @@ void Irrlicht::createMenu(void)
 {
     // anicotte
     // this->_window->getCursorControl()->setVisible(false);
-    Object *player = this->createObject("player", "BomberMan.3ds", "Bombermap.tga");
+    Object *player = this->createObject("player", "idle.3ds", "Guard.png");
     player->getSceneNode()->setScale({0.02, 0.02, 0.02});
-    player->getSceneNode()->setRotation({-90, 0, 0});
     player->getSceneNode()->setPosition({-(MAP_WIDTH / 2) + 2, 0, (MAP_HEIGHT / 2) - 4});
     this->_objects.push_back(player);
     // this->generateMap(1590316001);
