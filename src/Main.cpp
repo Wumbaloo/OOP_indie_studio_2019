@@ -6,7 +6,6 @@
 */
 
 #include <SFML/Audio.h>
-#include <boost/lambda/lambda.hpp>
 #include "IndieStudio.hpp"
 
 int main()

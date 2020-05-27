@@ -35,22 +35,6 @@ include_directories(${Irrlicht_INCLUDE_DIRS})
 target_link_libraries(${NAME} Irrlicht)
 
 
-# BOOST LIB
-set(Boost_USE_STATIC_LIBS OFF)
-set(Boost_USE_MULTITHREADED ON)
-set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.69 REQUIRED COMPONENTS filesystem)
-message(STATUS "Boost version: ${Boost_VERSION}")
-if(NOT TARGET Boost::filesystem)
-    add_library(Boost::filesystem IMPORTED INTERFACE)
-    set_property(TARGET Boost::filesystem PROPERTY
-        INTERFACE_INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR})
-    set_property(TARGET Boost::filesystem PROPERTY
-        INTERFACE_LINK_LIBRARIES ${Boost_LIBRARIES})
-endif()
-# target_link_libraries(${NAME} PUBLIC Boost::filesystem)
-
-
 # SFML LIB
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 find_package(SFML 2.5 REQUIRED audio)
