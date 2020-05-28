@@ -10,9 +10,7 @@
 
 using namespace std;
 
-void Irrlicht::display()
-{
-    this->_driver->beginScene(true, true, video::SColor(255,100,101,140));
-    this->_smgr->drawAll();
-    this->_guienv->drawAll();
-}
+//void Irrlicht::display()
+//{
+
+//}

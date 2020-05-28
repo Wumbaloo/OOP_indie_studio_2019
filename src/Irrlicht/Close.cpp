@@ -12,9 +12,9 @@ using namespace irr;
 
 void Irrlicht::destroy(void)
 {
-    for (auto object : this->_objects)
-        delete (object);
-    this->_objects.clear();
+//    for (auto object : this->_objects)
+//        delete (object);
+//    this->_objects.clear();
 }
 
 void Irrlicht::close(void)

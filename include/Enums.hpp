@@ -23,9 +23,9 @@ enum Events
 };
 
 enum GameStatus {
-    UNKNOWN,
     MENU,
     GAME,
+    UNKNOWN
 };
 
 enum ObjectType {

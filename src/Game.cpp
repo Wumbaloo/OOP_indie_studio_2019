@@ -10,11 +10,14 @@
 int GameManager(Irrlicht *lib)
 {
     lib->createWindow();
-    lib->createMenu();
+    lib->addScene(new Menu(lib->getWindow()));
+    lib->addScene(new Game(lib->getWindow()));
+    lib->changeGameStatus(MENU);
+    lib->getScene()->resetScene(lib->getWindow());
     while(lib->isWindowOpen()) {
-        lib->display();
-        lib->refreshWindow();
-        if (lib->checkEvents() == CLOSE)
+        lib->getScene()->display();
+        lib->getScene()->refreshWindow();
+        if (lib->getScene()->checkEvents(lib->getWindow(), lib->getInputManager()) == CLOSE)
             break;
     }
     lib->destroy();

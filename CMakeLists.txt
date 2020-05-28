@@ -22,6 +22,8 @@ file(GLOB SRC
     src/Objects/Object.cpp
     src/Objects/Getters.cpp
     src/Objects/Setters.cpp
+    src/Scenes/Game.cpp
+    src/Scenes/Menu.cpp
 )
 add_executable(${NAME} ${SRC})
 
