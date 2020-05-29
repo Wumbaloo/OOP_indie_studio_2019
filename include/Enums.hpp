@@ -20,12 +20,18 @@ enum Events
     MOVE_LEFT,
     MOVE_RIGHT,
     END_GAME,
+    BOMB,
 };
 
 enum GameStatus {
     MENU,
     GAME,
     UNKNOWN
+};
+
+enum Animations {
+    IDLE,
+    RUNNING
 };
 
 enum ObjectType {

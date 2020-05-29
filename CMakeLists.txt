@@ -18,12 +18,15 @@ file(GLOB SRC
     src/Irrlicht/Display.cpp
     src/Irrlicht/Events.cpp
     src/Irrlicht/Get.cpp
-    src/Map/Generator.cpp
     src/Objects/Object.cpp
-    src/Objects/Getters.cpp
-    src/Objects/Setters.cpp
-    src/Scenes/Game.cpp
-    src/Scenes/Menu.cpp
+    src/Objects/AnimatedModel.cpp
+    src/Objects/Model.cpp
+    src/Scenes/GameScene/Game.cpp
+    src/Scenes/GameScene/Create.cpp
+    src/Scenes/GameScene/Event.cpp
+    src/Scenes/GameScene/Get.cpp
+    src/Scenes/GameScene/Map.cpp
+    src/Scenes/MenuScene/Menu.cpp
 )
 add_executable(${NAME} ${SRC})
 

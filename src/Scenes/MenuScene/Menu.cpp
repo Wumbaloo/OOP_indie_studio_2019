@@ -5,7 +5,7 @@
 ** Created by Anthony ANICOTTE,
 */
 
-#include <IrrlichtDevice.h>
+// #include <IrrlichtDevice.h>
 #include "Scenes.hpp"
 
 Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager)

@@ -11,7 +11,22 @@ using namespace irr;
 
 int id = 0;
 
-Object::Object(scene::IAnimatedMeshSceneNode *object) : _id(id++)
+AObject::AObject(std::string name) : _id(id++)
 {
-    this->_object = object;
+    this->_name = name;
+}
+
+void AObject::setName(std::string name)
+{
+    this->_name = name;
+}
+
+const int AObject::getId(void) const
+{
+    return this->_id;
+}
+
+std::string AObject::getName(void) const
+{
+    return this->_name;
 }

@@ -45,7 +45,8 @@ class Game : public IScene
         scene::ISceneManager* _smgr;
         u32 _then;
         f32 _frameDeltaTime;
-        std::vector<Object *> _objects;
+        std::vector<Model *> _objects;
+        std::vector<AnimatedModel *> _animObjects;
 
     public:
         Game(IrrlichtDevice *);
@@ -54,12 +55,15 @@ class Game : public IScene
         void display() override;
         void refreshWindow() override;
 
-        Object *createObject(std::string, std::string, std::string);
-        scene::IAnimatedMeshSceneNode *createModel(video::IVideoDriver*, scene::ISceneManager *, std::string, std::string);
-        Events KeyboardEvents(InputManager *);
-        Object *getObjectByName(std::string) const;
+        Model *createModel(std::string, std::string, std::string);
+        AnimatedModel *createAnimatedObject(std::string, std::string, std::string);
+        scene::IAnimatedMeshSceneNode *createAnimatedModel(std::string, std::string);
+        scene::IMeshSceneNode *createModel(std::string, std::string);
+        Events KeyboardEvents(InputManager *, IrrlichtDevice *);
+        Model *getObjectByName(std::string) const;
+        AnimatedModel *getAnimObjByName(std::string) const;
         void makeBorderMap();
         void generateMap(unsigned int);
         void resetScene(IrrlichtDevice *) override;
-        core::vector3df PlayerMovements(core::vector3df, Object *, InputManager *);
+        core::vector3df PlayerMovements(core::vector3df, AnimatedModel *, InputManager *);
 };

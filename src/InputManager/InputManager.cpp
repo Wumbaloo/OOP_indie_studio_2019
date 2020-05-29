@@ -10,13 +10,16 @@
 #include <algorithm>
 #include "InputManager.hpp"
 
-InputManager::InputManager(irr::EKEY_CODE upKey, irr::EKEY_CODE downKey, irr::EKEY_CODE leftKey, irr::EKEY_CODE rightKey)
+using namespace irr;
+
+InputManager::InputManager(EKEY_CODE upKey, EKEY_CODE downKey, EKEY_CODE leftKey, EKEY_CODE rightKey)
 {
     this->bindActionToKey(MOVE_UP, upKey);
     this->bindActionToKey(MOVE_DOWN, downKey);
     this->bindActionToKey(MOVE_LEFT, leftKey);
     this->bindActionToKey(MOVE_RIGHT, rightKey);
-    this->bindActionToKey(CLOSE, irr::KEY_DELETE);
+    this->bindActionToKey(CLOSE, KEY_DELETE);
+    this->bindActionToKey(BOMB, KEY_SPACE);
 }
 
 InputManager::~InputManager()
@@ -26,9 +29,9 @@ InputManager::~InputManager()
     this->_events.clear();
 }
 
-bool InputManager::OnEvent(const irr::SEvent &event)
+bool InputManager::OnEvent(const SEvent &event)
 {
-    if (event.EventType == irr::EET_KEY_INPUT_EVENT) {
+    if (event.EventType == EET_KEY_INPUT_EVENT) {
         for (auto itEvent = this->_events.begin(); itEvent != this->_events.end(); itEvent++) {
             for (auto it = (*itEvent).codes.begin(); it != (*itEvent).codes.end(); it++) {
                 if ((*it).code == event.KeyInput.Key) {
@@ -41,7 +44,7 @@ bool InputManager::OnEvent(const irr::SEvent &event)
     return (false);
 }
 
-bool InputManager::IsKeyDown(irr::EKEY_CODE keyCode)
+bool InputManager::IsKeyDown(EKEY_CODE keyCode)
 {
     input_t index = this->getKeyByKeyCode(keyCode);
 
@@ -52,7 +55,7 @@ bool InputManager::IsKeyDown(irr::EKEY_CODE keyCode)
     return (false);
 }
 
-enum Events InputManager::getActionByKey(irr::EKEY_CODE keyCode) const
+enum Events InputManager::getActionByKey(EKEY_CODE keyCode) const
 {
     for (auto itEvents = this->_events.begin(); itEvents != this->_events.end(); itEvents++) {
         for (auto it = (*itEvents).codes.begin(); it != (*itEvents).codes.end(); it++) {
@@ -63,7 +66,7 @@ enum Events InputManager::getActionByKey(irr::EKEY_CODE keyCode) const
     return (NONE);
 }
 
-input_t InputManager::getKeyByKeyCode(irr::EKEY_CODE keyCode) const
+input_t InputManager::getKeyByKeyCode(EKEY_CODE keyCode) const
 {
     for (auto itEvents = this->_events.begin(); itEvents != this->_events.end(); itEvents++) {
         for (auto it = (*itEvents).codes.begin(); it != (*itEvents).codes.end(); it++) {
@@ -87,7 +90,7 @@ bool InputManager::isKeyPressed(enum Events event) const
     return (false);
 }
 
-void InputManager::bindActionToKey(enum Events event, irr::EKEY_CODE keyCode)
+void InputManager::bindActionToKey(enum Events event, EKEY_CODE keyCode)
 {
     inputKey_t inputKey;
     input_t input;
@@ -99,7 +102,7 @@ void InputManager::bindActionToKey(enum Events event, irr::EKEY_CODE keyCode)
     this->_events.push_back(input);
 }
 
-void InputManager::bindKeyToAction(irr::EKEY_CODE keyCode, enum Events event)
+void InputManager::bindKeyToAction(EKEY_CODE keyCode, enum Events event)
 {
     inputKey_t inputKey;
     inputKey.code = keyCode;
@@ -123,7 +126,7 @@ void InputManager::removeKeysAtAction(enum Events event)
     }
 }
 
-void InputManager::removeKeyAtAction(irr::EKEY_CODE keyCode, enum Events event)
+void InputManager::removeKeyAtAction(EKEY_CODE keyCode, enum Events event)
 {
     for (auto itEvents = this->_events.begin(); itEvents != this->_events.end(); itEvents++) {
         if ((*itEvents).event != event)

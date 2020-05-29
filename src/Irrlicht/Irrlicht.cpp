@@ -23,11 +23,6 @@ bool Irrlicht::isWindowOpen(void) const
     return this->_window->run();
 }
 
-//void Irrlicht::refreshWindow() const
-//{
-//    this->_driver->endScene();
-//}
-
 void Irrlicht::changeGameStatus(GameStatus status)
 {
     this->_status = status;
