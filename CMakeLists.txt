@@ -15,7 +15,6 @@ file(GLOB SRC
     src/Irrlicht/Irrlicht.cpp
     src/Irrlicht/Close.cpp
     src/Irrlicht/Create.cpp
-    src/Irrlicht/Display.cpp
     src/Irrlicht/Events.cpp
     src/Irrlicht/Get.cpp
     src/Objects/Object.cpp

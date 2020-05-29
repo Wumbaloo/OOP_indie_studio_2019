@@ -12,6 +12,7 @@ AnimatedModel::AnimatedModel(int health ,scene::IAnimatedMeshSceneNode *object, 
 {
     this->_node = object;
     this->_health = health;
+    this->_rotateFix = {0, 50, 0};
 }
 
 scene::IAnimatedMeshSceneNode *AnimatedModel::getSceneNode(void) const
@@ -40,13 +41,18 @@ void AnimatedModel::setRotation(core::vector3df rotation)
 
 void AnimatedModel::changeAnimation(Animations anim)
 {
-    if (anim == RUNNING && this->running == false) {
-        this->running = true;
+    if (anim == RUNNING && this->_running == false) {
+        this->_running = true;
         this->_node->setFrameLoop(301, 323);
     }
     if (anim == IDLE) {
-        if (this->running)
-            this->running = false;
+        if (this->_running)
+            this->_running = false;
         this->_node->setFrameLoop(0, 300);
     }
+}
+
+bool AnimatedModel::isRunning(void)
+{
+    return this->_running;
 }

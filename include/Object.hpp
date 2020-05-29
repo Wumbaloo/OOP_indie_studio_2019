@@ -56,7 +56,8 @@ class AnimatedModel : public AObject
     private:
         scene::IAnimatedMeshSceneNode *_node;
         int _health;
-        bool running;
+        bool _running;
+        core::vector3df _rotateFix;
 
     public:
         AnimatedModel() = delete;
@@ -70,6 +71,7 @@ class AnimatedModel : public AObject
         void setPos(core::vector3df);
         void setRotation(core::vector3df);
         void changeAnimation(Animations);
+        bool isRunning(void);
 };
 
 #endif

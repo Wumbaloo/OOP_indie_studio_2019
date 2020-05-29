@@ -64,7 +64,7 @@ scene::IAnimatedMeshSceneNode *Game::createAnimatedModel(std::string modelPath, 
         node->setMaterialFlag(video::EMF_LIGHTING, false);
         node->setMaterialTexture(0, this->_driver->getTexture(std::string(TEXTURES_PATH + texturePath).c_str()));
         node->setFrameLoop(0, 300);
-        node->setAnimationSpeed(24.f);
+        node->setAnimationSpeed(32.5);
     }
     return (node);
 }
