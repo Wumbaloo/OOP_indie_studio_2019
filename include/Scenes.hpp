@@ -55,10 +55,11 @@ class Game : public IScene
         void display() override;
         void refreshWindow() override;
 
-        Model *createModel(std::string, std::string, std::string);
-        AnimatedModel *createAnimatedObject(std::string, std::string, std::string);
+        Model *createObject(std::string, std::string, std::string, core::vector3df, core::vector3df);
+        AnimatedModel *createAnimatedObject(std::string, std::string, std::string, core::vector3df, core::vector3df);
         scene::IAnimatedMeshSceneNode *createAnimatedModel(std::string, std::string);
         scene::IMeshSceneNode *createModel(std::string, std::string);
+        void createGameScene(void);
         Events KeyboardEvents(InputManager *, IrrlichtDevice *);
         Model *getObjectByName(std::string) const;
         AnimatedModel *getAnimObjByName(std::string) const;

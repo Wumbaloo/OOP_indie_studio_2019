@@ -26,17 +26,11 @@ void Game::makeBorderMap()
     float widthEnd = MAP_WIDTH / 2;
 
     for (float z = heightBegin; z < heightEnd; z+= step) {
-        Model *left = this->createModel("wall", "Square.obj", "Square.jpg");
-        scene::IMeshSceneNode *node = left->getSceneNode();
-        node->setPosition({(float) (widthBegin), 0, (float) z});
-        Model *right = this->createModel("wall", "Square.obj", "Square.jpg");
-        node = right->getSceneNode();
-        node->setPosition({(float) (widthEnd), 0, (float) z});
+        Model *left = this->createObject("wall", "Square.obj", "Square.jpg", {(float) (widthBegin), 0, (float) z}, {1, 1, 1});
+        Model *right = this->createObject("wall", "Square.obj", "Square.jpg", {(float) (widthEnd), 0, (float) z}, {1, 1, 1});
         if (z == heightBegin || z >= (heightEnd - step)) {
             for (float x = widthBegin; x < widthEnd; x+= step) {
-                Model *left = this->createModel("wall", "Square.obj", "Square.jpg");
-                scene::IMeshSceneNode *node = left->getSceneNode();
-                node->setPosition({(float) (x), 0, (float) z});
+                Model *left = this->createObject("wall", "Square.obj", "Square.jpg", {(float) (x), 0, (float) z}, {1, 1, 1});
             }
         }
     }
@@ -60,11 +54,9 @@ void Game::generateMap(unsigned int seed)
             if (random == 0 || isBorderNext({x, z}, {beginHeight, endHeight}, {beginWidth, endWidth}, step, 0))
                 continue;
             else if ((random > 0 && random < 3) || isBorderNext({x, z}, {beginHeight, endHeight}, {beginWidth, endWidth}, step, 2))
-                obj = this->createModel("destructible", "Square.obj", "Destruct.jpg");
+                obj = this->createObject("destructible", "Square.obj", "Destruct.jpg", {(float) x, 0, (float) z}, {1, 1, 1});
             else
-                obj = this->createModel("wall", "Square.obj", "Square.jpg");
-            scene::IMeshSceneNode *node = obj->getSceneNode();
-            node->setPosition({(float) x, 0, (float) z});
+                obj = this->createObject("wall", "Square.obj", "Square.jpg", {(float) x, 0, (float) z}, {1, 1, 1});
         }
     }
 }

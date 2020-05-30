@@ -38,11 +38,5 @@ void Game::resetScene(IrrlichtDevice *window)
     this->_smgr->addCameraSceneNode(0, core::vector3df(0, 30, -15),
         core::vector3df(0, 0, 0));
     this->_then = window->getTimer()->getTime();
-    AnimatedModel *player = this->createAnimatedObject("player", "guard.md3",
-        "Guard.png");
-    player->getSceneNode()->setScale({0.05, 0.05, 0.05});
-    player->getSceneNode()->setPosition(
-        {-(MAP_WIDTH / 2) + 2, 0, (MAP_HEIGHT / 2) - 4});
-    this->_animObjects.push_back(player);
-    this->generateMap(time(nullptr));
+    this->createGameScene();
 }

@@ -7,12 +7,14 @@
 
 #include "IndieStudio.hpp"
 
-Model *Game::createModel(std::string name, std::string model, std::string texture)
+Model *Game::createObject(std::string name, std::string model, std::string texture, core::vector3df pos, core::vector3df scale)
 {
     Model *NewObject = NULL;
     scene::IMeshSceneNode *object;
 
     object = createModel(model, texture);
+    object->setPosition(pos);
+    object->setScale(scale);
     if (!object) {
         std::cout << "Failed to create a model" << std::endl;
         exit(84);
@@ -37,12 +39,14 @@ scene::IMeshSceneNode *Game::createModel(std::string modelPath, std::string text
     return (node);
 }
 
-AnimatedModel *Game::createAnimatedObject(std::string name, std::string model, std::string texture)
+AnimatedModel *Game::createAnimatedObject(std::string name, std::string model, std::string texture, core::vector3df pos, core::vector3df scale)
 {
     AnimatedModel *NewObject = NULL;
     scene::IAnimatedMeshSceneNode *object;
 
     object = createAnimatedModel(model, texture);
+    object->setScale(scale);
+    object->setPosition(pos);
     if (!object) {
         std::cout << "Failed to create a model" << std::endl;
         exit(84);
@@ -67,4 +71,11 @@ scene::IAnimatedMeshSceneNode *Game::createAnimatedModel(std::string modelPath, 
         node->setAnimationSpeed(32.5);
     }
     return (node);
+}
+
+void Game::createGameScene(void)
+{
+    this->_animObjects.push_back(this->createAnimatedObject("player", "guard.md3", "Guard.png",
+        (core::vector3df){-(MAP_WIDTH / 2) + 2, 0, (MAP_HEIGHT / 2) - 4}, (core::vector3df){0.05, 0.05, 0.05}));
+    this->generateMap(time(nullptr));
 }

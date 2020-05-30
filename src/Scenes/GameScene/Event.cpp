@@ -49,10 +49,7 @@ Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
     if (inputManager->isKeyPressed(BOMB)) {
         if (bombe_activated == 0 || window->getTimer()->getTime() - bombe_activated >= 1500) {
             bombe_activated = window->getTimer()->getTime();
-            Model *bomb = this->createModel("bomb", "Bomb.3ds", "bomb.png");
-            bomb->getSceneNode()->setScale({4, 4, 4});
-            bomb->getSceneNode()->setPosition(player->getPos());
-            this->_objects.push_back(bomb);
+            this->_objects.push_back(this->createObject("bomb", "Bomb.3ds", "bomb.png", (core::vector3df){player->getPos()}, (core::vector3df){4, 4, 4}));
         }
     }
     if (nodePosition != player->getPos())
