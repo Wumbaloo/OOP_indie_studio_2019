@@ -12,6 +12,7 @@ AnimatedModel::AnimatedModel(int health ,scene::IAnimatedMeshSceneNode *object, 
 {
     this->_node = object;
     this->_health = health;
+    this->_running = false;
     this->_rotateFix = {0, 25, 0};
 }
 
