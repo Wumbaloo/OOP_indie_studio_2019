@@ -12,7 +12,7 @@ AnimatedModel::AnimatedModel(int health ,scene::IAnimatedMeshSceneNode *object, 
 {
     this->_node = object;
     this->_health = health;
-    this->_rotateFix = {0, 50, 0};
+    this->_rotateFix = {0, 25, 0};
 }
 
 scene::IAnimatedMeshSceneNode *AnimatedModel::getSceneNode(void) const
@@ -52,7 +52,12 @@ void AnimatedModel::changeAnimation(Animations anim)
     }
 }
 
-bool AnimatedModel::isRunning(void)
+bool AnimatedModel::isRunning(void) const
 {
     return this->_running;
+}
+
+core::vector3df AnimatedModel::getRotateFix(void) const
+{
+    return this->_rotateFix;
 }

@@ -67,11 +67,12 @@ class AnimatedModel : public AObject
         scene::IAnimatedMeshSceneNode *getSceneNode() const;
         core::vector3df getPos(void) const;
         core::vector3df getRotation(void) const;
+        core::vector3df getRotateFix(void) const;
+        bool isRunning(void) const;
 
         void setPos(core::vector3df);
         void setRotation(core::vector3df);
         void changeAnimation(Animations);
-        bool isRunning(void);
 };
 
 #endif

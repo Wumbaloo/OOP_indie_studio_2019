@@ -12,23 +12,25 @@ core::vector3df Game::PlayerMovements(core::vector3df nodePosition, AnimatedMode
     nodePosition = player->getPos();
     if (inputManager->isKeyPressed(MOVE_UP)) {
         nodePosition.Z += PLAYER_SPEED * this->_frameDeltaTime;
-        player->getSceneNode()->setRotation((core::vector3df){0.f, 180.f, .0f});
+        player->setRotation((core::vector3df){0.f, 180.f, .0f} - player->getRotateFix());
         player->changeAnimation(RUNNING);
     } else if (inputManager->isKeyPressed(MOVE_DOWN)) {
         nodePosition.Z -= PLAYER_SPEED * this->_frameDeltaTime;
-        player->getSceneNode()->setRotation((core::vector3df){0.f, 0.f, 0.f});
+        player->setRotation((core::vector3df){0.f, 0.f, 0.f} - player->getRotateFix());
         player->changeAnimation(RUNNING);
     } else if (inputManager->isKeyPressed(MOVE_LEFT)) {
         nodePosition.X -= PLAYER_SPEED * this->_frameDeltaTime;
-        player->getSceneNode()->setRotation((core::vector3df){0.f, 90.f, 0.f});
+        player->setRotation((core::vector3df){0.f, 90.f, 0.f} - player->getRotateFix());
         player->changeAnimation(RUNNING);
     } else if (inputManager->isKeyPressed(MOVE_RIGHT)) {
         nodePosition.X += PLAYER_SPEED * this->_frameDeltaTime;
-        player->getSceneNode()->setRotation((core::vector3df){0.f, -90.f, 0.f});
+        player->setRotation((core::vector3df){0.f, -90.f, 0.f} - player->getRotateFix());
         player->changeAnimation(RUNNING);
     } else {
-        if (player->isRunning())
+        if (player->isRunning()) {
+            player->setRotation(player->getRotation() + player->getRotateFix());
             player->changeAnimation(IDLE);
+        }
     }
     return nodePosition;
 }
