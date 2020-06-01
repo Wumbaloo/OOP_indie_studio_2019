@@ -7,6 +7,7 @@
 
 #include "Object.hpp"
 #include "InputManager.hpp"
+#include "AnimatedObjects.hpp"
 
 using namespace irr;
 
@@ -46,7 +47,8 @@ class Game : public IScene
         u32 _then;
         f32 _frameDeltaTime;
         std::vector<Model *> _objects;
-        std::vector<AnimatedModel *> _animObjects;
+        std::vector<Player *> _playerObjects;
+        std::vector<Bomb *> _bombObjects;
 
     public:
         Game(IrrlichtDevice *);
@@ -55,16 +57,23 @@ class Game : public IScene
         void display() override;
         void refreshWindow() override;
 
+        // create
         Model *createObject(std::string, std::string, std::string, core::vector3df, core::vector3df);
-        AnimatedModel *createAnimatedObject(std::string, std::string, std::string, core::vector3df, core::vector3df);
-        scene::IAnimatedMeshSceneNode *createAnimatedModel(std::string, std::string);
+        Player *createPlayerObject(std::string, data_animations_t);
+        Bomb *createBombObject(std::string, data_animations_t, std::string, u32);
+
+        scene::IAnimatedMeshSceneNode *createAnimatedModel(std::string, std::string, data_animations_t);
         scene::IMeshSceneNode *createModel(std::string, std::string);
+
         void createGameScene(void);
+        // others
+        void bombHandling(IrrlichtDevice *);
         Events KeyboardEvents(InputManager *, IrrlichtDevice *);
-        Model *getObjectByName(std::string) const;
-        AnimatedModel *getAnimObjByName(std::string) const;
+        Model *getModelByName(std::string) const;
+        Bomb *getBombByName(std::string) const;
+        Player *getPlayerByName(std::string) const;
         void makeBorderMap();
         void generateMap(unsigned int);
         void resetScene(IrrlichtDevice *) override;
-        core::vector3df PlayerMovements(core::vector3df, AnimatedModel *, InputManager *);
+        core::vector3df PlayerMovements(core::vector3df, Player *, InputManager *);
 };

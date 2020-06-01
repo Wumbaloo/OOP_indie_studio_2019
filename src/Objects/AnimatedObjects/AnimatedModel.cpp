@@ -7,13 +7,11 @@
 
 #include <iostream>
 #include "Object.hpp"
+#include "AnimatedObjects.hpp"
 
-AnimatedModel::AnimatedModel(int health ,scene::IAnimatedMeshSceneNode *object, std::string name) : AObject(name)
+AnimatedModel::AnimatedModel(scene::IAnimatedMeshSceneNode *object, std::string name) : AObject(name)
 {
     this->_node = object;
-    this->_health = health;
-    this->_running = false;
-    this->_rotateFix = {0, 25, 0};
 }
 
 scene::IAnimatedMeshSceneNode *AnimatedModel::getSceneNode(void) const
@@ -42,23 +40,4 @@ void AnimatedModel::setRotation(core::vector3df rotation)
 
 void AnimatedModel::changeAnimation(Animations anim)
 {
-    if (anim == RUNNING && this->_running == false) {
-        this->_running = true;
-        this->_node->setFrameLoop(301, 323);
-    }
-    if (anim == IDLE) {
-        if (this->_running)
-            this->_running = false;
-        this->_node->setFrameLoop(0, 300);
-    }
-}
-
-bool AnimatedModel::isRunning(void) const
-{
-    return this->_running;
-}
-
-core::vector3df AnimatedModel::getRotateFix(void) const
-{
-    return this->_rotateFix;
 }

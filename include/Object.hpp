@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** arcade
+** OOP_indie_studio
 ** File description:
 ** object
 */
@@ -26,10 +26,8 @@ class AObject
         AObject(std::string);
         ~AObject() = default;
 
-        // getters
         std::string getName(void) const;
         const int getId(void) const;
-
         void setName(std::string name);
 };
 
@@ -49,30 +47,6 @@ class Model : public AObject
 
         void setPos(core::vector3df);
         void setRotation(core::vector3df);
-};
-
-class AnimatedModel : public AObject
-{
-    private:
-        scene::IAnimatedMeshSceneNode *_node;
-        int _health;
-        bool _running;
-        core::vector3df _rotateFix;
-
-    public:
-        AnimatedModel() = delete;
-        AnimatedModel(int health, scene::IAnimatedMeshSceneNode *, std::string);
-        ~AnimatedModel() = default;
-
-        scene::IAnimatedMeshSceneNode *getSceneNode() const;
-        core::vector3df getPos(void) const;
-        core::vector3df getRotation(void) const;
-        core::vector3df getRotateFix(void) const;
-        bool isRunning(void) const;
-
-        void setPos(core::vector3df);
-        void setRotation(core::vector3df);
-        void changeAnimation(Animations);
 };
 
 #endif

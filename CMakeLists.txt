@@ -18,8 +18,10 @@ file(GLOB SRC
     src/Irrlicht/Events.cpp
     src/Irrlicht/Get.cpp
     src/Objects/Object.cpp
-    src/Objects/AnimatedModel.cpp
     src/Objects/Model.cpp
+    src/Objects/AnimatedObjects/AnimatedModel.cpp
+    src/Objects/AnimatedObjects/Bomb.cpp
+    src/Objects/AnimatedObjects/Player.cpp
     src/Scenes/GameScene/Game.cpp
     src/Scenes/GameScene/Create.cpp
     src/Scenes/GameScene/Event.cpp

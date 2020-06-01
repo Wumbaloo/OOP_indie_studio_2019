@@ -6,8 +6,9 @@
 */
 
 #include "IndieStudio.hpp"
+#include <algorithm>
 
-core::vector3df Game::PlayerMovements(core::vector3df nodePosition, AnimatedModel *player, InputManager *inputManager)
+core::vector3df Game::PlayerMovements(core::vector3df nodePosition, Player *player, InputManager *inputManager)
 {
     nodePosition = player->getPos();
     if (inputManager->isKeyPressed(MOVE_UP)) {
@@ -37,7 +38,7 @@ core::vector3df Game::PlayerMovements(core::vector3df nodePosition, AnimatedMode
 
 Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
 {
-    AnimatedModel *player = this->getAnimObjByName("player");
+    Player *player = this->getPlayerByName("player");
     core::vector3df nodePosition;
     static u32 bombe_activated;
 
@@ -49,12 +50,24 @@ Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
     if (inputManager->isKeyPressed(BOMB)) {
         if (bombe_activated == 0 || window->getTimer()->getTime() - bombe_activated >= 1500) {
             bombe_activated = window->getTimer()->getTime();
-            this->_objects.push_back(this->createObject("bomb", "Bomb.3ds", "bomb.png", (core::vector3df){player->getPos()}, (core::vector3df){4, 4, 4}));
+            this->_bombObjects.push_back(this->createBombObject("bomb", {"bomb_animated.md3", "bomb.png", {player->getPos()}, {.8, .8, .8}, {0, 20}, 20}, player->getName(), window->getTimer()->getTime()));
         }
     }
     if (nodePosition != player->getPos())
         player->getSceneNode()->setPosition(nodePosition);
     return NONE;
+}
+
+void Game::bombHandling(IrrlichtDevice *window)
+{
+    for (Bomb *obj : this->_bombObjects) {
+        obj->setTime(window->getTimer()->getTime());
+        if (obj->getTime() >= 2000) {
+            auto it = std::find(this->_bombObjects.begin(), this->_bombObjects.end(), obj);
+            if (it != this->_bombObjects.end()) { this->_bombObjects.erase(it); }
+            delete(obj);
+        }
+    }
 }
 
 Events Game::checkEvents(IrrlichtDevice *window, InputManager *inputManager)
@@ -63,5 +76,6 @@ Events Game::checkEvents(IrrlichtDevice *window, InputManager *inputManager)
 
     this->_frameDeltaTime = (f32)(now - this->_then) / 1000.f;
     this->_then = now;
+    bombHandling(window);
     return (KeyboardEvents(inputManager, window));
 }
