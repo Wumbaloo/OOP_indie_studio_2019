@@ -28,15 +28,16 @@ class AnimatedModel : public AObject
 
         void setPos(core::vector3df);
         void setRotation(core::vector3df);
-        void changeAnimation(Animations);
+        void changeAnimation(PlayerAnimations);
 };
 
 class Bomb : public AnimatedModel
 {
     private:
-        std::string _launcher;
+        std::string _owner;
         u32 _initial_time;
         u32 _time;
+
     public:
         Bomb(std::string, scene::IAnimatedMeshSceneNode *, std::string, u32);
         ~Bomb();
@@ -51,14 +52,27 @@ class Player : public AnimatedModel
         core::vector3df _rotateFix;
         bool _running;
         int _health;
+        int _bombUp;
+        float _speedUp;
+        int _fireUp;
+        bool _wallPass;
 
     public:
         Player(int, scene::IAnimatedMeshSceneNode *, std::string);
         ~Player() = default;
 
         core::vector3df getRotateFix(void) const;
+        float getSpeedUp(void) const;
+        int getRange(void) const;
+        int getBombUp(void) const;
+        bool getWallPass(void) const;
+
+        void setSpeedUp(float = 1.5);
+        void setRange(int = 1);
+        void setBombUp(int = 1);
+        void setWallPass(bool);
         bool isRunning(void) const;
-        void changeAnimation(Animations);
+        void changeAnimation(PlayerAnimations);
 
 };
 

@@ -12,19 +12,19 @@ core::vector3df Game::PlayerMovements(core::vector3df nodePosition, Player *play
 {
     nodePosition = player->getPos();
     if (inputManager->isKeyPressed(MOVE_UP)) {
-        nodePosition.Z += PLAYER_SPEED * this->_frameDeltaTime;
+        nodePosition.Z += PLAYER_SPEED * this->_frameDeltaTime * player->getSpeedUp();
         player->setRotation((core::vector3df){0.f, 180.f, .0f} - player->getRotateFix());
         player->changeAnimation(RUNNING);
     } else if (inputManager->isKeyPressed(MOVE_DOWN)) {
-        nodePosition.Z -= PLAYER_SPEED * this->_frameDeltaTime;
+        nodePosition.Z -= PLAYER_SPEED * this->_frameDeltaTime * player->getSpeedUp();
         player->setRotation((core::vector3df){0.f, 0.f, 0.f} - player->getRotateFix());
         player->changeAnimation(RUNNING);
     } else if (inputManager->isKeyPressed(MOVE_LEFT)) {
-        nodePosition.X -= PLAYER_SPEED * this->_frameDeltaTime;
+        nodePosition.X -= PLAYER_SPEED * this->_frameDeltaTime * player->getSpeedUp();
         player->setRotation((core::vector3df){0.f, 90.f, 0.f} - player->getRotateFix());
         player->changeAnimation(RUNNING);
     } else if (inputManager->isKeyPressed(MOVE_RIGHT)) {
-        nodePosition.X += PLAYER_SPEED * this->_frameDeltaTime;
+        nodePosition.X += PLAYER_SPEED * this->_frameDeltaTime * player->getSpeedUp();
         player->setRotation((core::vector3df){0.f, -90.f, 0.f} - player->getRotateFix());
         player->changeAnimation(RUNNING);
     } else {
@@ -65,6 +65,7 @@ void Game::bombHandling(IrrlichtDevice *window)
         if (obj->getTime() >= 2000) {
             auto it = std::find(this->_bombObjects.begin(), this->_bombObjects.end(), obj);
             if (it != this->_bombObjects.end()) { this->_bombObjects.erase(it); }
+            std::cout << "EXPLOSION\n";
             delete(obj);
         }
     }

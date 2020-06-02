@@ -9,17 +9,16 @@
 #include "Object.hpp"
 #include "AnimatedObjects.hpp"
 
-Bomb::Bomb(std::string name, scene::IAnimatedMeshSceneNode *node, std::string launcherName, u32 time) : AnimatedModel(node, name)
+Bomb::Bomb(std::string name, scene::IAnimatedMeshSceneNode *node, std::string owner, u32 time) : AnimatedModel(node, name)
 {
     this->_node = node;
-    this->_launcher = launcherName;
+    this->_owner = owner;
     this->_time = time;
     this->_initial_time = time;
 }
 
 Bomb::~Bomb(void)
 {
-    std::cout << "destroyed" << std::endl;
     this->_node->remove();
 }
 

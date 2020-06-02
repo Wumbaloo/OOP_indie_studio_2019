@@ -38,6 +38,6 @@ void AnimatedModel::setRotation(core::vector3df rotation)
     this->_node->setRotation(rotation);
 }
 
-void AnimatedModel::changeAnimation(Animations anim)
+void AnimatedModel::changeAnimation(PlayerAnimations anim)
 {
 }
