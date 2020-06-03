@@ -11,12 +11,7 @@
 #include <irrlicht/irrlicht.h>
 #include <SFML/Audio.hpp>
 #include "Irrlicht.hpp"
-
-#define MODELS_PATH     "../assets/Models/"
-#define TEXTURES_PATH   "../assets/Textures/"
-#define PLAYER_SPEED    8.f
-#define MAP_WIDTH       26
-#define MAP_HEIGHT      22
+#include "Macros.hpp"
 
 int GameManager(Irrlicht *lib);
 

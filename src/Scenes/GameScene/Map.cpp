@@ -45,6 +45,7 @@ void Game::generateMap(unsigned int seed)
     float beginWidth = -(MAP_WIDTH / 2) + step;
     float endHeight = -(MAP_HEIGHT / 2);
     float endWidth = MAP_WIDTH / 2;
+    int i = 0;
 
     this->makeBorderMap();
     for (float z = beginHeight; z > endHeight; z -= step) {
@@ -57,6 +58,8 @@ void Game::generateMap(unsigned int seed)
                 obj = this->createObject("destructible", "Square.obj", "Destruct.jpg", {(float) x, 0, (float) z}, {1, 1, 1});
             else
                 obj = this->createObject("wall", "Square.obj", "Square.jpg", {(float) x, 0, (float) z}, {1, 1, 1});
+            this->_map[i].push_back(obj);
         }
+        i++;
     }
 }

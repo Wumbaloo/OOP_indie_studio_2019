@@ -10,6 +10,7 @@
 #include "InputManager.hpp"
 #include "AnimatedObjects.hpp"
 #include "PowerUps.hpp"
+#include "Macros.hpp"
 
 using namespace irr;
 
@@ -51,6 +52,7 @@ class Game : public IScene
         scene::ISceneManager* _smgr;
         u32 _then;
         f32 _frameDeltaTime;
+        std::vector<AObject *> _map[MAP_HEIGHT];
         std::vector<Model *> _objects;
         std::vector<Player *> _playerObjects;
         std::vector<Bomb *> _bombObjects;
