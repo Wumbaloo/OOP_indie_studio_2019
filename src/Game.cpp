@@ -7,21 +7,25 @@
 
 #include "IndieStudio.hpp"
 
-void checkTransition(Irrlicht *lib)
+Events checkTransition(Irrlicht *lib)
 {
-    switch (lib->getScene()->checkEvents(lib->getWindow(), lib->getInputManager()))
-    {
+    switch (lib->getScene()->checkEvents(lib->getWindow(), lib->getInputManager())) {
         case PLAY:
             lib->changeGameStatus(GAME);
             lib->getScene()->resetScene(lib->getWindow());
             printf("Switched to the game ?\n");
+            break;
         case BACK_MENU:
             lib->changeGameStatus(MENU);
             lib->getScene()->resetScene(lib->getWindow());
             printf("Switched to the menu ?\n");
+            break;
+        case CLOSE:
+            return CLOSE;
         default:
-            return;
+            break;
     }
+    return NONE;
 }
 
 int GameManager(Irrlicht *lib)
@@ -34,8 +38,7 @@ int GameManager(Irrlicht *lib)
     while(lib->isWindowOpen()) {
         lib->getScene()->display();
         lib->getScene()->refreshWindow();
-        checkTransition(lib);
-        if (lib->getScene()->checkEvents(lib->getWindow(), lib->getInputManager()) == CLOSE)
+        if (checkTransition(lib) == CLOSE)
             break;
     }
     lib->destroy();

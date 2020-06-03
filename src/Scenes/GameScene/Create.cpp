@@ -106,12 +106,14 @@ PowerUp *Game::createPowerUpObject(PowerUpsType type, std::string name, data_ani
 void Game::createGameScene(void)
 {
     this->_playerObjects.push_back(this->createPlayerObject("player", {"guard.md3", "Guard.png",
-        {-(MAP_WIDTH / 2) + 2, 0, (MAP_HEIGHT / 2) - 4}, {0.2, 0.2, 0.2}, {0, 200}, 32.5}));
+        {-(MAP_WIDTH / 2) + 2, 0, (MAP_HEIGHT / 2) - 4}, {0.05, 0.05, 0.05}, {0, 200}, 32.5}));
     this->_powerUpObjects.push_back(this->createPowerUpObject(SPEEDUP, "speedUp", {"SpeedUp.md3", "wing_textureColor.png",
-        {-(MAP_WIDTH / 2) - 10, 0, (MAP_HEIGHT / 2) - 4}, {1, 1, 1}, {0, 31}, 20}));
+        {-(MAP_WIDTH / 2) - 5, 0, (MAP_HEIGHT / 2) - 4}, {.8, .8, .8}, {0, 31}, 20}));
     this->_powerUpObjects.push_back(this->createPowerUpObject(WALLPASS, "WallPass", {"WallPass.md3", "WallPass.bmp",
-        {-(MAP_WIDTH / 2) - 15, 0, (MAP_HEIGHT / 2) - 4}, {.8, .8, .8}, {0, 50}, 25}));
+        {-(MAP_WIDTH / 2) - 10, 0, (MAP_HEIGHT / 2) - 4}, {.7, .7, .7}, {0, 50}, 25}));
     this->_powerUpObjects.push_back(this->createPowerUpObject(BOMBUP, "BombUp", {"bombUp.md3", "Rough.png",
-        {-(MAP_WIDTH / 2) - 20, 0, (MAP_HEIGHT / 2) - 4}, {.8, .8, .8}, {0, 50}, 25}));
+        {-(MAP_WIDTH / 2) - 15, 0, (MAP_HEIGHT / 2) - 4}, {.7, .7, .7}, {0, 50}, 25}));
+     this->_powerUpObjects.push_back(this->createPowerUpObject(FIREUP, "FireUp", {"FireUp.md3", "FireUp.png",
+        {-(MAP_WIDTH / 2) - 20, 0, (MAP_HEIGHT / 2) - 4}, {.7, .7, .7}, {0, 62}, 25}));
     this->generateMap(time(nullptr));
 }
