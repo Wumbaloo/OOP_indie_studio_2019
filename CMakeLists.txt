@@ -9,27 +9,28 @@ project(OOP_indie_studio_2019)
 include_directories(include)
 set(NAME bomberman)
 file(GLOB SRC
-    src/Main.cpp
-    src/Game.cpp
-    src/InputManager/InputManager.cpp
-    src/Irrlicht/Irrlicht.cpp
-    src/Irrlicht/Close.cpp
-    src/Irrlicht/Create.cpp
-    src/Irrlicht/Events.cpp
-    src/Irrlicht/Get.cpp
-    src/Objects/Object.cpp
-    src/Objects/Model.cpp
-    src/Objects/AnimatedObjects/AnimatedModel.cpp
-    src/Objects/AnimatedObjects/Bomb.cpp
-    src/Objects/AnimatedObjects/Player.cpp
-    src/Objects/AnimatedObjects/PowerUp.cpp
-    src/Scenes/GameScene/Game.cpp
-    src/Scenes/GameScene/Create.cpp
-    src/Scenes/GameScene/Event.cpp
-    src/Scenes/GameScene/Get.cpp
-    src/Scenes/GameScene/Map.cpp
-    src/Scenes/MenuScene/Menu.cpp
-)
+        src/Main.cpp
+        src/Music.cpp
+        src/Game.cpp
+        src/InputManager/InputManager.cpp
+        src/Irrlicht/Irrlicht.cpp
+        src/Irrlicht/Close.cpp
+        src/Irrlicht/Create.cpp
+        src/Irrlicht/Events.cpp
+        src/Irrlicht/Get.cpp
+        src/Objects/Object.cpp
+        src/Objects/Model.cpp
+        src/Objects/AnimatedObjects/AnimatedModel.cpp
+        src/Objects/AnimatedObjects/Bomb.cpp
+        src/Objects/AnimatedObjects/Player.cpp
+        src/Objects/AnimatedObjects/PowerUp.cpp
+        src/Scenes/GameScene/Game.cpp
+        src/Scenes/GameScene/Create.cpp
+        src/Scenes/GameScene/Event.cpp
+        src/Scenes/GameScene/Get.cpp
+        src/Scenes/GameScene/Map.cpp
+        src/Scenes/MenuScene/Menu.cpp
+        )
 add_executable(${NAME} ${SRC})
 
 
