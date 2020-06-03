@@ -16,4 +16,3 @@ void Game::Music_play() {
     this->_main_music.openFromFile("../assets/Music/Title-music.ogg");
     this->_main_music.setLoop(true);
 }
-

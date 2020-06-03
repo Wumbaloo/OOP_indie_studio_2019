@@ -5,13 +5,14 @@
 ** Created by Anthony ANICOTTE,
 */
 
-// #include <IrrlichtDevice.h>
 #include "Scenes.hpp"
 
 Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager)
 {
-
-    return PLAY;
+    if (this->_playButton->isPressed()) {
+        return PLAY;
+    }
+    return NONE;
 }
 
 void Menu::display()
@@ -21,8 +22,6 @@ void Menu::display()
         irr::core::rect<irr::s32>(0,0,1920,1080), 0,
         irr::video::SColor(255, 255, 255, 255), true);
     this->_smgr->drawAll();
-    this->Music_play();
-    this->_title_music.play();
     this->_guienv->drawAll();
 }
 
@@ -43,9 +42,11 @@ void Menu::resetScene(IrrlichtDevice *window)
     this->_guienv->clear();
     this->_smgr->clear();
     this->_driver->removeAllTextures();
-    irr::gui::IGUIButton *play = this->_guienv->addButton(irr::core::rect<irr::s32>(100, 100, 500, 300), 0, -1, L"JOUE A MON JEU STP");
-    play->setUseAlphaChannel(true);
-    play->setDrawBorder(false);
-    play->setImage(this->_driver->getTexture("../assets/images/button2.png"));
+    this->_playButton = this->_guienv->addButton(irr::core::rect<irr::s32>(75, 200, 475, 400), 0, -1, L"JOUE A MON JEU STP");
+    this->_playButton->setUseAlphaChannel(true);
+    this->_playButton->setDrawBorder(false);
+    this->_playButton->setImage(this->_driver->getTexture("../assets/images/button2.png"));
     this->_menuBackground = this->_driver->getTexture("../assets/Textures/menu_background.png");
+    this->Music_play();
+    this->_title_music.play();
 }

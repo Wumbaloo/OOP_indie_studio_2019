@@ -29,6 +29,7 @@ class Menu : public IScene
         gui::IGUIEnvironment* _guienv;
         video::IVideoDriver* _driver;
         scene::ISceneManager* _smgr;
+        irr::gui::IGUIButton *_playButton;
         video::ITexture *_menuBackground;
 
     public:
