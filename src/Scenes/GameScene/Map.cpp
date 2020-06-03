@@ -20,10 +20,10 @@ bool isBorderNext(vector2f_t pos, vector2f_t height, vector2f_t width, float ste
 void Game::makeBorderMap()
 {
     float step = 2;
-    float heightBegin = -(MAP_HEIGHT / 2);
-    float heightEnd = MAP_HEIGHT / 2;
-    float widthBegin = -(MAP_WIDTH / 2);
-    float widthEnd = MAP_WIDTH / 2;
+    float heightBegin = -MAP_HEIGHT;
+    float heightEnd = MAP_HEIGHT;
+    float widthBegin = -MAP_WIDTH;
+    float widthEnd = MAP_WIDTH;
 
     for (float z = heightBegin; z < heightEnd; z+= step) {
         Model *left = this->createObject("wall", "Square.obj", "Square.jpg", {(float) (widthBegin), 0, (float) z}, {1, 1, 1});
@@ -41,14 +41,14 @@ void Game::generateMap(unsigned int seed)
     float step = 2;
     srand(seed);
     std::cout << "Map with seed: " << seed << std::endl;
-    float beginHeight = (MAP_HEIGHT / 2) - step * 2;
-    float beginWidth = -(MAP_WIDTH / 2) + step;
-    float endHeight = -(MAP_HEIGHT / 2);
-    float endWidth = MAP_WIDTH / 2;
+    float beginHeight = MAP_HEIGHT - step * 2;
+    float beginWidth = -MAP_WIDTH + step;
+    float endHeight = -MAP_HEIGHT;
+    float endWidth = MAP_WIDTH;
     int i = 0;
 
     this->makeBorderMap();
-    for (float z = beginHeight; z > endHeight; z -= step) {
+    for (float z = beginHeight; z >= endHeight - step; z -= step) {
         for (float x = beginWidth; x < endWidth; x += step) {
             int random = rand() % 4;
             Model *obj = NULL;
@@ -62,4 +62,11 @@ void Game::generateMap(unsigned int seed)
         }
         i++;
     }
+    this->createObject("ground", "ground.obj", "Grass.jpg", {0, -1.25, 0}, {0.01, 0.01, 0.01});
+    // for (int j = 0; j < MAP_HEIGHT; j++) {
+    //     std::cout << "-------------" << j << "---------------" << std::endl;
+    //     for (auto tmp = this->_map[j].begin(); tmp != this->_map[j].end(); tmp++) {
+    //         std::cout << "Item " << (*tmp)->getName() << std::endl;
+    //     }
+    // }
 }
