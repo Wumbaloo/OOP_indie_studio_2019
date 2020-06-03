@@ -9,9 +9,10 @@
 
 Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager)
 {
-    if (this->_playButton->isPressed()) {
+    if (this->_playButton->isPressed())
         return PLAY;
-    }
+    if (inputManager->isKeyPressed(CLOSE))
+        return CLOSE;
     return NONE;
 }
 
