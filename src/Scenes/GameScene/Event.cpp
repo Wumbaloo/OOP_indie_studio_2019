@@ -27,8 +27,6 @@ core::vector3df Game::PlayerMovements(core::vector3df nodePosition, Player *play
         nodePosition.X += PLAYER_SPEED * this->_frameDeltaTime * player->getSpeedUp();
         player->setRotation((core::vector3df){0.f, -90.f, 0.f} - player->getRotateFix());
         player->changeAnimation(RUNNING);
-    } else if (inputManager->isKeyPressed(PAUSE)) {
-        // openPauseMenu();
     } else {
         if (player->isRunning()) {
             player->setRotation(player->getRotation() + player->getRotateFix());
@@ -48,6 +46,10 @@ Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
         return NONE;
     if (inputManager->isKeyPressed(CLOSE))
         return CLOSE;
+    if (inputManager->isKeyPressed(PAUSE)) {
+        // openPauseMenu();
+        return PAUSE;
+    }
     nodePosition = PlayerMovements(nodePosition, player, inputManager);
     if (inputManager->isKeyPressed(BOMB)) {
         if (bombe_activated == 0 || window->getTimer()->getTime() - bombe_activated >= 1500) {
