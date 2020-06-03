@@ -20,6 +20,7 @@ InputManager::InputManager(EKEY_CODE upKey, EKEY_CODE downKey, EKEY_CODE leftKey
     this->bindActionToKey(MOVE_RIGHT, rightKey);
     this->bindActionToKey(CLOSE, KEY_DELETE);
     this->bindActionToKey(BOMB, KEY_SPACE);
+    this->bindActionToKey(PAUSE, KEY_ESCAPE);
 }
 
 InputManager::~InputManager()

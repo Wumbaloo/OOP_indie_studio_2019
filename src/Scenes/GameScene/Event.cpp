@@ -27,6 +27,8 @@ core::vector3df Game::PlayerMovements(core::vector3df nodePosition, Player *play
         nodePosition.X += PLAYER_SPEED * this->_frameDeltaTime * player->getSpeedUp();
         player->setRotation((core::vector3df){0.f, -90.f, 0.f} - player->getRotateFix());
         player->changeAnimation(RUNNING);
+    } else if (inputManager->isKeyPressed(PAUSE)) {
+        // openPauseMenu();
     } else {
         if (player->isRunning()) {
             player->setRotation(player->getRotation() + player->getRotateFix());
