@@ -33,6 +33,7 @@ void Game::refreshWindow()
 
 void Game::resetScene(IrrlichtDevice *window)
 {
+    printf("I'm resetting the game\n");
     this->_driver->removeAllTextures();
     this->_guienv->clear();
     this->_objects.clear();
