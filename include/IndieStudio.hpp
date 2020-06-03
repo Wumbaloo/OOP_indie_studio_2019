@@ -9,6 +9,7 @@
 #define INDIE_STUDIO_H
 
 #include <irrlicht/irrlicht.h>
+#include <SFML/Audio.hpp>
 #include "Irrlicht.hpp"
 
 #define MODELS_PATH     "../assets/Models/"

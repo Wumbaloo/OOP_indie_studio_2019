@@ -22,6 +22,8 @@ void Game::display()
     this->_driver->beginScene(true, true, video::SColor(255, 100, 101, 140));
     this->_smgr->drawAll();
     this->_guienv->drawAll();
+    this->Music_play();
+    this->_main_music.play();
 }
 
 void Game::refreshWindow()

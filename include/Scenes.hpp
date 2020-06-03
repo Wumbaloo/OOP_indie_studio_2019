@@ -5,6 +5,7 @@
 ** Created by Anthony ANICOTTE,
 */
 
+#include <SFML/Audio.hpp>
 #include "Object.hpp"
 #include "InputManager.hpp"
 #include "AnimatedObjects.hpp"
@@ -31,6 +32,8 @@ class Menu : public IScene
         video::ITexture *_menuBackground;
 
     public:
+        sf::Music _title_music;
+        void Music_play();
         Menu(IrrlichtDevice *);
         ~Menu() = default;
         Events checkEvents(IrrlichtDevice *, InputManager *) override;
@@ -53,6 +56,8 @@ class Game : public IScene
         std::vector<PowerUp *> _powerUpObjects;
 
     public:
+        sf::Music _main_music;
+        void Music_play();
         Game(IrrlichtDevice *);
         ~Game() = default;
         Events checkEvents(IrrlichtDevice *, InputManager *) override;

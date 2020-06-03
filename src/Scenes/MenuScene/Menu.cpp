@@ -21,6 +21,8 @@ void Menu::display()
         irr::core::rect<irr::s32>(0,0,1920,1080), 0,
         irr::video::SColor(255, 255, 255, 255), true);
     this->_smgr->drawAll();
+    this->Music_play();
+    this->_title_music.play();
     this->_guienv->drawAll();
 }
 
