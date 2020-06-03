@@ -18,8 +18,14 @@ file(GLOB SRC
     src/Irrlicht/Events.cpp
     src/Irrlicht/Get.cpp
     src/Objects/Object.cpp
-    src/Objects/AnimatedModel.cpp
     src/Objects/Model.cpp
+    src/Objects/AnimatedObjects/AnimatedModel.cpp
+    src/Objects/AnimatedObjects/Bomb.cpp
+    src/Objects/AnimatedObjects/Player.cpp
+    src/Objects/PowerUps/BombUp.cpp
+    src/Objects/PowerUps/FireUp.cpp
+    src/Objects/PowerUps/SpeedUp.cpp
+    src/Objects/PowerUps/WallPass.cpp
     src/Scenes/GameScene/Game.cpp
     src/Scenes/GameScene/Create.cpp
     src/Scenes/GameScene/Event.cpp

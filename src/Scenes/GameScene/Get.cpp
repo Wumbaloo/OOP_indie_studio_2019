@@ -8,7 +8,7 @@
 #include "Scenes.hpp"
 #include "Object.hpp"
 
-Model *Game::getObjectByName(std::string name) const
+Model *Game::getModelByName(std::string name) const
 {
     for (Model *obj : this->_objects) {
         if (obj->getName() == name)
@@ -17,9 +17,18 @@ Model *Game::getObjectByName(std::string name) const
     return NULL;
 }
 
-AnimatedModel *Game::getAnimObjByName(std::string name) const
+Bomb *Game::getBombByName(std::string name) const
 {
-    for (AnimatedModel *obj : this->_animObjects) {
+    for (Bomb *obj : this->_bombObjects) {
+        if (obj->getName() == name)
+            return obj;
+    }
+    return NULL;
+}
+
+Player *Game::getPlayerByName(std::string name) const
+{
+    for (Player *obj : this->_playerObjects) {
         if (obj->getName() == name)
             return obj;
     }

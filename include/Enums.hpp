@@ -29,9 +29,17 @@ enum GameStatus {
     UNKNOWN
 };
 
-enum Animations {
+enum PlayerAnimations {
     IDLE,
     RUNNING
+};
+
+enum PowerUpsType {
+    NOPOWER,
+    BOMBUP,
+    SPEEDUP,
+    FIREUP,
+    WALLPASS,
 };
 
 enum ObjectType {
