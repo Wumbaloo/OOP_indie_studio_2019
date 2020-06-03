@@ -22,10 +22,7 @@ file(GLOB SRC
     src/Objects/AnimatedObjects/AnimatedModel.cpp
     src/Objects/AnimatedObjects/Bomb.cpp
     src/Objects/AnimatedObjects/Player.cpp
-    src/Objects/PowerUps/BombUp.cpp
-    src/Objects/PowerUps/FireUp.cpp
-    src/Objects/PowerUps/SpeedUp.cpp
-    src/Objects/PowerUps/WallPass.cpp
+    src/Objects/AnimatedObjects/PowerUp.cpp
     src/Scenes/GameScene/Game.cpp
     src/Scenes/GameScene/Create.cpp
     src/Scenes/GameScene/Event.cpp
@@ -46,9 +43,15 @@ target_link_libraries(${NAME} Irrlicht)
 
 
 # SFML LIB
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
-find_package(SFML 2.5 REQUIRED audio)
-if(SFML_FOUND)
-  include_directories(${SFML_INCLUDE_DIR})
-#   target_link_libraries(${NAME} ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
-endif()
+IF (NOT SFML_INCLUDE_DIRS OR NOT SFML_LIBRARIES)
+    SET(CMAKE_FIND_LIBRARY_PREFIXES "lib")
+    SET(CMAKE_FIND_LIBRARY_SUFFIXES ".so")
+    FIND_LIBRARY(SFML_LIBRARIES NAMES sfml-audio PATHS
+      /usr/lib64/
+      /usr/lib/
+      /usr/lib/x86_64-linux-gnu/
+      /usr/local/lib/
+      /usr/local/lib64/
+      ${SFML_DIR}/lib/)
+ENDIF (NOT SFML_INCLUDE_DIRS OR NOT SFML_LIBRARIES)
+target_link_libraries(${NAME} ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})

@@ -8,6 +8,7 @@
 #include "Object.hpp"
 #include "InputManager.hpp"
 #include "AnimatedObjects.hpp"
+#include "PowerUps.hpp"
 
 using namespace irr;
 
@@ -49,6 +50,7 @@ class Game : public IScene
         std::vector<Model *> _objects;
         std::vector<Player *> _playerObjects;
         std::vector<Bomb *> _bombObjects;
+        std::vector<PowerUp *> _powerUpObjects;
 
     public:
         Game(IrrlichtDevice *);
@@ -61,6 +63,7 @@ class Game : public IScene
         Model *createObject(std::string, std::string, std::string, core::vector3df, core::vector3df);
         Player *createPlayerObject(std::string, data_animations_t);
         Bomb *createBombObject(std::string, data_animations_t, std::string, u32);
+        PowerUp *createPowerUpObject(PowerUpsType, std::string, data_animations_t);
 
         scene::IAnimatedMeshSceneNode *createAnimatedModel(std::string, std::string, data_animations_t);
         scene::IMeshSceneNode *createModel(std::string, std::string);

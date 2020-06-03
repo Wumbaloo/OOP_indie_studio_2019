@@ -12,55 +12,16 @@
 #include "Enums.hpp"
 #include "AnimatedObjects.hpp"
 
-class BombUp : public AnimatedModel
+class PowerUp : public AnimatedModel
 {
     private:
         PowerUpsType _type;
 
     public:
-        BombUp(scene::IAnimatedMeshSceneNode *, std::string);
-        ~BombUp();
+        PowerUp(scene::IAnimatedMeshSceneNode *, std::string, PowerUpsType);
+        ~PowerUp();
 
-        PowerUpsType getPowerUpType(void) const;
-        void affectPlayer(Player *);
-};
-
-class FireUp : public AnimatedModel
-{
-    private:
-        PowerUpsType _type;
-
-    public:
-        FireUp(scene::IAnimatedMeshSceneNode *, std::string);
-        ~FireUp();
-
-        PowerUpsType getPowerUpType(void) const;
-        void affectPlayer(Player *);
-};
-
-class SpeedUp : public AnimatedModel
-{
-    private:
-        PowerUpsType _type;
-
-    public:
-        SpeedUp(scene::IAnimatedMeshSceneNode *, std::string);
-        ~SpeedUp();
-
-        PowerUpsType getPowerUpType(void) const;
-        void affectPlayer(Player *);
-};
-
-class WallPass : public AnimatedModel
-{
-    private:
-        PowerUpsType _type;
-
-    public:
-        WallPass(scene::IAnimatedMeshSceneNode *, std::string);
-        ~WallPass();
-
-        PowerUpsType getPowerUpType(void) const;
+        PowerUpsType getType(void) const;
         void affectPlayer(Player *);
 };
 
