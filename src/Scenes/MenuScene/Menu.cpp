@@ -43,8 +43,9 @@ void Menu::resetScene(IrrlichtDevice *window)
     this->_guienv->clear();
     this->_smgr->clear();
     this->_driver->removeAllTextures();
-    irr::gui::IGUIButton *play = this->_guienv->addButton(irr::core::rect<irr::s32>(0, 0, 400, 200), 0, -1, L"JOUE A MON JEU STP");
+    irr::gui::IGUIButton *play = this->_guienv->addButton(irr::core::rect<irr::s32>(100, 100, 500, 300), 0, -1, L"JOUE A MON JEU STP");
     play->setUseAlphaChannel(true);
     play->setDrawBorder(false);
-    play->setImage(this->_driver->getTexture("./assets/images/button2.png"));
-    this->_menuBackground = this->_driver->getTexture("./assets/Textures/menu_background.png");}
+    play->setImage(this->_driver->getTexture("../assets/images/button2.png"));
+    this->_menuBackground = this->_driver->getTexture("../assets/Textures/menu_background.png");
+}
