@@ -22,8 +22,6 @@ void Game::display()
     this->_driver->beginScene(true, true, video::SColor(255, 100, 101, 140));
     this->_smgr->drawAll();
     this->_guienv->drawAll();
-    this->Music_play();
-    this->_main_music.play();
 }
 
 void Game::refreshWindow()
@@ -41,5 +39,7 @@ void Game::resetScene(IrrlichtDevice *window)
     this->_smgr->addCameraSceneNode(0, core::vector3df(0, 30, -15),
         core::vector3df(0, 0, 0));
     this->_then = window->getTimer()->getTime();
+    this->Music_play();
+    this->_main_music.play();
     this->createGameScene();
 }

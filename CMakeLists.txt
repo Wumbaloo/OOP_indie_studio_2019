@@ -5,7 +5,6 @@ project(OOP_indie_studio_2019)
 
 
 # BINARY
-
 include_directories(include)
 set(NAME bomberman)
 file(GLOB SRC
@@ -32,7 +31,6 @@ file(GLOB SRC
         src/Scenes/MenuScene/Menu.cpp
         )
 add_executable(${NAME} ${SRC})
-
 
 
 # IRRLITCH LIB
