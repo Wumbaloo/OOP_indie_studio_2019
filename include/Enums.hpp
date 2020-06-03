@@ -21,6 +21,7 @@ enum Events
     MOVE_RIGHT,
     END_GAME,
     BOMB,
+    PAUSE,
 };
 
 enum GameStatus {
