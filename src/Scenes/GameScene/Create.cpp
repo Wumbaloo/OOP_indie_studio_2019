@@ -113,7 +113,7 @@ void Game::createGameScene(void)
         {-(MAP_WIDTH / 2) - 10, 0, (MAP_HEIGHT / 2) - 4}, {.7, .7, .7}, {0, 50}, 25}));
     this->_powerUpObjects.push_back(this->createPowerUpObject(BOMBUP, "BombUp", {"bombUp.md3", "Rough.png",
         {-(MAP_WIDTH / 2) - 15, 0, (MAP_HEIGHT / 2) - 4}, {.7, .7, .7}, {0, 50}, 25}));
-     this->_powerUpObjects.push_back(this->createPowerUpObject(FIREUP, "FireUp", {"FireUp.md3", "FireUp.png",
+    this->_powerUpObjects.push_back(this->createPowerUpObject(FIREUP, "FireUp", {"FireUp.md3", "FireUp.png",
         {-(MAP_WIDTH / 2) - 20, 0, (MAP_HEIGHT / 2) - 4}, {.7, .7, .7}, {0, 62}, 25}));
     this->generateMap(time(nullptr));
 }
