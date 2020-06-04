@@ -21,3 +21,13 @@ void Irrlicht::close(void)
 {
     this->_window->drop();
 }
+
+void Game::close(void)
+{
+    this->_main_music.stop();
+}
+
+void Menu::close(void)
+{
+    this->_title_music.stop();
+}
