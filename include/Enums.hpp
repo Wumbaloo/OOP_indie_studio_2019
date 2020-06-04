@@ -22,6 +22,7 @@ enum Events
     END_GAME,
     BOMB,
     PAUSE,
+    SETTINGS,
 };
 
 enum GameStatus {

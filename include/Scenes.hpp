@@ -30,7 +30,8 @@ class Menu : public IScene
         gui::IGUIEnvironment* _guienv;
         video::IVideoDriver* _driver;
         scene::ISceneManager* _smgr;
-        irr::gui::IGUIButton *_playButton;
+        std::vector<irr::gui::IGUIButton *> _defaultButtons;
+        std::vector<irr::gui::IGUIButton *> _hoverButtons;
         video::ITexture *_menuBackground;
 
     public:
@@ -38,11 +39,14 @@ class Menu : public IScene
         void Music_play();
         Menu(IrrlichtDevice *);
         ~Menu() = default;
+        irr::gui::IGUIButton *newButton(irr::core::rect<irr::s32> pos, bool visible, irr::core::string<fschar_t> path);
+        void checkHoverButton(irr::core::vector2d<s32> cursorPos);
+        void createButtons();
         Events checkEvents(IrrlichtDevice *, InputManager *) override;
         void display() override;
         void refreshWindow() override;
         void resetScene(IrrlichtDevice *) override;
-    void close(void);
+        void close(void);
 };
 
 class Game : public IScene
