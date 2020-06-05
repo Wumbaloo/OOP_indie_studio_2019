@@ -8,7 +8,7 @@
 #include <iostream>
 #include "Object.hpp"
 
-Model::Model(scene::IMeshSceneNode *node, std::string name) : AObject(name)
+Model::Model(scene::IMeshSceneNode *node, std::string name, ObjectType type) : AObject(name, type)
 {
     this->_node = node;
 }

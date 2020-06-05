@@ -20,14 +20,17 @@ class AObject
     protected:
         const int _id;
         std::string _name;
+        const ObjectType _type;
 
     public:
         AObject() = delete;
-        AObject(std::string);
+        AObject(std::string, ObjectType type = NOTYPE);
         ~AObject() = default;
 
         std::string getName(void) const;
         const int getId(void) const;
+        const ObjectType getType(void) const;
+
         void setName(std::string name);
 };
 
@@ -38,7 +41,7 @@ class Model : public AObject
 
     public:
         Model() = delete;
-        Model(scene::IMeshSceneNode *, std::string);
+        Model(scene::IMeshSceneNode *, std::string, ObjectType type = NOTYPE);
         ~Model() = default;
 
         scene::IMeshSceneNode *getSceneNode() const;

@@ -11,7 +11,7 @@ using namespace irr;
 
 int id = 0;
 
-AObject::AObject(std::string name) : _id(id++)
+AObject::AObject(std::string name, ObjectType type) : _id(id++), _type(type)
 {
     this->_name = name;
 }
@@ -29,4 +29,9 @@ const int AObject::getId(void) const
 std::string AObject::getName(void) const
 {
     return this->_name;
+}
+
+const ObjectType AObject::getType(void) const
+{
+    return (this->_type);
 }

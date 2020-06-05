@@ -47,7 +47,8 @@ enum PowerUpsType {
 enum ObjectType {
     NOTYPE,
     OBSTACLE,
-    CONSUMABLE,
+    BREAKABLE,
+    POWERUP,
     ENEMY,
     PLAYER,
 };

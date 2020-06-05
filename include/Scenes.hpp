@@ -57,7 +57,7 @@ class Game : public IScene
         scene::ISceneManager* _smgr;
         u32 _then;
         f32 _frameDeltaTime;
-        std::vector<AObject *> _map[MAP_HEIGHT];
+        std::vector<AObject *> _map[MAP_HEIGHT + 2];
         std::vector<Model *> _objects;
         std::vector<Player *> _playerObjects;
         std::vector<Bomb *> _bombObjects;
@@ -73,7 +73,7 @@ class Game : public IScene
         void refreshWindow() override;
 
         // create
-        Model *createObject(std::string, std::string, std::string, core::vector3df, core::vector3df);
+        Model *createObject(std::string, std::string, std::string, core::vector3df, core::vector3df, ObjectType type = NOTYPE);
         Player *createPlayerObject(std::string, data_animations_t);
         Bomb *createBombObject(std::string, data_animations_t, std::string, u32);
         PowerUp *createPowerUpObject(PowerUpsType, std::string, data_animations_t);
