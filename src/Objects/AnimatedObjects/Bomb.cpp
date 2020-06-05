@@ -31,3 +31,8 @@ void Bomb::setTime(u32 newTime)
 {
     this->_time += newTime - this->_time;
 }
+
+std::string Bomb::getOwner(void) const
+{
+    return this->_owner;
+}

@@ -17,7 +17,7 @@ Player::Player(int health ,scene::IAnimatedMeshSceneNode *node, std::string name
     this->_rotateFix = {0, 25, 0};
     this->_bombUp = 0;
     this->_speedUp = 1;
-    this->_fireUp = 0;
+    this->_fireUp = 1;
     this->_wallPass = false;
 }
 

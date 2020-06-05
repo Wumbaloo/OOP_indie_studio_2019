@@ -27,11 +27,16 @@ class AObject
         AObject(std::string, ObjectType type = NOTYPE);
         ~AObject() = default;
 
+        void setName(std::string name);
+        virtual void setPos(core::vector3df) = 0;
+        virtual void setRotation(core::vector3df) = 0;
+
         std::string getName(void) const;
         const int getId(void) const;
         const ObjectType getType(void) const;
-
-        void setName(std::string name);
+        virtual core::vector3df getPos(void) const = 0;
+        virtual core::aabbox3df getBoundingPos(void) const = 0;
+        virtual core::vector3df getRotation(void) const = 0;
 };
 
 class Model : public AObject
@@ -42,14 +47,15 @@ class Model : public AObject
     public:
         Model() = delete;
         Model(scene::IMeshSceneNode *, std::string, ObjectType type = NOTYPE);
-        ~Model() = default;
+        ~Model();
 
-        scene::IMeshSceneNode *getSceneNode() const;
-        core::vector3df getPos(void) const;
-        core::vector3df getRotation(void) const;
+        void setPos(core::vector3df) override;
+        void setRotation(core::vector3df) override;
 
-        void setPos(core::vector3df);
-        void setRotation(core::vector3df);
+        scene::IMeshSceneNode *getSceneNode(void) const;
+        core::vector3df getPos(void) const override;
+        core::vector3df getRotation(void) const override;
+        core::aabbox3df getBoundingPos(void) const override;
 };
 
 #endif

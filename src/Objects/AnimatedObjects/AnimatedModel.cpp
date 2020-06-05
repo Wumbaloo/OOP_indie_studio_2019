@@ -41,3 +41,8 @@ void AnimatedModel::setRotation(core::vector3df rotation)
 void AnimatedModel::changeAnimation(PlayerAnimations anim)
 {
 }
+
+core::aabbox3df AnimatedModel::getBoundingPos(void) const
+{
+    return this->_node->getTransformedBoundingBox();
+}

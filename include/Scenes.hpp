@@ -33,9 +33,9 @@ class Menu : public IScene
         std::vector<irr::gui::IGUIButton *> _defaultButtons;
         std::vector<irr::gui::IGUIButton *> _hoverButtons;
         video::ITexture *_menuBackground;
+        sf::Music _title_music;
 
     public:
-        sf::Music _title_music;
         void Music_play();
         Menu(IrrlichtDevice *);
         ~Menu() = default;
@@ -55,42 +55,48 @@ class Game : public IScene
         gui::IGUIEnvironment* _guienv;
         video::IVideoDriver* _driver;
         scene::ISceneManager* _smgr;
+        bool _paused;
         u32 _then;
         f32 _frameDeltaTime;
-        std::vector<AObject *> _map[MAP_HEIGHT + 2];
+        std::vector<Model *> _map[MAP_HEIGHT + 2];
         std::vector<Model *> _objects;
         std::vector<Player *> _playerObjects;
         std::vector<Bomb *> _bombObjects;
         std::vector<PowerUp *> _powerUpObjects;
+        sf::Music _main_music;
 
     public:
-        sf::Music _main_music;
         void Music_play();
         Game(IrrlichtDevice *);
         ~Game() = default;
         Events checkEvents(IrrlichtDevice *, InputManager *) override;
-        void display() override;
-        void refreshWindow() override;
+        void display(void) override;
+        void refreshWindow(void) override;
 
         // create
         Model *createObject(std::string, std::string, std::string, core::vector3df, core::vector3df, ObjectType type = NOTYPE);
         Player *createPlayerObject(std::string, data_animations_t);
         Bomb *createBombObject(std::string, data_animations_t, std::string, u32);
         PowerUp *createPowerUpObject(PowerUpsType, std::string, data_animations_t);
-
         scene::IAnimatedMeshSceneNode *createAnimatedModel(std::string, std::string, data_animations_t);
         scene::IMeshSceneNode *createModel(std::string, std::string);
-
         void createGameScene(void);
-        // others
-        void bombHandling(IrrlichtDevice *);
+
+        // event
+        bool checkColision(AnimatedModel *, std::vector<Model *>[], Direction);
         Events KeyboardEvents(InputManager *, IrrlichtDevice *);
+        void bombHandling(IrrlichtDevice *window, InputManager *inputManager, Player *player);
+        void PowerUpContact(PowerUp *bonus, Player *player);
+        void PlayerMovements(Player *, InputManager *);
+        void BombExploded(Bomb *bomb);
+        void deleteWall(Model *wall, int y);
+        // others
         Model *getModelByName(std::string) const;
         Bomb *getBombByName(std::string) const;
         Player *getPlayerByName(std::string) const;
-        void makeBorderMap();
+        void makeBorderMap(void);
         void generateMap(unsigned int);
         void resetScene(IrrlichtDevice *) override;
-        core::vector3df PlayerMovements(core::vector3df, Player *, InputManager *);
+        void destroy(void);
         void close(void);
 };
