@@ -22,6 +22,7 @@ enum Events
     END_GAME,
     BOMB,
     PAUSE,
+    SETTINGS,
 };
 
 enum GameStatus {
@@ -46,7 +47,8 @@ enum PowerUpsType {
 enum ObjectType {
     NOTYPE,
     OBSTACLE,
-    CONSUMABLE,
+    BREAKABLE,
+    POWERUP,
     ENEMY,
     PLAYER,
 };

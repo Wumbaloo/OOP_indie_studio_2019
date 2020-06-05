@@ -30,27 +30,25 @@ file(GLOB SRC
         src/Scenes/GameScene/Map.cpp
         src/Scenes/MenuScene/Menu.cpp
         )
-add_executable(${NAME} ${SRC})
 
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/libs" ${CMAKE_MODULE_PATH})
+set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/libs")
 
 # IRRLITCH LIB
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/irrlicht")
+set(Irrlicht_DIR "${CMAKE_SOURCE_DIR}/libs/irrlicht")
 set(Irrlicht_FIND_REQUIRED True)
 include(FindIrrlicht)
 include_directories(${Irrlicht_INCLUDE_DIRS})
-target_link_libraries(${NAME} Irrlicht)
 
 
 # SFML LIB
-IF (NOT SFML_INCLUDE_DIRS OR NOT SFML_LIBRARIES)
-    SET(CMAKE_FIND_LIBRARY_PREFIXES "lib")
-    SET(CMAKE_FIND_LIBRARY_SUFFIXES ".so")
-    FIND_LIBRARY(SFML_LIBRARIES NAMES sfml-audio PATHS
-      /usr/lib64/
-      /usr/lib/
-      /usr/lib/x86_64-linux-gnu/
-      /usr/local/lib/
-      /usr/local/lib64/
-      ${SFML_DIR}/lib/)
-ENDIF (NOT SFML_INCLUDE_DIRS OR NOT SFML_LIBRARIES)
+set(SFML_DIR "${CMAKE_SOURCE_DIR}/libs/SFML/cmake/SFML")
+set(SFML_DOC_DIR "${SFML_DIR}/doc")
+set(SFML_FIND_REQUIRED True)
+find_package(SFML 2.5 COMPONENTS audio REQUIRED)
+include(FindSFML)
+include_directories(${SFML_INCLUDE_DIRS})
+add_executable(${NAME} ${SRC})
+# target_link_libraries(${NAME} sfml-audio)
+target_link_libraries(${NAME} ${Irrlicht_LIBRARIES})
 target_link_libraries(${NAME} ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
