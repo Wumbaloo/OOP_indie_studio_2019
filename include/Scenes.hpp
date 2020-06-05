@@ -89,4 +89,8 @@ class Game : public IScene
         void resetScene(IrrlichtDevice *) override;
         core::vector3df PlayerMovements(core::vector3df, Player *, InputManager *);
         void close(void);
+
+        // saves
+        void save(void);
+        void load(void);
 };
