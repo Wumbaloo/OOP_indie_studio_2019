@@ -9,7 +9,7 @@
 #include "Object.hpp"
 #include "AnimatedObjects.hpp"
 
-AnimatedModel::AnimatedModel(scene::IAnimatedMeshSceneNode *object, std::string name) : AObject(name)
+AnimatedModel::AnimatedModel(scene::IAnimatedMeshSceneNode *object, std::string name, ObjectType type) : AObject(name, type)
 {
     this->_node = object;
 }

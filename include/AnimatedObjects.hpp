@@ -11,6 +11,7 @@
 #include <iostream>
 #include <irrlicht/irrlicht.h>
 #include "Object.hpp"
+#include "Enums.hpp"
 
 class AnimatedModel : public AObject
 {
@@ -19,7 +20,7 @@ class AnimatedModel : public AObject
 
     public:
         AnimatedModel() = delete;
-        AnimatedModel(scene::IAnimatedMeshSceneNode *, std::string);
+        AnimatedModel(scene::IAnimatedMeshSceneNode *, std::string, ObjectType type = NOTYPE);
         ~AnimatedModel() = default;
 
         scene::IAnimatedMeshSceneNode *getSceneNode() const;

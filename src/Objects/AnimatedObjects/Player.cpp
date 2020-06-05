@@ -9,7 +9,7 @@
 #include "Object.hpp"
 #include "AnimatedObjects.hpp"
 
-Player::Player(int health ,scene::IAnimatedMeshSceneNode *node, std::string name) : AnimatedModel(node, name)
+Player::Player(int health ,scene::IAnimatedMeshSceneNode *node, std::string name) : AnimatedModel(node, name, PLAYER)
 {
     this->_node = node;
     this->_health = health;
