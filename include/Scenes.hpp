@@ -55,6 +55,7 @@ class Game : public IScene
         gui::IGUIEnvironment* _guienv;
         video::IVideoDriver* _driver;
         scene::ISceneManager* _smgr;
+        float _grid;
         bool _paused;
         u32 _then;
         f32 _frameDeltaTime;
@@ -99,4 +100,5 @@ class Game : public IScene
         void resetScene(IrrlichtDevice *) override;
         void destroy(void);
         void close(void);
+        void placeInMap(AObject *, int x, int y);
 };
