@@ -56,7 +56,7 @@ void Menu::resetScene(IrrlichtDevice *window)
     this->_defaultButtons.clear();
     this->_hoverButtons.clear();
     this->createButtons();
-    this->_menuBackground = this->_driver->getTexture("../assets/Textures/menu_background.png");
+    this->_menuBackground = this->_driver->getTexture("../assets/images/backgroundMenu.png");
     this->Music_play();
     this->_title_music.play();
 }
@@ -75,10 +75,10 @@ irr::gui::IGUIButton *Menu::newButton(irr::core::rect<irr::s32> pos, bool visibl
 
 void Menu::createButtons()
 {
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(0, 0, 420, 160), true, "../assets/images/playDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(450, 0, 870, 160), true, "../assets/images/settingsDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(920, 0, 1340, 160), true, "../assets/images/quitDefault.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(0, 0, 420, 160), false, "../assets/images/playHover.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(450, 0, 870, 160), false, "../assets/images/settingsHover.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(920, 0, 1340, 160), false, "../assets/images/quitHover.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 410, 690, 570), true, "../assets/images/playDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 610, 690, 770), true, "../assets/images/settingsDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 810, 690, 970), true, "../assets/images/quitDefault.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 410, 690, 570), false, "../assets/images/playHover.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 610, 690, 770), false, "../assets/images/settingsHover.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 810, 690, 970), false, "../assets/images/quitHover.png"));
 }
