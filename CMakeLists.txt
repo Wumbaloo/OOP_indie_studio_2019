@@ -30,6 +30,8 @@ file(GLOB SRC
         src/Scenes/GameScene/Get.cpp
         src/Scenes/GameScene/Map.cpp
         src/Scenes/MenuScene/Menu.cpp
+        src/Scenes/SettingsScene/Settings.cpp
+        src/Scenes/AScene.cpp
         )
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/libs" ${CMAKE_MODULE_PATH})

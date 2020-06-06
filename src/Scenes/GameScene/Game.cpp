@@ -10,11 +10,8 @@
 
 bool isBorderNext(vector2f_t pos, vector2f_t height, vector2f_t width, float step, float range);
 
-Game::Game(IrrlichtDevice *window)
+Game::Game(IrrlichtDevice *window) : AScene(window)
 {
-    this->_driver = window->getVideoDriver();
-    this->_smgr = window->getSceneManager();
-    this->_guienv = window->getGUIEnvironment();
     this->_paused = false;
     this->_then = 0;
     this->_frameDeltaTime = 0;
@@ -26,11 +23,6 @@ void Game::display()
     // if (!this->_paused)
     this->_smgr->drawAll();
     this->_guienv->drawAll();
-}
-
-void Game::refreshWindow()
-{
-    this->_driver->endScene();
 }
 
 void Game::resetScene(IrrlichtDevice *window)

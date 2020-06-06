@@ -15,9 +15,9 @@ void Menu::checkHoverButton(irr::core::vector2d<s32> cursorPos)
 
 Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager)
 {
-    std::vector<Events> types = {PLAY, SETTINGS, CLOSE};
+    std::vector<Events> types = {PLAY, TO_SETTINGS, CLOSE};
 
-    checkHoverButton(window->getCursorControl()->getPosition());
+    this->checkHoverButton(window->getCursorControl()->getPosition());
     for (int i = 0; i < this->_defaultButtons.size(); i++)
         if (this->_hoverButtons[i]->isPressed())
             return types[i];
@@ -36,16 +36,8 @@ void Menu::display()
     this->_guienv->drawAll();
 }
 
-Menu::Menu(IrrlichtDevice *window)
+Menu::Menu(IrrlichtDevice *window) : AScene(window)
 {
-    this->_driver = window->getVideoDriver();
-    this->_smgr = window->getSceneManager();
-    this->_guienv = window->getGUIEnvironment();
-}
-
-void Menu::refreshWindow()
-{
-    this->_driver->endScene();
 }
 
 void Menu::resetScene(IrrlichtDevice *window)
@@ -59,18 +51,6 @@ void Menu::resetScene(IrrlichtDevice *window)
     this->_menuBackground = this->_driver->getTexture("../assets/images/backgroundMenu.png");
     this->Music_play();
     this->_title_music.play();
-}
-
-irr::gui::IGUIButton *Menu::newButton(irr::core::rect<irr::s32> pos, bool visible, irr::core::string<fschar_t> path)
-{
-    irr::gui::IGUIButton *button;
-
-    button = this->_guienv->addButton(pos, nullptr, -1, nullptr);
-    button->setUseAlphaChannel(true);
-    button->setDrawBorder(false);
-    button->setImage(this->_driver->getTexture(path));
-    button->setVisible(visible);
-    return button;
 }
 
 void Menu::createButtons()

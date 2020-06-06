@@ -15,12 +15,12 @@ const string &Irrlicht::getName(void) const
     return (this->_name);
 }
 
-IScene *Irrlicht::getScene()
+AScene *Irrlicht::getScene()
 {
     return this->_scenes[this->_status];
 }
 
-std::vector<IScene *> Irrlicht::getScenes()
+std::vector<AScene *> Irrlicht::getScenes()
 {
     return this->_scenes;
 }

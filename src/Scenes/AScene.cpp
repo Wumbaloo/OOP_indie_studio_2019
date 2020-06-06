@@ -1,0 +1,33 @@
+/*
+** EPITECH PROJECT, 2023
+** OOP_indie_studio_2019
+** File description:
+** Created by Anthony ANICOTTE,
+*/
+
+#include "Scenes.hpp"
+
+AScene::AScene(IrrlichtDevice *window)
+{
+    this->_guienv = window->getGUIEnvironment();
+    this->_smgr = window->getSceneManager();
+    this->_driver = window->getVideoDriver();
+}
+
+void AScene::refreshWindow()
+{
+    this->_driver->endScene();
+}
+
+irr::gui::IGUIButton *AScene::newButton(irr::core::rect<irr::s32> pos,
+    bool visible, irr::core::string<fschar_t> path)
+{
+    irr::gui::IGUIButton *button;
+
+    button = this->_guienv->addButton(pos, nullptr, -1, nullptr);
+    button->setUseAlphaChannel(true);
+    button->setDrawBorder(false);
+    button->setImage(this->_driver->getTexture(path));
+    button->setVisible(visible);
+    return button;
+}

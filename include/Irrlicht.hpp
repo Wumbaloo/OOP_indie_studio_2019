@@ -15,6 +15,7 @@
 #include "InputManager.hpp"
 #include "IDisplayModule.hpp"
 #include "Object.hpp"
+#include "Structures.hpp"
 
 using namespace irr;
 
@@ -24,9 +25,9 @@ class Irrlicht : public IDisplayModule
         const std::string _name;
         IrrlichtDevice *_window;
         InputManager *_inputManager = NULL;
-        std::vector<IScene *> _scenes;
+        std::vector<AScene *> _scenes;
         GameStatus _status = UNKNOWN;
-
+        settings_t *_gameSettings;
     //        video::IVideoDriver* _driver;
     public:
         Irrlicht(const std::string name);
@@ -38,9 +39,9 @@ class Irrlicht : public IDisplayModule
         void destroy(void);
         void close(void);
 
-        void addScene(IScene *scene);
-        IScene *getScene();
-        std::vector<IScene *> getScenes();
+        void addScene(AScene *scene);
+        AScene *getScene();
+        std::vector<AScene *> getScenes();
         void changeGameStatus(GameStatus);
         IrrlichtDevice *getWindow();
         InputManager *getInputManager();
