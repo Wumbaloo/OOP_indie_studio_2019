@@ -15,7 +15,7 @@ void Game::deleteWall(Model *wall, int y)
 
 void Game::BombExploded(Bomb *bomb)
 {
-    int range = this->getPlayerByName(bomb->getOwner())->getRange();
+    int range = this->getPlayerByName(bomb->getOwner())->getRange() + 1;
 
     for (int y = 0; y < MAP_HEIGHT + 2; y++) {
         for ( vector<Model *>::iterator iter = this->_map[y].begin(); iter != this->_map[y].end(); iter++ ) {
@@ -27,8 +27,10 @@ void Game::BombExploded(Bomb *bomb)
                     && (bomb->getPos().X >= (*iter)->getBoundingPos().MinEdge.X && bomb->getPos().X <= (*iter)->getBoundingPos().MaxEdge.X))
                     this->deleteWall((*iter), y);
                 else if ((bomb->getBoundingPos().MaxEdge.X < (*iter)->getBoundingPos().MinEdge.X && (bomb->getBoundingPos().MaxEdge.X + (1.5 * range)) > (*iter)->getBoundingPos().MinEdge.X)
-                    && (bomb->getPos().Z >= (*iter)->getBoundingPos().MinEdge.Z && bomb->getPos().Z <= (*iter)->getBoundingPos().MaxEdge.Z))
+                    && (bomb->getPos().Z >= (*iter)->getBoundingPos().MinEdge.Z && bomb->getPos().Z <= (*iter)->getBoundingPos().MaxEdge.Z)) {
                     this->deleteWall((*iter), y);
+                    iter--;
+                }
                 else if ((bomb->getBoundingPos().MinEdge.X > (*iter)->getBoundingPos().MaxEdge.X && (bomb->getBoundingPos().MinEdge.X - (1.5 * range)) < (*iter)->getBoundingPos().MaxEdge.X)
                     && (bomb->getPos().Z >= (*iter)->getBoundingPos().MinEdge.Z && bomb->getPos().Z <= (*iter)->getBoundingPos().MaxEdge.Z)) {
                     this->deleteWall((*iter), y);
