@@ -9,8 +9,7 @@
 
 void Game::deleteWall(Model *wall, int y)
 {
-    auto it = std::find(this->_map[y].begin(), this->_map[y].end(), wall);
-    if (it != this->_map[y].end()) { this->_map[y].erase(it); }
+    this->_map[y].erase(std::remove(this->_map[y].begin(), this->_map[y].end(), wall), this->_map[y].end());
     delete(wall);
 }
 
@@ -19,17 +18,21 @@ void Game::BombExploded(Bomb *bomb)
     int range = this->getPlayerByName(bomb->getOwner())->getRange();
 
     for (int y = 0; y < MAP_HEIGHT + 2; y++) {
-        for (Model *wall : this->_map[y]) {
-            if (wall->getType() == BREAKABLE) {
-                if ((bomb->getBoundingPos().MinEdge.Z > wall->getBoundingPos().MaxEdge.Z && (bomb->getBoundingPos().MinEdge.Z - (1.5 * range)) < wall->getBoundingPos().MaxEdge.Z)
-                    && (bomb->getPos().X >= wall->getBoundingPos().MinEdge.X && bomb->getPos().X <= wall->getBoundingPos().MaxEdge.X)) {
-                    std::cout << "lol\n";
-                    this->deleteWall(wall, y);
-                }
-                if ((bomb->getBoundingPos().MaxEdge.Z < wall->getBoundingPos().MinEdge.Z && (bomb->getBoundingPos().MaxEdge.Z + (1.5 * range)) > wall->getBoundingPos().MinEdge.Z)
-                    && (bomb->getPos().X >= wall->getBoundingPos().MinEdge.X && bomb->getPos().X <= wall->getBoundingPos().MaxEdge.X)) {
-                    std::cout << "lol\n";
-                    this->deleteWall(wall, y);
+        for ( vector<Model *>::iterator iter = this->_map[y].begin(); iter != this->_map[y].end(); iter++ ) {
+            if ((*iter)->getType() == BREAKABLE) {
+                if ((bomb->getBoundingPos().MinEdge.Z > (*iter)->getBoundingPos().MaxEdge.Z && (bomb->getBoundingPos().MinEdge.Z - (1.5 * range)) < (*iter)->getBoundingPos().MaxEdge.Z)
+                    && (bomb->getPos().X >= (*iter)->getBoundingPos().MinEdge.X && bomb->getPos().X <= (*iter)->getBoundingPos().MaxEdge.X))
+                    this->deleteWall((*iter), y);
+                else if ((bomb->getBoundingPos().MaxEdge.Z < (*iter)->getBoundingPos().MinEdge.Z && (bomb->getBoundingPos().MaxEdge.Z + (1.5 * range)) > (*iter)->getBoundingPos().MinEdge.Z)
+                    && (bomb->getPos().X >= (*iter)->getBoundingPos().MinEdge.X && bomb->getPos().X <= (*iter)->getBoundingPos().MaxEdge.X))
+                    this->deleteWall((*iter), y);
+                else if ((bomb->getBoundingPos().MaxEdge.X < (*iter)->getBoundingPos().MinEdge.X && (bomb->getBoundingPos().MaxEdge.X + (1.5 * range)) > (*iter)->getBoundingPos().MinEdge.X)
+                    && (bomb->getPos().Z >= (*iter)->getBoundingPos().MinEdge.Z && bomb->getPos().Z <= (*iter)->getBoundingPos().MaxEdge.Z))
+                    this->deleteWall((*iter), y);
+                else if ((bomb->getBoundingPos().MinEdge.X > (*iter)->getBoundingPos().MaxEdge.X && (bomb->getBoundingPos().MinEdge.X - (1.5 * range)) < (*iter)->getBoundingPos().MaxEdge.X)
+                    && (bomb->getPos().Z >= (*iter)->getBoundingPos().MinEdge.Z && bomb->getPos().Z <= (*iter)->getBoundingPos().MaxEdge.Z)) {
+                    this->deleteWall((*iter), y);
+                    iter--;
                 }
             }
         }
@@ -43,10 +46,9 @@ void Game::bombHandling(IrrlichtDevice *window, InputManager *inputManager, Play
     for (Bomb *obj : this->_bombObjects) {
         obj->setTime(window->getTimer()->getTime());
         if (obj->getTime() >= 2000) {
-            auto it = std::find(this->_bombObjects.begin(), this->_bombObjects.end(), obj);
-            if (it != this->_bombObjects.end()) { this->_bombObjects.erase(it); }
+            this->_bombObjects.erase(std::remove(this->_bombObjects.begin(), this->_bombObjects.end(), obj), this->_bombObjects.end());
             std::cout << "EXPLOSION\n";
-            // this->BombExploded(obj);
+            this->BombExploded(obj);
             delete(obj);
         }
     }
