@@ -33,7 +33,7 @@ int GameManager(Irrlicht *lib)
     lib->createWindow();
     lib->addScene(new Menu(lib->getWindow()));
     lib->addScene(new Game(lib->getWindow()));
-    lib->changeGameStatus(MENU);
+    lib->changeGameStatus(GAME);
     lib->getScene()->resetScene(lib->getWindow());
     while(lib->isWindowOpen()) {
         lib->getScene()->display();
