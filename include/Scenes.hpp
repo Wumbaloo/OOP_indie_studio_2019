@@ -121,6 +121,9 @@ class Game : public AScene
         void destroy(void);
         void close(void);
         void placeInMap(AObject *, int x, int y);
+        AObject *getObjectFromMap(int x, int y);
+        AObject *getObjectFromGame(float x, float z);
+        AObject *getObjectFromGame(core::vector3df pos);
 
         //Unused
         void createButtons() override {};
