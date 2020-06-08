@@ -39,3 +39,37 @@ void Game::resetScene(IrrlichtDevice *window)
     this->_main_music.play();
     this->createGameScene();
 }
+
+void Game::save()
+{
+    string *buffer;
+    FILE *fileStream = fopen("savefile.sav", "w");
+
+    for (int ) {
+
+    }
+}
+
+void Game::load()
+{
+    string *buffer;
+    FILE *fileStream = fopen("savefile.sav", "r");
+    size_t size_read = 0;
+    int k = 0;
+    int x = 0;
+    int z = 0;
+
+    for (int i = 0; i < MAP_HEIGHT; i++) {
+        size_read = fread(buffer, sizeof(char), MAP_WIDTH, fileStream);
+        for (int j = 0; j < MAP_HEIGHT; j++) {
+            Model *obj = NULL;
+            if (buffer->at(j) == 'x')
+                obj = this->createObject("destructible", "Square.obj", "Destruct.jpg", {(float) x, 0, (float) z}, {1, 1, 1});
+            if (buffer->at(j) != '_')
+                this->_map[k++].push_back(obj);
+            x += 2;
+            z += 2;
+        }
+    }
+    fclose(fileStream);
+}

@@ -120,6 +120,10 @@ class Game : public AScene
         void resetScene(IrrlichtDevice *) override;
         void destroy(void);
         void close(void);
+
+        // saves
+        void save(void);
+        void load(void);
         void placeInMap(AObject *, int x, int y);
         AObject *getObjectFromMap(int x, int y);
         AObject *getObjectFromGame(float x, float z);

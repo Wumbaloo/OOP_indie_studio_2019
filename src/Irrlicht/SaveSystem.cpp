@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void Irrlicht::saveParser()
+void Game::saveParser()
 {
     string *buffer;
     FILE *fileStream = fopen("savefile.sav", "r");
