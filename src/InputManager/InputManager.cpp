@@ -18,11 +18,11 @@ InputManager::InputManager(EKEY_CODE upKey, EKEY_CODE downKey, EKEY_CODE leftKey
     this->bindActionToKey(MOVE_DOWN, downKey);
     this->bindActionToKey(MOVE_LEFT, leftKey);
     this->bindActionToKey(MOVE_RIGHT, rightKey);
-    this->bindActionToKey(CLOSE, KEY_DELETE);
-    this->bindActionToKey(BOMB, KEY_SPACE);
-    this->bindActionToKey(PAUSE, KEY_ESCAPE);
-    this->bindActionToKey(BACK_MENU, KEY_KEY_B);
-    this->bindActionToKey(RESTART, KEY_KEY_R);
+    this->bindActionToKey(CLOSE, KEY_DELETE, true);
+    this->bindActionToKey(BOMB, KEY_SPACE, true);
+    this->bindActionToKey(PAUSE, KEY_ESCAPE, true);
+    this->bindActionToKey(BACK_MENU, KEY_KEY_B, true);
+    this->bindActionToKey(RESTART, KEY_KEY_R, true);
 }
 
 InputManager::~InputManager()
@@ -80,25 +80,28 @@ input_t InputManager::getKeyByKeyCode(EKEY_CODE keyCode) const
     return (this->_events.front());
 }
 
-bool InputManager::isKeyPressed(enum Events event) const
+bool InputManager::isKeyPressed(enum Events event)
 {
     for (auto itEvents = this->_events.begin(); itEvents != this->_events.end(); itEvents++) {
         if ((*itEvents).event != event)
             continue;
         for (auto it = (*itEvents).codes.begin(); it != (*itEvents).codes.end(); it++) {
-            if ((*it).isDown)
+            if ((*it).isDown) {
+                (*it).isDown = ((*it).releasedMode ? false : (*it).isDown);
                 return (true);
+            }
         }
     }
     return (false);
 }
 
-void InputManager::bindActionToKey(enum Events event, EKEY_CODE keyCode)
+void InputManager::bindActionToKey(enum Events event, EKEY_CODE keyCode, bool releasedMode)
 {
     inputKey_t inputKey;
     input_t input;
 
     inputKey.code = keyCode;
+    inputKey.releasedMode = releasedMode;
     inputKey.isDown = false;
     input.codes.push_back(inputKey);
     input.event = event;
