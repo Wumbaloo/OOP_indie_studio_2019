@@ -62,7 +62,7 @@ class Player : public AnimatedModel
 
     public:
         Player(int, scene::IAnimatedMeshSceneNode *, std::string);
-        ~Player() = default;
+        ~Player();
 
         core::vector3df getRotateFix(void) const;
         float getSpeedUp(void) const;

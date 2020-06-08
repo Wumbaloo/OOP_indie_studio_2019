@@ -73,3 +73,24 @@ void Game::load()
     }
     fclose(fileStream);
 }
+
+void Game::destroy()
+{
+    for (auto object : this->_objects)
+        delete (object);
+    this->_objects.clear();
+    for (auto object : this->_playerObjects)
+        delete (object);
+    this->_playerObjects.clear();
+    for (auto object : this->_bombObjects)
+        delete (object);
+    this->_bombObjects.clear();
+    for (auto object : this->_powerUpObjects)
+        delete (object);
+    this->_powerUpObjects.clear();
+    for (int y = 0; y < MAP_HEIGHT + 2; y++) {
+        for (auto object : this->_map[y])
+            delete (object);
+        this->_map[y].clear();
+    }
+}

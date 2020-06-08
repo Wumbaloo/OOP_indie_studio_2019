@@ -34,3 +34,14 @@ Player *Game::getPlayerByName(std::string name) const
     }
     return NULL;
 }
+
+int Game::getNbBombByOwner(std::string owner) const
+{
+    int nb = 0;
+
+    for (Bomb *obj : this->_bombObjects) {
+        if (obj->getOwner() == owner)
+            nb++;
+    }
+    return nb;
+}

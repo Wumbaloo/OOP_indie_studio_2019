@@ -19,6 +19,8 @@ Events checkTransition(Irrlicht *lib)
         case TO_SETTINGS:
             lib->changeGameStatus(SETTINGS);
             break;
+        case RESTART:
+            break;
         case CLOSE:
             return CLOSE;
         default:

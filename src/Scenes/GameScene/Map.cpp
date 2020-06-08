@@ -69,7 +69,7 @@ void Game::placeInMap(AObject *obj, int x, int y)
     obj->setPos({_x, 0, _z});
 }
 
-AObject *Game::getObjectFromGame(float x, float z)
+Model *Game::getObjectFromGame(float x, float z)
 {
     for (int i = 0; i < MAP_HEIGHT + 2; i++) {
         for (auto it = this->_map[i].begin(); it != this->_map[i].end(); it++) {
@@ -87,7 +87,7 @@ AObject *Game::getObjectFromGame(core::vector3df pos)
     return (this->getObjectFromGame((float) pos.X, (float) pos.Z));
 }
 
-Model *Game::getObjectFromMap(int x, int y)
+AObject *Game::getObjectFromMap(int x, int y)
 {
     float _x = (-(MAP_WIDTH) + this->_grid) + (x * this->_grid);
 
