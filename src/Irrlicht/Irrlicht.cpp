@@ -17,6 +17,7 @@ Irrlicht::Irrlicht(const std::string name) : _name(name)
     this->_inputManager->bindActionToKey(MOVE_UP, KEY_KEY_Z);
     this->_inputManager->bindKeyToAction(KEY_KEY_S, MOVE_DOWN);
     this->_inputManager->bindActionToKey(PAUSE, KEY_ESCAPE);
+    this->_gameSettings = new settings_t;
 }
 
 bool Irrlicht::isWindowOpen(void) const
@@ -34,7 +35,7 @@ IrrlichtDevice *Irrlicht::getWindow()
     return this->_window;
 }
 
-void Irrlicht::addScene(IScene *scene)
+void Irrlicht::addScene(AScene *scene)
 {
     this->_scenes.push_back(scene);
 }

@@ -13,6 +13,11 @@ Model::Model(scene::IMeshSceneNode *node, std::string name, ObjectType type) : A
     this->_node = node;
 }
 
+Model::~Model(void)
+{
+    this->_node->remove();
+}
+
 scene::IMeshSceneNode *Model::getSceneNode(void) const
 {
     return _node;
@@ -35,4 +40,9 @@ void Model::setPos(core::vector3df pos)
 void Model::setRotation(core::vector3df rotation)
 {
     this->_node->setRotation(rotation);
+}
+
+core::aabbox3df Model::getBoundingPos(void) const
+{
+    return this->_node->getTransformedBoundingBox();
 }

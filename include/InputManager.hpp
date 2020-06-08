@@ -14,6 +14,7 @@
 
 typedef struct inputKey_s {
     irr::EKEY_CODE code;
+    bool releasedMode;
     bool isDown;
 } inputKey_t;
 
@@ -35,9 +36,9 @@ class InputManager : public irr::IEventReceiver {
 
         enum Events getActionByKey(irr::EKEY_CODE keyCode) const;
         input_t getKeyByKeyCode(irr::EKEY_CODE keyCode) const;
-        bool isKeyPressed(enum Events event) const;
+        bool isKeyPressed(enum Events event);
 
-        void bindActionToKey(enum Events event, irr::EKEY_CODE keyCode);
+        void bindActionToKey(enum Events event, irr::EKEY_CODE keyCode, bool releasedMode = false);
         void bindKeyToAction(irr::EKEY_CODE keyCode, enum Events event);
         void removeKeysAtAction(enum Events event);
         void removeKeyAtAction(irr::EKEY_CODE keyCode, enum Events event);

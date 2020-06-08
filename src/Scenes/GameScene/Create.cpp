@@ -44,7 +44,6 @@ scene::IAnimatedMeshSceneNode *Game::createAnimatedModel(std::string modelPath, 
     return (node);
 }
 
-
 Model *Game::createObject(std::string name, std::string model, std::string texture, core::vector3df pos, core::vector3df scale, ObjectType type)
 {
     Model *NewObject = NULL;
@@ -106,7 +105,7 @@ PowerUp *Game::createPowerUpObject(PowerUpsType type, std::string name, data_ani
 void Game::createGameScene(void)
 {
     this->_playerObjects.push_back(this->createPlayerObject("player", {"guard.md3", "Guard.png",
-        {-MAP_WIDTH + 2, 0, MAP_HEIGHT - 4}, {0.05, 0.05, 0.05}, {0, 200}, 32.5}));
+        {-(MAP_WIDTH) + 2, -1, (MAP_HEIGHT) - 4}, {0.035, 0.035, 0.035}, {0, 200}, 32.5}));
     this->_powerUpObjects.push_back(this->createPowerUpObject(SPEEDUP, "speedUp", {"SpeedUp.md3", "wing_textureColor.png",
         {-(MAP_WIDTH / 2) - 5, 0, (MAP_HEIGHT / 2) - 4}, {.8, .8, .8}, {0, 31}, 20}));
     this->_powerUpObjects.push_back(this->createPowerUpObject(WALLPASS, "WallPass", {"WallPass.md3", "WallPass.bmp",

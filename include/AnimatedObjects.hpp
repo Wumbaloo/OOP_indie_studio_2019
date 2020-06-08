@@ -26,6 +26,7 @@ class AnimatedModel : public AObject
         scene::IAnimatedMeshSceneNode *getSceneNode() const;
         core::vector3df getPos(void) const;
         core::vector3df getRotation(void) const;
+        core::aabbox3df getBoundingPos(void) const override;
 
         void setPos(core::vector3df);
         void setRotation(core::vector3df);
@@ -45,6 +46,7 @@ class Bomb : public AnimatedModel
 
         u32 getTime(void) const;
         void setTime(u32 newTime);
+        std::string getOwner(void) const;
 };
 
 class Player : public AnimatedModel
@@ -74,7 +76,6 @@ class Player : public AnimatedModel
         void setWallPass(bool);
         bool isRunning(void) const;
         void changeAnimation(PlayerAnimations);
-
 };
 
 #endif

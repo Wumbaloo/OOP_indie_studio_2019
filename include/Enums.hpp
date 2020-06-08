@@ -22,12 +22,19 @@ enum Events
     END_GAME,
     BOMB,
     PAUSE,
-    SETTINGS,
+    TO_SETTINGS,
+};
+
+enum PlayerType {
+    UNDEFINED,
+    HUMAN,
+    AI
 };
 
 enum GameStatus {
     MENU,
     GAME,
+    SETTINGS,
     UNKNOWN
 };
 

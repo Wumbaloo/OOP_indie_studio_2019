@@ -15,9 +15,9 @@ void Menu::checkHoverButton(irr::core::vector2d<s32> cursorPos)
 
 Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager)
 {
-    std::vector<Events> types = {PLAY, SETTINGS, CLOSE};
+    std::vector<Events> types = {PLAY, TO_SETTINGS, CLOSE};
 
-    checkHoverButton(window->getCursorControl()->getPosition());
+    this->checkHoverButton(window->getCursorControl()->getPosition());
     for (int i = 0; i < this->_defaultButtons.size(); i++)
         if (this->_hoverButtons[i]->isPressed())
             return types[i];
@@ -36,16 +36,8 @@ void Menu::display()
     this->_guienv->drawAll();
 }
 
-Menu::Menu(IrrlichtDevice *window)
+Menu::Menu(IrrlichtDevice *window) : AScene(window)
 {
-    this->_driver = window->getVideoDriver();
-    this->_smgr = window->getSceneManager();
-    this->_guienv = window->getGUIEnvironment();
-}
-
-void Menu::refreshWindow()
-{
-    this->_driver->endScene();
 }
 
 void Menu::resetScene(IrrlichtDevice *window)
@@ -56,29 +48,17 @@ void Menu::resetScene(IrrlichtDevice *window)
     this->_defaultButtons.clear();
     this->_hoverButtons.clear();
     this->createButtons();
-    this->_menuBackground = this->_driver->getTexture("../assets/Textures/menu_background.png");
+    this->_menuBackground = this->_driver->getTexture("../assets/images/backgroundMenu.png");
     this->Music_play();
     this->_title_music.play();
 }
 
-irr::gui::IGUIButton *Menu::newButton(irr::core::rect<irr::s32> pos, bool visible, irr::core::string<fschar_t> path)
-{
-    irr::gui::IGUIButton *button;
-
-    button = this->_guienv->addButton(pos, nullptr, -1, nullptr);
-    button->setUseAlphaChannel(true);
-    button->setDrawBorder(false);
-    button->setImage(this->_driver->getTexture(path));
-    button->setVisible(visible);
-    return button;
-}
-
 void Menu::createButtons()
 {
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(0, 0, 420, 160), true, "../assets/images/playDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(450, 0, 870, 160), true, "../assets/images/settingsDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(920, 0, 1340, 160), true, "../assets/images/quitDefault.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(0, 0, 420, 160), false, "../assets/images/playHover.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(450, 0, 870, 160), false, "../assets/images/settingsHover.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(920, 0, 1340, 160), false, "../assets/images/quitHover.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 410, 690, 570), true, "../assets/images/playDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 610, 690, 770), true, "../assets/images/settingsDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 810, 690, 970), true, "../assets/images/quitDefault.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 410, 690, 570), false, "../assets/images/playHover.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 610, 690, 770), false, "../assets/images/settingsHover.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 810, 690, 970), false, "../assets/images/quitHover.png"));
 }

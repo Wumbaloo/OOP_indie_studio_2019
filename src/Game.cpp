@@ -12,19 +12,19 @@ Events checkTransition(Irrlicht *lib)
     switch (lib->getScene()->checkEvents(lib->getWindow(), lib->getInputManager())) {
         case PLAY:
             lib->changeGameStatus(GAME);
-            lib->getScene()->resetScene(lib->getWindow());
-            printf("Switched to the game ?\n");
             break;
         case BACK_MENU:
             lib->changeGameStatus(MENU);
-            lib->getScene()->resetScene(lib->getWindow());
-            printf("Switched to the menu ?\n");
+            break;
+        case TO_SETTINGS:
+            lib->changeGameStatus(SETTINGS);
             break;
         case CLOSE:
             return CLOSE;
         default:
-            break;
+            return NONE;
     }
+    lib->getScene()->resetScene(lib->getWindow());
     return NONE;
 }
 
@@ -33,7 +33,8 @@ int GameManager(Irrlicht *lib)
     lib->createWindow();
     lib->addScene(new Menu(lib->getWindow()));
     lib->addScene(new Game(lib->getWindow()));
-    lib->changeGameStatus(GAME);
+    lib->addScene(new Settings(lib->getWindow()));
+    lib->changeGameStatus(MENU);
     lib->getScene()->resetScene(lib->getWindow());
     while(lib->isWindowOpen()) {
         lib->getScene()->display();

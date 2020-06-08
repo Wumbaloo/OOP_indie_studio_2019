@@ -9,7 +9,9 @@
 #define STRUCTURE_HPP
 
 #include <iostream>
+#include <vector>
 #include <irrlicht/irrlicht.h>
+#include "Enums.hpp"
 
 using namespace std;
 
@@ -35,5 +37,13 @@ typedef struct data_animations_s
     vector2f_t frameLoop;
     float animationSpeed;
 } data_animations_t;
+
+typedef struct settings_s
+{
+    int volume = 100;
+    int nbrPlayers = 4;
+    std::vector<PlayerType> types = {HUMAN, AI, AI, AI};
+    std::vector<std::string> names = {"Human", "Bot1", "Bot2", "Bot3"};
+} settings_t;
 
 #endif
