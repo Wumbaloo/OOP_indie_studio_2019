@@ -45,9 +45,9 @@ void Game::save()
     string *buffer;
     FILE *fileStream = fopen("savefile.sav", "w");
 
-    for (int ) {
+    // for (int ) {
 
-    }
+    // }
 }
 
 void Game::load()

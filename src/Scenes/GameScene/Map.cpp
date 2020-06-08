@@ -87,7 +87,7 @@ AObject *Game::getObjectFromGame(core::vector3df pos)
     return (this->getObjectFromGame((float) pos.X, (float) pos.Z));
 }
 
-AObject *Game::getObjectFromMap(int x, int y)
+Model *Game::getObjectFromMap(int x, int y)
 {
     float _x = (-(MAP_WIDTH) + this->_grid) + (x * this->_grid);
 
@@ -98,4 +98,13 @@ AObject *Game::getObjectFromMap(int x, int y)
             return ((*it));
     }
     return (NULL);
+}
+
+core::vector2di Game::getMapPosition(AObject *object)
+{
+    core::vector3df pos = object->getPos();
+    int x = (pos.X + MAP_WIDTH) / this->_grid;
+    int y = (pos.Z + MAP_HEIGHT) / this->_grid + this->_grid;
+
+    return {x, y};
 }

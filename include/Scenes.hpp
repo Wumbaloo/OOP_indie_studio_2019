@@ -115,19 +115,22 @@ class Game : public AScene
         Model *getModelByName(std::string) const;
         Bomb *getBombByName(std::string) const;
         Player *getPlayerByName(std::string) const;
-        void makeBorderMap(void);
-        void generateMap(unsigned int);
         void resetScene(IrrlichtDevice *) override;
         void destroy(void);
         void close(void);
 
+        // map
+        void makeBorderMap(void);
+        void generateMap(unsigned int);
+        void placeInMap(AObject *, int x, int y);
+        Model *getObjectFromMap(int x, int y);
+        AObject *getObjectFromGame(float x, float z);
+        AObject *getObjectFromGame(core::vector3df pos);
+        core::vector2di getMapPosition(AObject *object);
+
         // saves
         void save(void);
         void load(void);
-        void placeInMap(AObject *, int x, int y);
-        AObject *getObjectFromMap(int x, int y);
-        AObject *getObjectFromGame(float x, float z);
-        AObject *getObjectFromGame(core::vector3df pos);
 
         //Unused
         void createButtons() override {};
