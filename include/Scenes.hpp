@@ -104,14 +104,17 @@ class Game : public AScene
         void createGameScene(void);
 
         // event
-        bool checkColision(AnimatedModel *, std::vector<Model *>[], Direction);
+        bool checkColision(AnimatedModel *, std::vector<Model *>[], Direction, bool);
         Events KeyboardEvents(InputManager *, IrrlichtDevice *);
         void BombHandling(IrrlichtDevice *window, InputManager *inputManager, Player *player);
-        void PowerUpContact(PowerUp *bonus, Player *player);
+        void PowerUpContact(PowerUp *bonus, Player *player, IrrlichtDevice *);
         void PlayerMovements(Player *, InputManager *);
         void BombExploded(Bomb *bomb);
         void deleteWall(Model *wall);
         void CheckIfNotBreakable(bool *, Bomb *, int);
+        void CheckPowerUpsColision(Player *player, IrrlichtDevice *);
+        void SpawnPowerUps(core::vector3df pos);
+        void PowerUpsTimerHandling(Player *player, IrrlichtDevice *);
 
         // others
         int getNbBombByOwner(std::string owner) const;

@@ -67,6 +67,8 @@ void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Play
         if (obj->getTime() >= 2000) {
             this->_bombObjects.erase(std::remove(this->_bombObjects.begin(), this->_bombObjects.end(), obj), this->_bombObjects.end());
             this->BombExploded(obj);
+            if (rand() % 3 == 1)
+                this->SpawnPowerUps(obj->getPos());
             delete(obj);
         }
     }

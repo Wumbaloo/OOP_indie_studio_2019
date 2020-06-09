@@ -59,6 +59,8 @@ class Player : public AnimatedModel
         float _speedUp;
         int _fireUp;
         bool _wallPass;
+        u32 _speedupTime;
+        u32 _wallpassTime;
 
     public:
         Player(int, scene::IAnimatedMeshSceneNode *, std::string);
@@ -69,11 +71,13 @@ class Player : public AnimatedModel
         int getRange(void) const;
         int getBombUp(void) const;
         bool getWallPass(void) const;
+        u32 getSpeedUpTime(void) const;
+        u32 getWallPassTime(void) const;
 
-        void setSpeedUp(float = 1.5);
+        void setSpeedUp(u32, float = 1.5);
         void setRange(int = 1);
         void setBombUp(int = 1);
-        void setWallPass(bool);
+        void setWallPass(u32, bool);
         bool isRunning(void) const;
         void changeAnimation(PlayerAnimations);
 };

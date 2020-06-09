@@ -50,9 +50,10 @@ void Player::changeAnimation(PlayerAnimations anim)
     }
 }
 
-void Player::setSpeedUp(float value) // take 1.5 by default (just call the function wihtout value)
+void Player::setSpeedUp(u32 time, float value) // take 1.5 by default (just call the function wihtout value)
 {
     this->_speedUp = value;
+    this->_speedupTime = time;
 }
 
 void Player::setRange(int value) // take 1 by default (just call the function wihtout value)
@@ -65,9 +66,10 @@ void Player::setBombUp(int value) // take 1 by default (just call the function w
     this->_bombUp += value;
 }
 
-void Player::setWallPass(bool status)
+void Player::setWallPass(u32 time, bool status)
 {
     this->_wallPass = status;
+    this->_wallpassTime = time;
 }
 
 int Player::getBombUp(void) const
@@ -82,7 +84,7 @@ float Player::getSpeedUp(void) const
 
 bool Player::getWallPass(void) const
 {
-    return this->_fireUp;
+    return this->_wallPass;
 }
 
 int Player::getRange(void) const
@@ -93,4 +95,14 @@ int Player::getRange(void) const
 core::vector3df Player::getRotateFix(void) const
 {
     return this->_rotateFix;
+}
+
+u32 Player::getSpeedUpTime(void) const
+{
+    return this->_speedupTime;
+}
+
+u32 Player::getWallPassTime(void) const
+{
+    return this->_wallpassTime;
 }

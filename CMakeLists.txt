@@ -26,6 +26,7 @@ file(GLOB SRC
         src/Scenes/GameScene/Game.cpp
         src/Scenes/GameScene/Create.cpp
         src/Scenes/GameScene/BombEvent.cpp
+        src/Scenes/GameScene/PowerUpsEvent.cpp
         src/Scenes/GameScene/Event.cpp
         src/Scenes/GameScene/Get.cpp
         src/Scenes/GameScene/Map.cpp

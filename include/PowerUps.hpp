@@ -22,7 +22,7 @@ class PowerUp : public AnimatedModel
         ~PowerUp();
 
         PowerUpsType getType(void) const;
-        void affectPlayer(Player *);
+        void affectPlayer(Player *, IrrlichtDevice *);
 };
 
 #endif
