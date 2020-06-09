@@ -44,32 +44,42 @@ void Game::PowerUpContact(PowerUp *bonus, Player *player, IrrlichtDevice *window
 
 void Game::PowerUpsTimerHandling(Player *player, IrrlichtDevice *window)
 {
-    core::vector2di playerPos;
+    core::aabbox3df playerPos;
+    core::vector2df pos;
     int count = 1;
 
-    // if (player->getWallPass() && window->getTimer()->getTime() - player->getWallPassTime() >= 3500) {
-    //     player->setWallPass(0, false);
-    //     playerPos = this->getMapPosition(player);
-    //     while (1) {
-    //         if (!getObjectFromMap(playerPos.X + count, playerPos.Y)->getType()) {
-    //             placeInMap(player, playerPos.X, playerPos.Y);
-    //             break;
-    //         }
-    //         if (!getObjectFromMap(playerPos.X - count, playerPos.Y)->getType()) {
-    //             placeInMap(player, playerPos.X, playerPos.Y);
-    //             break;
-    //         }
-    //         if (!getObjectFromMap(playerPos.X, playerPos.Y + count)->getType()) {
-    //             placeInMap(player, playerPos.X, playerPos.Y);
-    //             break;
-    //         }
-    //         if (!getObjectFromMap(playerPos.X, playerPos.Y - count)->getType()) {
-    //             placeInMap(player, playerPos.X, playerPos.Y);
-    //             break;
-    //         }
-    //         count++;
-    //     }
-    // }
+    if (player->getWallPass() && window->getTimer()->getTime() - player->getWallPassTime() >= 3500) {
+        player->setWallPass(0, false);
+        playerPos = player->getBoundingPos();
+        pos = getMapPosition({playerPos.MaxEdge.X, 0, player->getPos().Z});
+        if (!getObjectFromGame(playerPos.MaxEdge.X + count, player->getPos().Z)) {
+            cout << player->getPos().X << endl;
+            cout << player->getPos().Z << endl;
+            cout << pos.X << endl;
+            cout << pos.Y << endl;
+            placeInMap(player, pos.X + count, pos.Y);
+        //     // break;
+        }
+        // while (1) {
+        //     if (!getObjectFromMap(playerPos.X + count, playerPos.Y)->getType()) {
+        //         placeInMap(player, playerPos.X, playerPos.Y);
+        //         break;
+        //     }
+        //     if (!getObjectFromMap(playerPos.X - count, playerPos.Y)->getType()) {
+        //         placeInMap(player, playerPos.X, playerPos.Y);
+        //         break;
+        //     }
+        //     if (!getObjectFromMap(playerPos.X, playerPos.Y + count)->getType()) {
+        //         placeInMap(player, playerPos.X, playerPos.Y);
+        //         break;
+        //     }
+        //     if (!getObjectFromMap(playerPos.X, playerPos.Y - count)->getType()) {
+        //         placeInMap(player, playerPos.X, playerPos.Y);
+        //         break;
+        //     }
+        //     count++;
+        // }
+    }
     if (player->getSpeedUp() == 1.5 && window->getTimer()->getTime() - player->getSpeedUpTime() >= 5000)
         player->setSpeedUp(0, 1);
 }

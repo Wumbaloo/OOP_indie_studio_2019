@@ -129,8 +129,9 @@ void Game::createGameScene(settings_t *settings, InputManager *im)
                 {"guard.md3", std::string("Guard") + std::to_string(i + 1) + std::string(".png"), pos, {0.035, 0.035, 0.035}, {0, 200}, 32.5}, im));
         }
     }
-    // this->_powerUpObjects.push_back(this->createPowerUpObject(WALLPASS, "WallPass", {"WallPass.md3", "WallPass.bmp",
-    //     {-(MAP_WIDTH) + 2, 0, (MAP_HEIGHT) - 5}, {.7, .7, .7}, {0, 50}, 25}));
+    this->_powerUpObjects.push_back(this->createPowerUpObject(WALLPASS, "WallPass", {"WallPass.md3", "WallPass.bmp",
+        {-(MAP_WIDTH) + 2, 0, (MAP_HEIGHT) - 5}, {.7, .7, .7}, {0, 50}, 25}));
+    this->placeInMap(this->_powerUpObjects.at(0), 0, 0);
     // this->_powerUpObjects.push_back(this->createPowerUpObject(SPEEDUP, "speedUp", {"SpeedUp.md3", "wing_textureColor.png",
     //     {-(MAP_WIDTH / 2) - 5, 0, (MAP_HEIGHT / 2) - 4}, {.8, .8, .8}, {0, 31}, 20}));
     // this->_powerUpObjects.push_back(this->createPowerUpObject(BOMBUP, "BombUp", {"bombUp.md3", "Rough.png",

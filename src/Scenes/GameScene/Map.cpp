@@ -63,8 +63,10 @@ void Game::generateMap(unsigned int seed)
 
 void Game::placeInMap(AObject *obj, int x, int y)
 {
-    float _x = (-(MAP_WIDTH) + this->_grid) + (x * this->_grid);
-    float _z = -((-(MAP_HEIGHT) + 2 * this->_grid) + (y * this->_grid));
+    // float _x = (-(MAP_WIDTH) + this->_grid) + (x * this->_grid);
+    // float _z = -((-(MAP_HEIGHT) + 2 * this->_grid) + (y * this->_grid));
+    float _x = (x * 2) - 11;
+    float _z = ((y * 2) - 7) * (-1);
 
     obj->setPos({_x, 0, _z});
 }
@@ -100,15 +102,22 @@ AObject *Game::getObjectFromMap(int x, int y)
     return (NULL);
 }
 
-core::vector2di Game::getMapPosition(core::vector3df pos)
+core::vector2df Game::getMapPosition(core::vector3df pos)
 {
-    int x = (int) ceil(pos.X + MAP_WIDTH) / this->_grid;
-    int y = -((int) ceil(pos.Z - (MAP_HEIGHT - 2 * this->_grid)) / this->_grid) + 1;
+    // int x = (int) ceil(pos.X + MAP_WIDTH) / this->_grid;
+    // int y = -((int) ceil(pos.Z - (MAP_HEIGHT - 2 * this->_grid)) / this->_grid) + 1;
+    float x = 0;
+    std::cout << pos.X << " / " << pos.Z << endl;
+    if ((11 - pos.X) / 2 == 0)
+        x = (-11 - pos.X);
+    else
+        x = ((-11 - pos.X) / 2) * (-1);
+    float y = (7 - pos.Z) / 2;
 
-    return {x, y};
+    return {round(x), round(y)};
 }
 
-core::vector2di Game::getMapPosition(AObject *object)
+core::vector2df Game::getMapPosition(AObject *object)
 {
     core::vector3df pos = object->getPos();
 

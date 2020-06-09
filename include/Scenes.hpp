@@ -147,8 +147,8 @@ class Game : public AScene
         AObject *getObjectFromMap(int x, int y);
         Model *getObjectFromGame(float x, float z);
         AObject *getObjectFromGame(core::vector3df pos);
-        core::vector2di getMapPosition(AObject *object);
-        core::vector2di getMapPosition(core::vector3df pos);
+        core::vector2df getMapPosition(AObject *object);
+        core::vector2df getMapPosition(core::vector3df pos);
 
         // saves
         void save(void);
