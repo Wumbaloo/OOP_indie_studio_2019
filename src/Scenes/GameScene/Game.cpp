@@ -45,7 +45,7 @@ void Game::save()
     string *buffer;
     FILE *fileStream = fopen("savefile.sav", "w");
 
-    for (int ) {
+    for (auto obj : this->_map) {
 
     }
 }
@@ -57,18 +57,25 @@ void Game::load()
     size_t size_read = 0;
     int k = 0;
     int x = 0;
-    int z = 0;
+    int y = 0;
 
-    for (int i = 0; i < MAP_HEIGHT; i++) {
+    for (int i = 0; i < MAP_HEIGHT + 2; i++) {
         size_read = fread(buffer, sizeof(char), MAP_WIDTH, fileStream);
-        for (int j = 0; j < MAP_HEIGHT; j++) {
+        for (int j = 0; j < MAP_WIDTH; j++) {
             Model *obj = NULL;
+            if (buffer->at(j) == 'o')
+                obj = this->createObject("destructible", "Cube.obj", "Cube.jpg", {(float) 0, 0, (float) 0}, {1, 1, 1}, BREAKABLE);
             if (buffer->at(j) == 'x')
-                obj = this->createObject("destructible", "Square.obj", "Destruct.jpg", {(float) x, 0, (float) z}, {1, 1, 1});
-            if (buffer->at(j) != '_')
-                this->_map[k++].push_back(obj);
-            x += 2;
-            z += 2;
+                obj = this->createObject("wall", "Cube.obj", "Square.jpg", {(float) 0, 0, (float) 0}, {1, 1, 1}, OBSTACLE);
+            if (buffer->at(j) != '_') {
+                this->_map[i].push_back(obj);
+                if (x >= MAP_WIDTH) {
+                    x = 0;
+                    y++;
+                }
+                this->placeInMap(obj, x, y);
+            }
+            x++;
         }
     }
     fclose(fileStream);
