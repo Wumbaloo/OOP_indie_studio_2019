@@ -45,6 +45,9 @@ class Irrlicht : public IDisplayModule
         void changeGameStatus(GameStatus);
         IrrlichtDevice *getWindow();
         InputManager *getInputManager();
+        settings_t *getSettings();
+
+        void saveParser(); // en void temporairement le temps de savoir ce que sera le type qui sera return
 };
 
 #endif

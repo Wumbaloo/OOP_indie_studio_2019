@@ -12,6 +12,7 @@ int main()
 {
     Irrlicht *lib = new Irrlicht("Irrlicht");
 
+    srand(time(0));
     GameManager(lib);
     return 0;
 }

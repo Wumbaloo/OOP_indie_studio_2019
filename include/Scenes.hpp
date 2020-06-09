@@ -27,8 +27,8 @@ class AScene
         irr::gui::IGUIButton *newButton(irr::core::rect<irr::s32> pos,
             bool visible, irr::core::string<fschar_t> path);
         virtual void display() = 0;
-        virtual Events checkEvents(IrrlichtDevice *, InputManager *) = 0;
-        virtual void resetScene(IrrlichtDevice *) = 0;
+        virtual Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) = 0;
+        virtual void resetScene(IrrlichtDevice *, settings_t *, InputManager *) = 0;
         virtual void createButtons() = 0;
         virtual void checkHoverButton(irr::core::vector2d<s32> cursorPos) = 0;
 };
@@ -47,8 +47,8 @@ class Menu : public AScene
         ~Menu() = default;
 
         void display() override;
-        Events checkEvents(IrrlichtDevice *, InputManager *) override;
-        void resetScene(IrrlichtDevice *) override;
+        Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
+        void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
         void createButtons() override;
         void checkHoverButton(irr::core::vector2d<s32> cursorPos) override;
         void close(void);
@@ -60,17 +60,32 @@ class Settings : public AScene
         video::ITexture *_settingsBackground;
         irr::gui::IGUIButton *_menuButtonDefault;
         irr::gui::IGUIButton *_menuButtonHover;
+        irr::gui::IGUISpinBox *_volumeBox;
+        std::vector<irr::gui::IGUIEditBox *> _nameBoxes;
+        std::vector<irr::gui::IGUIListBox *> _listBoxes;
         std::vector<irr::gui::IGUICheckBox *> _checkboxes;
 
     public:
         explicit Settings(IrrlichtDevice *);
         ~Settings() = default;
 
-        Events checkEvents(IrrlichtDevice *, InputManager *) override;
+        void generateSettings(settings_t *);
+        void generateNameBoxes(settings_t *);
+        void generateListBoxes(settings_t *);
+        void generateCheckBoxes(settings_t *);
+        irr::gui::IGUIEditBox *newNameBox(const wchar_t *, irr::core::rect<s32>, bool);
+        irr::gui::IGUIListBox *newListBox(irr::core::rect<s32>, PlayerType, bool);
+        irr::gui::IGUICheckBox *newCheckBox(irr::core::rect<s32>, bool);
+        Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
+        void checkEditBoxUpdate(settings_t *);
+        void checkListBoxUpdate(settings_t *);
+        void checkCheckBoxUpdate(settings_t *);
+        void updateEnabledPlayers(settings_t *);
+        void updateSettings(settings_t *);
         void display() override;
         void createButtons() override;
         void checkHoverButton(irr::core::vector2d<s32> cursorPos) override;
-        void resetScene(IrrlichtDevice *) override;
+        void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
 };
 
 class Game : public AScene
@@ -91,34 +106,37 @@ class Game : public AScene
         void Music_play();
         Game(IrrlichtDevice *);
         ~Game() = default;
-        Events checkEvents(IrrlichtDevice *, InputManager *) override;
+        Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
         void display(void) override;
 
         // create
         Model *createObject(std::string, std::string, std::string, core::vector3df, core::vector3df, ObjectType type = NOTYPE);
-        Player *createPlayerObject(std::string, data_animations_t);
+        Player *createPlayerObject(int, std::string, data_animations_t, InputManager *);
         Bomb *createBombObject(std::string, data_animations_t, std::string, u32);
         PowerUp *createPowerUpObject(PowerUpsType, std::string, data_animations_t);
         scene::IAnimatedMeshSceneNode *createAnimatedModel(std::string, std::string, data_animations_t);
         scene::IMeshSceneNode *createModel(std::string, std::string);
-        void createGameScene(void);
+        void createGameScene(settings_t *, InputManager *);
 
         // event
-        bool checkColision(AnimatedModel *, std::vector<Model *>[], Direction);
+        bool checkColision(AnimatedModel *, std::vector<Model *>[], Direction, bool);
         Events KeyboardEvents(InputManager *, IrrlichtDevice *);
         void BombHandling(IrrlichtDevice *window, InputManager *inputManager, Player *player);
-        void PowerUpContact(PowerUp *bonus, Player *player);
+        void PowerUpContact(PowerUp *bonus, Player *player, IrrlichtDevice *);
         void PlayerMovements(Player *, InputManager *);
         void BombExploded(Bomb *bomb);
         void deleteWall(Model *wall);
         void CheckIfNotBreakable(bool *, Bomb *, int);
+        void CheckPowerUpsColision(Player *player, IrrlichtDevice *);
+        void SpawnPowerUps(core::vector3df pos);
+        void PowerUpsTimerHandling(Player *player, IrrlichtDevice *);
 
         // others
         int getNbBombByOwner(std::string owner) const;
         Model *getModelByName(std::string) const;
         Bomb *getBombByName(std::string) const;
         Player *getPlayerByName(std::string) const;
-        void resetScene(IrrlichtDevice *) override;
+        void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
         void destroy(void);
         void close(void);
 

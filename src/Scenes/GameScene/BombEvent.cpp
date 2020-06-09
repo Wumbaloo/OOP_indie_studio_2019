@@ -67,10 +67,12 @@ void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Play
         if (obj->getTime() >= 2000) {
             this->_bombObjects.erase(std::remove(this->_bombObjects.begin(), this->_bombObjects.end(), obj), this->_bombObjects.end());
             this->BombExploded(obj);
+            if (rand() % 3 == 1)
+                this->SpawnPowerUps(obj->getPos());
             delete(obj);
         }
     }
-    if (inputManager->isKeyPressed(BOMB)) {
+    if (inputManager->isKeyPressed(player->getBombEvent())) {
         if (getNbBombByOwner(player->getName()) < player->getBombUp())
             this->_bombObjects.push_back(this->createBombObject("bomb", {"bomb_animated.md3", "bomb.png", {player->getPos()}, {.8, .8, .8}, {0, 20}, 20}, player->getName(), window->getTimer()->getTime()));
     }

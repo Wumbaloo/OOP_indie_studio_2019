@@ -29,3 +29,8 @@ InputManager *Irrlicht::getInputManager()
 {
     return this->_inputManager;
 }
+
+settings_t *Irrlicht::getSettings()
+{
+    return this->_gameSettings;
+}

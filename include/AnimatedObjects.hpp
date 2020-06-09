@@ -12,6 +12,7 @@
 #include <irrlicht/irrlicht.h>
 #include "Object.hpp"
 #include "Enums.hpp"
+#include "InputManager.hpp"
 
 class AnimatedModel : public AObject
 {
@@ -53,15 +54,22 @@ class Player : public AnimatedModel
 {
     private:
         core::vector3df _rotateFix;
+        unsigned int _nb;
         bool _running;
         int _health;
         int _bombUp;
         float _speedUp;
         int _fireUp;
         bool _wallPass;
+        u32 _speedupTime;
+        u32 _wallpassTime;
+        enum Events _upEvent;
+        enum Events _downEvent;
+        enum Events _leftEvent;
+        enum Events _rightEvent;
 
     public:
-        Player(int, scene::IAnimatedMeshSceneNode *, std::string);
+        Player(int, scene::IAnimatedMeshSceneNode *, std::string, InputManager *);
         ~Player();
 
         core::vector3df getRotateFix(void) const;
@@ -69,11 +77,18 @@ class Player : public AnimatedModel
         int getRange(void) const;
         int getBombUp(void) const;
         bool getWallPass(void) const;
+        u32 getSpeedUpTime(void) const;
+        u32 getWallPassTime(void) const;
+        enum Events getUpEvent(void) const;
+        enum Events getDownEvent(void) const;
+        enum Events getLeftEvent(void) const;
+        enum Events getRightEvent(void) const;
+        enum Events getBombEvent(void) const;
 
-        void setSpeedUp(float = 1.5);
+        void setSpeedUp(u32, float = 1.5);
         void setRange(int = 1);
         void setBombUp(int = 1);
-        void setWallPass(bool);
+        void setWallPass(u32, bool);
         bool isRunning(void) const;
         void changeAnimation(PlayerAnimations);
 };

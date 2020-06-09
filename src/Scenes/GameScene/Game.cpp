@@ -8,8 +8,6 @@
 // #include <IrrlichtDevice.h>
 #include "IndieStudio.hpp"
 
-bool isBorderNext(vector2f_t pos, vector2f_t height, vector2f_t width, float step, float range);
-
 Game::Game(IrrlichtDevice *window) : AScene(window)
 {
     this->_paused = false;
@@ -25,7 +23,7 @@ void Game::display()
     this->_guienv->drawAll();
 }
 
-void Game::resetScene(IrrlichtDevice *window)
+void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *im)
 {
     printf("I'm resetting the game\n");
     this->_driver->removeAllTextures();
@@ -37,7 +35,7 @@ void Game::resetScene(IrrlichtDevice *window)
     this->_then = window->getTimer()->getTime();
     this->Music_play();
     this->_main_music.play();
-    this->createGameScene();
+    this->createGameScene(settings, im);
 }
 
 void Game::save()

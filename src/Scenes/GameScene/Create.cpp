@@ -60,7 +60,7 @@ Model *Game::createObject(std::string name, std::string model, std::string textu
     return NewObject;
 }
 
-Player *Game::createPlayerObject(std::string name, data_animations_t data)
+Player *Game::createPlayerObject(int nb, std::string name, data_animations_t data, InputManager *im)
 {
     Player *NewObject = NULL;
     scene::IAnimatedMeshSceneNode *object;
@@ -70,7 +70,7 @@ Player *Game::createPlayerObject(std::string name, data_animations_t data)
         std::cout << "Failed to create a model" << std::endl;
         exit(84);
     }
-    NewObject = new Player(100, object, name);
+    NewObject = new Player(nb, object, name, im);
     return NewObject;
 }
 
@@ -99,20 +99,43 @@ PowerUp *Game::createPowerUpObject(PowerUpsType type, std::string name, data_ani
         exit(84);
     }
     NewObject = new PowerUp(object, name, type);
+    // placeInMap(NewObject, data.pos.X, data.pos.Z);
     return NewObject;
 }
 
-void Game::createGameScene(void)
+void Game::createGameScene(settings_t *settings, InputManager *im)
 {
-    this->_playerObjects.push_back(this->createPlayerObject("player", {"guard.md3", "Guard.png",
-        {-(MAP_WIDTH) + 2, -1, (MAP_HEIGHT) - 4}, {0.035, 0.035, 0.035}, {0, 200}, 32.5}));
-    this->_powerUpObjects.push_back(this->createPowerUpObject(SPEEDUP, "speedUp", {"SpeedUp.md3", "wing_textureColor.png",
-        {-(MAP_WIDTH / 2) - 5, 0, (MAP_HEIGHT / 2) - 4}, {.8, .8, .8}, {0, 31}, 20}));
-    this->_powerUpObjects.push_back(this->createPowerUpObject(WALLPASS, "WallPass", {"WallPass.md3", "WallPass.bmp",
-        {-(MAP_WIDTH / 2) - 10, 0, (MAP_HEIGHT / 2) - 4}, {.7, .7, .7}, {0, 50}, 25}));
-    this->_powerUpObjects.push_back(this->createPowerUpObject(BOMBUP, "BombUp", {"bombUp.md3", "Rough.png",
-        {-(MAP_WIDTH / 2) - 15, 0, (MAP_HEIGHT / 2) - 4}, {.7, .7, .7}, {0, 50}, 25}));
-    this->_powerUpObjects.push_back(this->createPowerUpObject(FIREUP, "FireUp", {"FireUp.md3", "FireUp.png",
-        {-(MAP_WIDTH / 2) - 20, 0, (MAP_HEIGHT / 2) - 4}, {.7, .7, .7}, {0, 62}, 25}));
+    for (int i = 0; i < settings->types.size(); i++) {
+        if (settings->types.at(i) == HUMAN || settings->types.at(i) == AI) {
+            std::string name = std::string("Player ") + std::to_string(i);
+            irr::core::vector3df pos;
+
+            switch (i + 1) {
+                default:
+                case 1:
+                    pos = {-(MAP_WIDTH) + 2, -1, (MAP_HEIGHT) - 4};
+                    break;
+                case 2:
+                    pos = {(MAP_WIDTH), -1, -(MAP_HEIGHT) - 2};
+                    break;
+                case 3:
+                    pos = {(MAP_WIDTH), -1, (MAP_HEIGHT) - 4};
+                    break;
+                case 4:
+                    pos = {-(MAP_WIDTH) + 2, -1, -(MAP_HEIGHT) - 2};
+                    break;
+            }
+            this->_playerObjects.push_back(this->createPlayerObject(i + 1, name,
+                {"guard.md3", std::string("Guard") + std::to_string(i + 1) + std::string(".png"), pos, {0.035, 0.035, 0.035}, {0, 200}, 32.5}, im));
+        }
+    }
+    // this->_powerUpObjects.push_back(this->createPowerUpObject(WALLPASS, "WallPass", {"WallPass.md3", "WallPass.bmp",
+    //     {-(MAP_WIDTH) + 2, 0, (MAP_HEIGHT) - 5}, {.7, .7, .7}, {0, 50}, 25}));
+    // this->_powerUpObjects.push_back(this->createPowerUpObject(SPEEDUP, "speedUp", {"SpeedUp.md3", "wing_textureColor.png",
+    //     {-(MAP_WIDTH / 2) - 5, 0, (MAP_HEIGHT / 2) - 4}, {.8, .8, .8}, {0, 31}, 20}));
+    // this->_powerUpObjects.push_back(this->createPowerUpObject(BOMBUP, "BombUp", {"bombUp.md3", "Rough.png",
+    //     {-(MAP_WIDTH / 2) - 15, 0, (MAP_HEIGHT / 2) - 4}, {.7, .7, .7}, {0, 50}, 25}));
+    // this->_powerUpObjects.push_back(this->createPowerUpObject(FIREUP, "FireUp", {"FireUp.md3", "FireUp.png",
+    //     {-(MAP_WIDTH / 2) - 20, 0, (MAP_HEIGHT / 2) - 4}, {.7, .7, .7}, {0, 62}, 25}));
     this->generateMap(time(nullptr));
 }

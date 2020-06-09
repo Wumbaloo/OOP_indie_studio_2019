@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.11)
 
+set(CMAKE_BUILD_TYPE Debug)
+
 
 project(OOP_indie_studio_2019)
 
@@ -26,11 +28,14 @@ file(GLOB SRC
         src/Scenes/GameScene/Game.cpp
         src/Scenes/GameScene/Create.cpp
         src/Scenes/GameScene/BombEvent.cpp
+        src/Scenes/GameScene/PowerUpsEvent.cpp
         src/Scenes/GameScene/Event.cpp
         src/Scenes/GameScene/Get.cpp
         src/Scenes/GameScene/Map.cpp
         src/Scenes/MenuScene/Menu.cpp
         src/Scenes/SettingsScene/Settings.cpp
+        src/Scenes/SettingsScene/GenerateSettings.cpp
+        src/Scenes/SettingsScene/CreateSettingsTools.cpp
         src/Scenes/AScene.cpp
         )
 

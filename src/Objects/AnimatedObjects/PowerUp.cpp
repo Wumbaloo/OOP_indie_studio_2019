@@ -23,20 +23,20 @@ PowerUpsType PowerUp::getType() const
     return this->_type;
 }
 
-void PowerUp::affectPlayer(Player *player)
+void PowerUp::affectPlayer(Player *player, IrrlichtDevice *window)
 {
     switch(this->_type) {
         case BOMBUP:
             player->setBombUp();
             break;
         case SPEEDUP:
-            player->setSpeedUp();
+            player->setSpeedUp(window->getTimer()->getTime());
             break;
         case FIREUP:
             player->setRange();
             break;
         case WALLPASS:
-            player->setWallPass(true);
+            player->setWallPass(window->getTimer()->getTime(), true);
             break;
         default:
             std::cout << "A powerUp has no type\n";
