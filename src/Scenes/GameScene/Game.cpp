@@ -8,8 +8,6 @@
 // #include <IrrlichtDevice.h>
 #include "IndieStudio.hpp"
 
-bool isBorderNext(vector2f_t pos, vector2f_t height, vector2f_t width, float step, float range);
-
 Game::Game(IrrlichtDevice *window) : AScene(window)
 {
     this->_paused = false;
