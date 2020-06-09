@@ -27,7 +27,7 @@ class InputManager : public irr::IEventReceiver {
     private:
         std::vector<input_t> _events;
     public:
-        InputManager(irr::EKEY_CODE upKey = irr::KEY_KEY_Z, irr::EKEY_CODE downKey = irr::KEY_KEY_S, irr::EKEY_CODE leftKey = irr::KEY_KEY_Q, irr::EKEY_CODE rightKey = irr::KEY_KEY_D);
+        InputManager();
 
         ~InputManager();
 

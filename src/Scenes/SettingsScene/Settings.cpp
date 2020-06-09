@@ -92,7 +92,7 @@ void Settings::createButtons()
     this->_menuButtonHover = this->newButton(irr::core::rect<irr::s32>(10, 850, 430, 1010), false, "../assets/images/quitHover.png");
 }
 
-void Settings::resetScene(IrrlichtDevice *window, settings_t *settings)
+void Settings::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *im)
 {
     this->_nameBoxes.clear();
     this->_listBoxes.clear();

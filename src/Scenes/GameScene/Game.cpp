@@ -23,7 +23,7 @@ void Game::display()
     this->_guienv->drawAll();
 }
 
-void Game::resetScene(IrrlichtDevice *window, settings_t *settings)
+void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *im)
 {
     printf("I'm resetting the game\n");
     this->_driver->removeAllTextures();
@@ -35,7 +35,7 @@ void Game::resetScene(IrrlichtDevice *window, settings_t *settings)
     this->_then = window->getTimer()->getTime();
     this->Music_play();
     this->_main_music.play();
-    this->createGameScene();
+    this->createGameScene(settings, im);
 }
 
 void Game::save()

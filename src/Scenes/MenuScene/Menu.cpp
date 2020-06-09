@@ -40,7 +40,7 @@ Menu::Menu(IrrlichtDevice *window) : AScene(window)
 {
 }
 
-void Menu::resetScene(IrrlichtDevice *window, settings_t *settings)
+void Menu::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *im)
 {
     this->_guienv->clear();
     this->_smgr->clear();

@@ -47,19 +47,19 @@ void Game::PlayerMovements(Player *player, InputManager *inputManager)
 {
     core::vector3df nodePosition = player->getPos();
 
-    if (inputManager->isKeyPressed(MOVE_UP) && (checkColision(player, this->_map, UP, player->getWallPass())) ) {
+    if (inputManager->isKeyPressed(player->getUpEvent()) && (checkColision(player, this->_map, UP, player->getWallPass())) ) {
         nodePosition.Z += PLAYER_SPEED * this->_frameDeltaTime * player->getSpeedUp();
         player->setRotation((core::vector3df){0.f, 180.f, .0f} - player->getRotateFix());
         player->changeAnimation(RUNNING);
-    } else if (inputManager->isKeyPressed(MOVE_DOWN) && (checkColision(player, this->_map, DOWN, player->getWallPass())) ) {
+    } else if (inputManager->isKeyPressed(player->getDownEvent()) && (checkColision(player, this->_map, DOWN, player->getWallPass())) ) {
         nodePosition.Z -= PLAYER_SPEED * this->_frameDeltaTime * player->getSpeedUp();
         player->setRotation((core::vector3df){0.f, 0.f, 0.f} - player->getRotateFix());
         player->changeAnimation(RUNNING);
-    } else if (inputManager->isKeyPressed(MOVE_LEFT) && (checkColision(player, this->_map, LEFT, player->getWallPass())) ) {
+    } else if (inputManager->isKeyPressed(player->getLeftEvent()) && (checkColision(player, this->_map, LEFT, player->getWallPass())) ) {
         nodePosition.X -= PLAYER_SPEED * this->_frameDeltaTime * player->getSpeedUp();
         player->setRotation((core::vector3df){0.f, 90.f, 0.f} - player->getRotateFix());
         player->changeAnimation(RUNNING);
-    } else if (inputManager->isKeyPressed(MOVE_RIGHT) && (checkColision(player, this->_map, RIGHT, player->getWallPass())) ) {
+    } else if (inputManager->isKeyPressed(player->getRightEvent()) && (checkColision(player, this->_map, RIGHT, player->getWallPass())) ) {
         nodePosition.X += PLAYER_SPEED * this->_frameDeltaTime * player->getSpeedUp();
         player->setRotation((core::vector3df){0.f, -90.f, 0.f} - player->getRotateFix());
         player->changeAnimation(RUNNING);
@@ -75,10 +75,6 @@ void Game::PlayerMovements(Player *player, InputManager *inputManager)
 
 Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
 {
-    Player *player = this->getPlayerByName("player");
-
-    if (!player)
-        return NONE;
     if (inputManager->isKeyPressed(CLOSE)) {
         this->destroy();
         return CLOSE;
@@ -96,9 +92,11 @@ Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
         this->destroy();
         return BACK_MENU;
     }
-    this->CheckPowerUpsColision(player, window);
-    this->BombHandling(window, inputManager, player);
-    this->PlayerMovements(player, inputManager);
+    for (auto player = this->_playerObjects.begin(); player != this->_playerObjects.end(); player++) {
+        this->CheckPowerUpsColision((*player), window);
+        this->BombHandling(window, inputManager, (*player));
+        this->PlayerMovements((*player), inputManager);
+    }
     return NONE;
 }
 

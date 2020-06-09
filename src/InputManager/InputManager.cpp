@@ -12,14 +12,9 @@
 
 using namespace irr;
 
-InputManager::InputManager(EKEY_CODE upKey, EKEY_CODE downKey, EKEY_CODE leftKey, EKEY_CODE rightKey)
+InputManager::InputManager()
 {
-    this->bindActionToKey(MOVE_UP, upKey);
-    this->bindActionToKey(MOVE_DOWN, downKey);
-    this->bindActionToKey(MOVE_LEFT, leftKey);
-    this->bindActionToKey(MOVE_RIGHT, rightKey);
     this->bindActionToKey(CLOSE, KEY_DELETE, true);
-    this->bindActionToKey(BOMB, KEY_SPACE, true);
     this->bindActionToKey(PAUSE, KEY_ESCAPE, true);
     this->bindActionToKey(BACK_MENU, KEY_KEY_B, true);
     this->bindActionToKey(RESTART, KEY_KEY_R, true);

@@ -26,7 +26,7 @@ Events checkTransition(Irrlicht *lib)
         default:
             return NONE;
     }
-    lib->getScene()->resetScene(lib->getWindow(), lib->getSettings());
+    lib->getScene()->resetScene(lib->getWindow(), lib->getSettings(), lib->getInputManager());
     return NONE;
 }
 
@@ -37,7 +37,7 @@ int GameManager(Irrlicht *lib)
     lib->addScene(new Game(lib->getWindow()));
     lib->addScene(new Settings(lib->getWindow()));
     lib->changeGameStatus(MENU);
-    lib->getScene()->resetScene(lib->getWindow(), lib->getSettings());
+    lib->getScene()->resetScene(lib->getWindow(), lib->getSettings(), lib->getInputManager());
     while(lib->isWindowOpen()) {
         lib->getScene()->display();
         lib->getScene()->refreshWindow();

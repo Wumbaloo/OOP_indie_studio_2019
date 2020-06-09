@@ -28,7 +28,7 @@ class AScene
             bool visible, irr::core::string<fschar_t> path);
         virtual void display() = 0;
         virtual Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) = 0;
-        virtual void resetScene(IrrlichtDevice *, settings_t *) = 0;
+        virtual void resetScene(IrrlichtDevice *, settings_t *, InputManager *) = 0;
         virtual void createButtons() = 0;
         virtual void checkHoverButton(irr::core::vector2d<s32> cursorPos) = 0;
 };
@@ -48,7 +48,7 @@ class Menu : public AScene
 
         void display() override;
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
-        void resetScene(IrrlichtDevice *, settings_t *) override;
+        void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
         void createButtons() override;
         void checkHoverButton(irr::core::vector2d<s32> cursorPos) override;
         void close(void);
@@ -85,7 +85,7 @@ class Settings : public AScene
         void display() override;
         void createButtons() override;
         void checkHoverButton(irr::core::vector2d<s32> cursorPos) override;
-        void resetScene(IrrlichtDevice *, settings_t *) override;
+        void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
 };
 
 class Game : public AScene
@@ -111,12 +111,12 @@ class Game : public AScene
 
         // create
         Model *createObject(std::string, std::string, std::string, core::vector3df, core::vector3df, ObjectType type = NOTYPE);
-        Player *createPlayerObject(std::string, data_animations_t);
+        Player *createPlayerObject(int, std::string, data_animations_t, InputManager *);
         Bomb *createBombObject(std::string, data_animations_t, std::string, u32);
         PowerUp *createPowerUpObject(PowerUpsType, std::string, data_animations_t);
         scene::IAnimatedMeshSceneNode *createAnimatedModel(std::string, std::string, data_animations_t);
         scene::IMeshSceneNode *createModel(std::string, std::string);
-        void createGameScene(void);
+        void createGameScene(settings_t *, InputManager *);
 
         // event
         bool checkColision(AnimatedModel *, std::vector<Model *>[], Direction, bool);
@@ -136,7 +136,7 @@ class Game : public AScene
         Model *getModelByName(std::string) const;
         Bomb *getBombByName(std::string) const;
         Player *getPlayerByName(std::string) const;
-        void resetScene(IrrlichtDevice *, settings_t *) override;
+        void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
         void destroy(void);
         void close(void);
 
