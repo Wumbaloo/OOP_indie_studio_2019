@@ -13,7 +13,7 @@ void Menu::checkHoverButton(irr::core::vector2d<s32> cursorPos)
         this->_hoverButtons[i]->setVisible(this->_defaultButtons[i]->isPointInside(cursorPos));
 }
 
-Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager)
+Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
 {
     std::vector<Events> types = {PLAY, TO_SETTINGS, CLOSE};
 
@@ -40,7 +40,7 @@ Menu::Menu(IrrlichtDevice *window) : AScene(window)
 {
 }
 
-void Menu::resetScene(IrrlichtDevice *window)
+void Menu::resetScene(IrrlichtDevice *window, settings_t *settings)
 {
     this->_guienv->clear();
     this->_smgr->clear();

@@ -9,7 +9,7 @@
 
 Events checkTransition(Irrlicht *lib)
 {
-    switch (lib->getScene()->checkEvents(lib->getWindow(), lib->getInputManager())) {
+    switch (lib->getScene()->checkEvents(lib->getWindow(), lib->getInputManager(), lib->getSettings())) {
         case PLAY:
             lib->changeGameStatus(GAME);
             break;
@@ -26,7 +26,7 @@ Events checkTransition(Irrlicht *lib)
         default:
             return NONE;
     }
-    lib->getScene()->resetScene(lib->getWindow());
+    lib->getScene()->resetScene(lib->getWindow(), lib->getSettings());
     return NONE;
 }
 
@@ -37,7 +37,7 @@ int GameManager(Irrlicht *lib)
     lib->addScene(new Game(lib->getWindow()));
     lib->addScene(new Settings(lib->getWindow()));
     lib->changeGameStatus(MENU);
-    lib->getScene()->resetScene(lib->getWindow());
+    lib->getScene()->resetScene(lib->getWindow(), lib->getSettings());
     while(lib->isWindowOpen()) {
         lib->getScene()->display();
         lib->getScene()->refreshWindow();

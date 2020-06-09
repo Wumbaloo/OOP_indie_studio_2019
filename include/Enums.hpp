@@ -26,7 +26,6 @@ enum Events
 };
 
 enum PlayerType {
-    UNDEFINED,
     HUMAN,
     AI
 };

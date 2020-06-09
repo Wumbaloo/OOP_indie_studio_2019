@@ -102,7 +102,7 @@ Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
     return NONE;
 }
 
-Events Game::checkEvents(IrrlichtDevice *window, InputManager *inputManager)
+Events Game::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
 {
     const u32 now = window->getTimer()->getTime();
 

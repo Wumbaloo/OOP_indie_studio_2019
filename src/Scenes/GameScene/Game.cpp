@@ -23,7 +23,7 @@ void Game::display()
     this->_guienv->drawAll();
 }
 
-void Game::resetScene(IrrlichtDevice *window)
+void Game::resetScene(IrrlichtDevice *window, settings_t *settings)
 {
     printf("I'm resetting the game\n");
     this->_driver->removeAllTextures();

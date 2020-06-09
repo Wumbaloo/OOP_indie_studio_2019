@@ -16,9 +16,58 @@ void Settings::checkHoverButton(irr::core::vector2d<s32> cursorPos)
     this->_menuButtonHover->setVisible(this->_menuButtonDefault->isPointInside(cursorPos));
 }
 
-Events Settings::checkEvents(IrrlichtDevice *window, InputManager *inputManager)
+void Settings::checkEditBoxUpdate(settings_t *settings)
+{
+    for (int i = 0; i < 4; i++)
+        settings->names[i] = std::wstring(this->_nameBoxes[i]->getText());
+}
+
+void Settings::checkListBoxUpdate(settings_t *settings)
+{
+    for (int i = 0; i < 4; i++)
+        settings->types[i] = static_cast<PlayerType>(this->_listBoxes[i]->getSelected());
+}
+
+void Settings::checkCheckBoxUpdate(settings_t *settings)
+{
+    int cpt = 0;
+
+    for (int i = 0; i < 4; i++) {
+        settings->playing[i] = this->_checkboxes[i]->isChecked();
+        cpt += this->_checkboxes[i]->isChecked();
+    }
+    settings->nbrPlayers = cpt;
+}
+
+void Settings::updateEnabledPlayers(settings_t *settings)
+{
+
+    for (int i = 0; i < 4; i++) {
+        this->_nameBoxes[i]->setEnabled(settings->playing[i]);
+        this->_listBoxes[i]->setEnabled(settings->playing[i]);
+    }
+}
+
+void Settings::updateSettings(settings_t *settings)
+{
+    this->checkEditBoxUpdate(settings);
+    this->checkListBoxUpdate(settings);
+    this->checkCheckBoxUpdate(settings);
+    this->updateEnabledPlayers(settings);
+}
+
+Events Settings::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
 {
     this->checkHoverButton(window->getCursorControl()->getPosition());
+    for (int i = 0; settings->nbrPlayers < 2; i++) {
+        if (!settings->playing[i]) {
+            settings->playing[i] = true;
+            settings->nbrPlayers++;
+            this->_checkboxes[i]->setChecked(true);
+            this->updateEnabledPlayers(settings);
+        }
+    }
+    this->updateSettings(settings);
     if (inputManager->isKeyPressed(CLOSE))
         return CLOSE;
     if (this->_menuButtonHover->isPressed())
@@ -43,17 +92,15 @@ void Settings::createButtons()
     this->_menuButtonHover = this->newButton(irr::core::rect<irr::s32>(10, 850, 430, 1010), false, "../assets/images/quitHover.png");
 }
 
-void Settings::resetScene(IrrlichtDevice *window)
+void Settings::resetScene(IrrlichtDevice *window, settings_t *settings)
 {
+    this->_nameBoxes.clear();
+    this->_listBoxes.clear();
+    this->_checkboxes.clear();
     this->_guienv->clear();
     this->_smgr->clear();
     this->_driver->removeAllTextures();
     this->_settingsBackground = this->_driver->getTexture("../assets/images/backgroundMenu.png");
     this->createButtons();
-    //    this->_guienv->addCheckBox(true, irr::core::rect<irr::s32>(0, 0, 50, 50),
-//        nullptr, -1);
-//    this->_guienv->addEditBox(L"Anthony", irr::core::rect<irr::s32>(0, 0, 100, 20), true, nullptr, -1);
-//    irr::gui::IGUISpinBox *test = this->_guienv->addSpinBox(L"100", irr::core::rect<irr::s32>(0, 0, 50, 20), true, nullptr, -1);
-//    test->setDecimalPlaces(0);
-//    test->setRange(0, 100);
+    this->generateSettings(settings);
 }
