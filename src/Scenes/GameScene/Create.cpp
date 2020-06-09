@@ -106,7 +106,7 @@ PowerUp *Game::createPowerUpObject(PowerUpsType type, std::string name, data_ani
 void Game::createGameScene(settings_t *settings, InputManager *im)
 {
     for (int i = 0; i < settings->types.size(); i++) {
-        if (settings->types.at(i) == HUMAN || settings->types.at(i) == AI) {
+        if (settings->playing.at(i) == true) {
             std::string name = std::string("Player ") + std::to_string(i);
             irr::core::vector3df pos;
 
