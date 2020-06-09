@@ -23,6 +23,8 @@ enum Events
     BOMB,
     PAUSE,
     TO_SETTINGS,
+    SAVE_GAME,
+    LOAD_GAME,
 };
 
 enum PlayerType {
