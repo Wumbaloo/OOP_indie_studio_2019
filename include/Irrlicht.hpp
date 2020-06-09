@@ -26,7 +26,7 @@ class Irrlicht : public IDisplayModule
         IrrlichtDevice *_window;
         InputManager *_inputManager = NULL;
         std::vector<AScene *> _scenes;
-        GameStatus _status = UNKNOWN;
+        GameStatus _status = MENU;
         settings_t *_gameSettings;
     //        video::IVideoDriver* _driver;
     public:

@@ -14,6 +14,13 @@ AScene::AScene(IrrlichtDevice *window)
     this->_driver = window->getVideoDriver();
 }
 
+void AScene::checkHoverButton(irr::core::vector2d<s32> cursorPos, std::vector<irr::gui::IGUIButton *> _defaultButtons, std::vector<irr::gui::IGUIButton *> _hoverButtons)
+{
+    for (int i = 0; i < _defaultButtons.size(); i++)
+        _hoverButtons[i]->setVisible(_defaultButtons[i]->isPointInside(cursorPos));
+
+}
+
 void AScene::refreshWindow()
 {
     this->_driver->endScene();
