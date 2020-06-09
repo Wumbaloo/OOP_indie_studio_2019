@@ -39,21 +39,29 @@ void Game::BombExploded(Bomb *bomb)
         this->CheckIfNotBreakable(exploded, bomb, i);
         if (!exploded[0] && this->getObjectFromGame(bomb->getBoundingPos().MaxEdge.X + (1 + i), bomb->getPos().Z)
                 && this->getObjectFromGame(bomb->getBoundingPos().MaxEdge.X + (1 + i), bomb->getPos().Z)->getType() == BREAKABLE) {
+            if (rand() % 3 == 1)
+                this->SpawnPowerUps(this->getObjectFromGame(bomb->getBoundingPos().MaxEdge.X + (1 + i), bomb->getPos().Z)->getPos());
             this->deleteWall(this->getObjectFromGame(bomb->getBoundingPos().MaxEdge.X + (1 + i), bomb->getPos().Z));
             exploded[0] = 1;
         }
         if (!exploded[1] && this->getObjectFromGame(bomb->getBoundingPos().MinEdge.X - (1 + i), bomb->getPos().Z)
                 && this->getObjectFromGame(bomb->getBoundingPos().MinEdge.X - (1 + i), bomb->getPos().Z)->getType() == BREAKABLE) {
+            if (rand() % 3 == 1)
+                this->SpawnPowerUps(this->getObjectFromGame(bomb->getBoundingPos().MinEdge.X - (1 + i), bomb->getPos().Z)->getPos());
             this->deleteWall(this->getObjectFromGame(bomb->getBoundingPos().MinEdge.X - (1 + i), bomb->getPos().Z));
             exploded[1] = 1;
         }
         if (!exploded[2] && this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MaxEdge.Z + (1 + i))
                 && this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MaxEdge.Z + (1 + i))->getType() == BREAKABLE) {
+            if (rand() % 3 == 1)
+                this->SpawnPowerUps(this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MaxEdge.Z + (1 + i))->getPos());
             this->deleteWall(this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MaxEdge.Z + (1 + i)));
             exploded[2] = 1;
         }
         if (!exploded[3] && this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MinEdge.Z - (1 + i))
                 && this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MinEdge.Z - (1 + i))->getType() == BREAKABLE) {
+            if (rand() % 3 == 1)
+                this->SpawnPowerUps(this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MinEdge.Z - (1 + i))->getPos());
             this->deleteWall(this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MinEdge.Z - (1 + i)));
             exploded[3] = 1;
         }
@@ -67,8 +75,6 @@ void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Play
         if (obj->getTime() >= 2000) {
             this->_bombObjects.erase(std::remove(this->_bombObjects.begin(), this->_bombObjects.end(), obj), this->_bombObjects.end());
             this->BombExploded(obj);
-            if (rand() % 3 == 1)
-                this->SpawnPowerUps(obj->getPos());
             delete(obj);
         }
     }
