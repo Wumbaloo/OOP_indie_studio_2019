@@ -106,25 +106,34 @@ class Game : public AScene
         // event
         bool checkColision(AnimatedModel *, std::vector<Model *>[], Direction);
         Events KeyboardEvents(InputManager *, IrrlichtDevice *);
-        void bombHandling(IrrlichtDevice *window, InputManager *inputManager, Player *player);
+        void BombHandling(IrrlichtDevice *window, InputManager *inputManager, Player *player);
         void PowerUpContact(PowerUp *bonus, Player *player);
         void PlayerMovements(Player *, InputManager *);
         void BombExploded(Bomb *bomb);
-        void deleteWall(Model *wall, int y);
+        void deleteWall(Model *wall);
+        void CheckIfNotBreakable(bool *, Bomb *, int);
+
         // others
+        int getNbBombByOwner(std::string owner) const;
         Model *getModelByName(std::string) const;
         Bomb *getBombByName(std::string) const;
         Player *getPlayerByName(std::string) const;
-        void makeBorderMap(void);
-        void generateMap(unsigned int);
         void resetScene(IrrlichtDevice *) override;
         void destroy(void);
         void close(void);
 
+        // map
+        void makeBorderMap(void);
+        void generateMap(unsigned int);
+        void placeInMap(AObject *, int x, int y);
+        AObject *getObjectFromMap(int x, int y);
+        Model *getObjectFromGame(float x, float z);
+        AObject *getObjectFromGame(core::vector3df pos);
+        core::vector2di getMapPosition(AObject *object);
+
         // saves
         void save(void);
         void load(void);
-        void placeInMap(AObject *, int x, int y);
 
         //Unused
         void createButtons() override {};

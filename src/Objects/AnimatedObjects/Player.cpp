@@ -15,10 +15,15 @@ Player::Player(int health ,scene::IAnimatedMeshSceneNode *node, std::string name
     this->_health = health;
     this->_running = false;
     this->_rotateFix = {0, 25, 0};
-    this->_bombUp = 0;
+    this->_bombUp = 1;
     this->_speedUp = 1;
     this->_fireUp = 1;
     this->_wallPass = false;
+}
+
+Player::~Player()
+{
+    this->_node->remove();
 }
 
 bool Player::isRunning(void) const

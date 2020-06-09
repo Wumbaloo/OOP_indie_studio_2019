@@ -45,9 +45,21 @@ void Game::save()
     string *buffer;
     FILE *fileStream = fopen("savefile.sav", "w");
 
-    for (auto obj : this->_map) {
-
+    for (int i = 0; i < MAP_HEIGHT + 2; i++) {
+        for (int j = 0; j < MAP_WIDTH; j++) {
+            switch (this->_map[i][j]->getType()) {
+                case BREAKABLE :
+                    fwrite("x", 1, 1, fileStream);
+                    break;
+                case OBSTACLE :
+                    fwrite("o", 1, 1, fileStream);
+                    break;
+                default :
+                    fwrite("_", 1, 1, fileStream);
+            }
+        }
     }
+    fclose(fileStream);
 }
 
 void Game::load()
@@ -79,4 +91,25 @@ void Game::load()
         }
     }
     fclose(fileStream);
+}
+
+void Game::destroy()
+{
+    for (auto object : this->_objects)
+        delete (object);
+    this->_objects.clear();
+    for (auto object : this->_playerObjects)
+        delete (object);
+    this->_playerObjects.clear();
+    for (auto object : this->_bombObjects)
+        delete (object);
+    this->_bombObjects.clear();
+    for (auto object : this->_powerUpObjects)
+        delete (object);
+    this->_powerUpObjects.clear();
+    for (int y = 0; y < MAP_HEIGHT + 2; y++) {
+        for (auto object : this->_map[y])
+            delete (object);
+        this->_map[y].clear();
+    }
 }

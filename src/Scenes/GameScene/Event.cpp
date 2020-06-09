@@ -73,8 +73,7 @@ void Game::PlayerMovements(Player *player, InputManager *inputManager)
 
 void Game::PowerUpContact(PowerUp *bonus, Player *player)
 {
-    auto it = std::find(this->_powerUpObjects.begin(), this->_powerUpObjects.end(), bonus);
-    if (it != this->_powerUpObjects.end()) { this->_powerUpObjects.erase(it); }
+    this->_powerUpObjects.erase(std::remove(this->_powerUpObjects.begin(), this->_powerUpObjects.end(), bonus), this->_powerUpObjects.end());
     bonus->affectPlayer(player);
     delete(bonus);
 }
@@ -89,6 +88,10 @@ Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
         this->destroy();
         return CLOSE;
     }
+    if (inputManager->isKeyPressed(RESTART)) {
+        this->destroy();
+        return RESTART;
+    }
     if (inputManager->isKeyPressed(PAUSE)) {
         this->_paused = !this->_paused;
     }
@@ -98,7 +101,7 @@ Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
         this->destroy();
         return BACK_MENU;
     }
-    this->bombHandling(window, inputManager, player);
+    this->BombHandling(window, inputManager, player);
     this->PlayerMovements(player, inputManager);
     return NONE;
 }
@@ -110,25 +113,4 @@ Events Game::checkEvents(IrrlichtDevice *window, InputManager *inputManager)
     this->_frameDeltaTime = (f32)(now - this->_then) / 1000.f;
     this->_then = now;
     return (KeyboardEvents(inputManager, window));
-}
-
-void Game::destroy()
-{
-    for (auto object : this->_objects)
-        delete (object);
-    this->_objects.clear();
-    for (auto object : this->_playerObjects)
-        delete (object);
-    this->_playerObjects.clear();
-    for (auto object : this->_bombObjects)
-        delete (object);
-    this->_bombObjects.clear();
-    for (auto object : this->_powerUpObjects)
-        delete (object);
-    this->_powerUpObjects.clear();
-    for (int y = 0; y < MAP_HEIGHT; y++) {
-        for (auto object : this->_map[y])
-            delete (object);
-        this->_map[y].clear();
-    }
 }
