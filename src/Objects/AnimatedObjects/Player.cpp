@@ -20,6 +20,8 @@ Player::Player(int nb ,scene::IAnimatedMeshSceneNode *node, std::string name, In
     this->_speedUp = 1;
     this->_fireUp = 1;
     this->_wallPass = false;
+    this->_speedupTime = 0;
+    this->_wallpassTime = 0;
     switch (nb) {
         default:
         case 1:
@@ -102,6 +104,11 @@ void Player::setWallPass(u32 time, bool status)
 {
     this->_wallPass = status;
     this->_wallpassTime = time;
+}
+
+void Player::setOriginalPos(core::vector3df pos)
+{
+    this->_originalPos = pos;
 }
 
 int Player::getBombUp(void) const
@@ -212,4 +219,9 @@ enum Events Player::getBombEvent(void) const
         case 4:
             return (BOMB_4);
     }
+}
+
+core::vector3df Player::getOriginalPos(void) const
+{
+    return this->_originalPos;
 }
