@@ -20,15 +20,15 @@ void Game::movePlayer(Player *player, core::vector2di dir)
         (checkColision(player, this->_map, UP, wallPass))) {
         nodePosition.Z += PLAYER_SPEED * this->_frameDeltaTime * speedUp;
         player->setRotation((core::vector3df) {0.f, 180.f, .0f} - rotateFix);
-    } else if (dir.X == 0 && dir.Y == - 1 && 
+    } else if (dir.X == 0 && dir.Y == - 1 &&
         (checkColision(player, this->_map, DOWN, wallPass))) {
         nodePosition.Z -= PLAYER_SPEED * this->_frameDeltaTime * speedUp;
         player->setRotation((core::vector3df) {0.f, 0.f, 0.f} - rotateFix);
-    } else if (dir.X == -1 && dir.Y == 0 && 
+    } else if (dir.X == -1 && dir.Y == 0 &&
         (checkColision(player, this->_map, LEFT, wallPass))) {
         nodePosition.X -= PLAYER_SPEED * this->_frameDeltaTime * speedUp;
         player->setRotation((core::vector3df) {0.f, 90.f, 0.f} - rotateFix);
-    } else if (dir.X == 1 && dir.Y == 0 && 
+    } else if (dir.X == 1 && dir.Y == 0 &&
         (checkColision(player, this->_map, RIGHT, wallPass))) {
         nodePosition.X += PLAYER_SPEED * this->_frameDeltaTime * speedUp;
         player->setRotation((core::vector3df) {0.f, -90.f, 0.f} - rotateFix);
@@ -68,8 +68,6 @@ bool Game::AIGoToNearest(Player *player, core::vector3df nodePosition, core::vec
     core::vector2di nodePos = this->getMapPosition(nodePosition);
     if (nearestPos.getDistanceFrom(nodePos) < 1)
         return (true);
-    // std::cout << "Nearest found for " << player->getName() << " at X: " << nodePos.X << "- Y: " << nodePos.Y << std::endl;
-    // std::cout << "\tnearest is " << nearest->getName() << " at X: " << nearestPos.X << "- Y: " << nearestPos.Y << std::endl;
     if (nearestPos.Y < nodePos.Y) {
         if (!this->getObjectFromMap(mapPos.X, mapPos.Y - 1))
             movePlayer(player, {0, -1});

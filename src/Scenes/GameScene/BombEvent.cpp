@@ -117,7 +117,6 @@ void DeletePlayers(vector<Player *> *deadPlayer, vector<Player *> *_playerObject
             for (int i = 0; i < _playerObjects->size(); i++) {
                 if (_deadPlayer->getId() == _playerObjects->at(i)->getId()) {
                     Player *save = _playerObjects->at(i);
-                    cout << save->getName() << endl;
 
                     _playerObjects->erase(std::remove(_playerObjects->begin(), _playerObjects->end(), _playerObjects->at(i)), _playerObjects->end());
                     delete(save);
