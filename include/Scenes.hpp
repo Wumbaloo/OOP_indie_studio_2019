@@ -146,9 +146,10 @@ class Game : public AScene
         void PlayerMovements(Player *, InputManager *);
         bool AIGoToNearest(Player *, core::vector3df, core::vector2di);
         bool AIMovements(Player *);
-        void BombExploded(Bomb *bomb);
+        void BombExploded(Bomb *bomb, vector<Player *> *deadPlayer);
         void deleteWall(Model *wall);
         void CheckIfNotBreakable(bool *, Bomb *, int);
+        void CheckIfPlayer(bool *, Bomb *, vector<Player *> *, int);
         void CheckPowerUpsColision(Player *player, IrrlichtDevice *);
         void SpawnPowerUps(core::vector3df pos);
         void PowerUpsTimerHandling(Player *player, IrrlichtDevice *);
