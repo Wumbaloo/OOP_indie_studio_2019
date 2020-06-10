@@ -24,3 +24,8 @@ int Game::Main_music(music_t *_musics) {
     return (1);
 }
 
+void Menu::Hover_sound_effect(music_t *_musics) {
+    _musics->_bomb.openFromFile("../assets/Music/sound_effect/sound_effect_5.ogg");
+    _musics->_bomb.setVolume(100);
+}
+

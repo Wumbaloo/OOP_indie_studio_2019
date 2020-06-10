@@ -46,9 +46,10 @@ class Menu : public AScene
 
     public:
         Menu(IrrlichtDevice *);
-    ~Menu() = default;
-    static int Title_music(music_t *_musics);
-    void display() override;
+        ~Menu() = default;
+        static void Hover_sound_effect(music_t *_musics);
+        static int Title_music(music_t *_musics);
+        void display() override;
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
         void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
         void createButtons() override;
@@ -147,9 +148,10 @@ class Game : public AScene
         void PlayerMovements(Player *, InputManager *);
         bool AIGoToNearest(Player *, core::vector3df, core::vector2di);
         bool AIMovements(Player *);
-        void BombExploded(Bomb *bomb);
+        void BombExploded(Bomb *bomb, vector<Player *> *deadPlayer);
         void deleteWall(Model *wall);
         void CheckIfNotBreakable(bool *, Bomb *, int);
+        void CheckIfPlayer(bool *, Bomb *, vector<Player *> *, int);
         void CheckPowerUpsColision(Player *player, IrrlichtDevice *);
         void SpawnPowerUps(core::vector3df pos);
         void PowerUpsTimerHandling(Player *player, IrrlichtDevice *);

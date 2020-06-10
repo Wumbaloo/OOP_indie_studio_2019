@@ -35,7 +35,6 @@ void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_then = window->getTimer()->getTime();
     Game::Main_music(this->_musics);
     this->_musics->_title_music.stop();
-    this->_musics->_main_music.play();
     this->createGameScene(settings, im);
 }
 
