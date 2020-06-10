@@ -47,11 +47,11 @@ typedef struct music_s
 
 typedef struct settings_s
 {
-    int volume = 100;
     int nbrPlayers = 4;
     std::vector<PlayerType> types = {HUMAN, AI, AI, AI};
     std::vector<std::wstring> names = {L"Human", L"BotOne", L"BotTwo", L"BotThree"};
     std::vector<bool> playing = {true, true, true, true};
+    bool isMuted = false;
 } settings_t;
 
 #endif

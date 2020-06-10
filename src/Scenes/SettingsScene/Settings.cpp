@@ -51,9 +51,27 @@ void Settings::updateSettings(settings_t *settings)
     this->updateEnabledPlayers(settings);
 }
 
+void Settings::manageMute(IrrlichtDevice *window, settings_t *settings)
+{
+    if (!settings->isMuted)
+    {
+        this->_soundsDefault[1]->setVisible(false);
+        this->_soundsHover[1]->setVisible(false);
+        this->_soundsHover[0]->setVisible(this->_soundsDefault[0]->isPointInside(window->getCursorControl()->getPosition()));
+        if (this->_soundsHover[0]->isPressed())
+            settings->isMuted = !settings->isMuted;
+    } else {
+        this->_soundsDefault[1]->setVisible(true);
+        this->_soundsHover[1]->setVisible(this->_soundsDefault[0]->isPointInside(window->getCursorControl()->getPosition()));
+        if (this->_soundsHover[1]->isPressed())
+            settings->isMuted = !settings->isMuted;
+    }
+}
+
 Events Settings::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
 {
     this->checkHoverButton(window->getCursorControl()->getPosition(), {this->_menuButtonDefault}, {this->_menuButtonHover});
+    this->manageMute(window, settings);
     for (int i = 0; settings->nbrPlayers < 2; i++) {
         if (!settings->playing[i]) {
             settings->playing[i] = true;
@@ -100,8 +118,12 @@ void Settings::display()
 
 void Settings::createButtons()
 {
-    this->_menuButtonDefault = this->newButton(irr::core::rect<irr::s32>(10, 850, 430, 1010), true, "../assets/images/quitDefault.png");
-    this->_menuButtonHover = this->newButton(irr::core::rect<irr::s32>(10, 850, 430, 1010), false, "../assets/images/quitHover.png");
+    this->_menuButtonDefault = this->newButton(irr::core::rect<irr::s32>(10, 850, 430, 1010), true, "../assets/images/menuDefault.png");
+    this->_menuButtonHover = this->newButton(irr::core::rect<irr::s32>(10, 850, 430, 1010), false, "../assets/images/menuHover.png");
+    this->_soundsDefault.push_back(this->newButton(irr::core::rect<irr::s32>(475, 850, 895, 1010), true, "../assets/images/soundOnDefault.png"));
+    this->_soundsHover.push_back(this->newButton(irr::core::rect<irr::s32>(475, 850, 895, 1010), false, "../assets/images/soundOnHover.png"));
+    this->_soundsDefault.push_back(this->newButton(irr::core::rect<irr::s32>(475, 850, 895, 1010), false, "../assets/images/soundOffDefault.png"));
+    this->_soundsHover.push_back(this->newButton(irr::core::rect<irr::s32>(475, 850, 895, 1010), false, "../assets/images/soundOffHover.png"));
 }
 
 void Settings::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *im)
@@ -110,6 +132,8 @@ void Settings::resetScene(IrrlichtDevice *window, settings_t *settings, InputMan
     this->_listBoxes.clear();
     this->_checkboxes.clear();
     this->_skinsEnabled.clear();
+    this->_soundsDefault.clear();
+    this->_soundsHover.clear();
     this->_guienv->clear();
     this->_smgr->clear();
     this->_driver->removeAllTextures();
