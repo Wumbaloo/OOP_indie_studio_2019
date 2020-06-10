@@ -21,16 +21,21 @@ void HowToPlay::display()
     this->_guienv->drawAll();
 }
 
-Events HowToPlay::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
-{
+Events HowToPlay::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings) {
     std::vector<Events> types = {BACK_MENU, PLAY};
 
-    this->checkHoverButton(window->getCursorControl()->getPosition(), this->_defaultButtons, this->_hoverButtons);
-    for (int i = 0; i < this->_defaultButtons.size(); i++)
-        if (this->_hoverButtons[i]->isPressed())
+    this->checkHoverButton(window->getCursorControl()->getPosition(),
+        this->_defaultButtons, this->_hoverButtons);
+    for (int i = 0; i < this->_defaultButtons.size(); i++) {
+        if (this->_hoverButtons[i]->isPressed()) {
+            this->_musics->_bomb.play();
             return types[i];
-    if (inputManager->isKeyPressed(CLOSE))
+        }
+    }
+    if (inputManager->isKeyPressed(CLOSE)) {
+        this->_musics->_bomb.play();
         return CLOSE;
+    }
     return NONE;
 }
 

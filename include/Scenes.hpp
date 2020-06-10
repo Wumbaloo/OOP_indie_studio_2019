@@ -46,9 +46,10 @@ class Menu : public AScene
 
     public:
         Menu(IrrlichtDevice *);
-    ~Menu() = default;
-    static int Title_music(music_t *_musics);
-    void display() override;
+        ~Menu() = default;
+        static void Hover_sound_effect(music_t *_musics);
+        static int Title_music(music_t *_musics);
+        void display() override;
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
         void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
         void createButtons() override;

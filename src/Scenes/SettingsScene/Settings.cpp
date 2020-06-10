@@ -65,8 +65,10 @@ Events Settings::checkEvents(IrrlichtDevice *window, InputManager *inputManager,
     this->updateSettings(settings);
     if (inputManager->isKeyPressed(CLOSE))
         return CLOSE;
-    if (this->_menuButtonHover->isPressed())
+    if (this->_menuButtonHover->isPressed()) {
+        this->_musics->_bomb.play();
         return BACK_MENU;
+    }
     return NONE;
 }
 
