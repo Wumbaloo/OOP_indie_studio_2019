@@ -7,17 +7,11 @@
 
 #include "Scenes.hpp"
 
-void Menu::checkHoverButton(irr::core::vector2d<s32> cursorPos)
-{
-    for (int i = 0; i < this->_defaultButtons.size(); i++)
-        this->_hoverButtons[i]->setVisible(this->_defaultButtons[i]->isPointInside(cursorPos));
-}
-
 Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
 {
-    std::vector<Events> types = {PLAY, TO_SETTINGS, CLOSE};
+    std::vector<Events> types = {HELP, TO_SETTINGS, CLOSE};
 
-    this->checkHoverButton(window->getCursorControl()->getPosition());
+    this->checkHoverButton(window->getCursorControl()->getPosition(), this->_defaultButtons, this->_hoverButtons);
     for (int i = 0; i < this->_defaultButtons.size(); i++)
         if (this->_hoverButtons[i]->isPressed())
             return types[i];

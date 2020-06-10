@@ -12,6 +12,6 @@
 #define TEXTURES_PATH   "../assets/Textures/"
 #define PLAYER_SPEED    8.f
 #define MAP_WIDTH       13
-#define MAP_HEIGHT      11
+#define MAP_HEIGHT      13
 
 #endif

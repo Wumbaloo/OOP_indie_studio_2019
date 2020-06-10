@@ -20,6 +20,7 @@ enum Events
     TO_SETTINGS,
     SAVE_GAME,
     LOAD_GAME,
+    HELP,
     MOVE_UP_1,
     MOVE_DOWN_1,
     MOVE_LEFT_1,
@@ -51,7 +52,7 @@ enum GameStatus {
     MENU,
     GAME,
     SETTINGS,
-    UNKNOWN
+    HOWTOPLAY
 };
 
 enum PlayerAnimations {

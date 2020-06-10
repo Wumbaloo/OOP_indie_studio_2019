@@ -60,7 +60,7 @@ Model *Game::createObject(std::string name, std::string model, std::string textu
     return NewObject;
 }
 
-Player *Game::createPlayerObject(int nb, std::string name, data_animations_t data, InputManager *im)
+Player *Game::createPlayerObject(int nb, std::string name, data_animations_t data, InputManager *im, bool isHuman)
 {
     Player *NewObject = NULL;
     scene::IAnimatedMeshSceneNode *object;
@@ -70,7 +70,7 @@ Player *Game::createPlayerObject(int nb, std::string name, data_animations_t dat
         std::cout << "Failed to create a model" << std::endl;
         exit(84);
     }
-    NewObject = new Player(nb, object, name, im);
+    NewObject = new Player(nb, object, name, im, isHuman);
     return NewObject;
 }
 
@@ -99,15 +99,14 @@ PowerUp *Game::createPowerUpObject(PowerUpsType type, std::string name, data_ani
         exit(84);
     }
     NewObject = new PowerUp(object, name, type);
-    // placeInMap(NewObject, data.pos.X, data.pos.Z);
     return NewObject;
 }
 
 void Game::createGameScene(settings_t *settings, InputManager *im)
 {
     for (int i = 0; i < settings->types.size(); i++) {
-        if (settings->types.at(i) == HUMAN || settings->types.at(i) == AI) {
-            std::string name = std::string("Player ") + std::to_string(i);
+        if (settings->playing.at(i) == true) {
+            std::string name = (settings->types.at(i) == AI ? std::string("AI ") : std::string("Player ")) + std::to_string(i + 1);
             irr::core::vector3df pos;
 
             switch (i + 1) {
@@ -126,16 +125,9 @@ void Game::createGameScene(settings_t *settings, InputManager *im)
                     break;
             }
             this->_playerObjects.push_back(this->createPlayerObject(i + 1, name,
-                {"guard.md3", std::string("Guard") + std::to_string(i + 1) + std::string(".png"), pos, {0.035, 0.035, 0.035}, {0, 200}, 32.5}, im));
+                {"guard.md3", std::string("Guard") + std::to_string(i + 1) + std::string(".png"), pos, {0.035, 0.035, 0.035}, {0, 200}, 32.5}, im, settings->types.at(i) == HUMAN));
+            this->_playerObjects.at(i)->setOriginalPos(pos);
         }
     }
-    // this->_powerUpObjects.push_back(this->createPowerUpObject(WALLPASS, "WallPass", {"WallPass.md3", "WallPass.bmp",
-    //     {-(MAP_WIDTH) + 2, 0, (MAP_HEIGHT) - 5}, {.7, .7, .7}, {0, 50}, 25}));
-    // this->_powerUpObjects.push_back(this->createPowerUpObject(SPEEDUP, "speedUp", {"SpeedUp.md3", "wing_textureColor.png",
-    //     {-(MAP_WIDTH / 2) - 5, 0, (MAP_HEIGHT / 2) - 4}, {.8, .8, .8}, {0, 31}, 20}));
-    // this->_powerUpObjects.push_back(this->createPowerUpObject(BOMBUP, "BombUp", {"bombUp.md3", "Rough.png",
-    //     {-(MAP_WIDTH / 2) - 15, 0, (MAP_HEIGHT / 2) - 4}, {.7, .7, .7}, {0, 50}, 25}));
-    // this->_powerUpObjects.push_back(this->createPowerUpObject(FIREUP, "FireUp", {"FireUp.md3", "FireUp.png",
-    //     {-(MAP_WIDTH / 2) - 20, 0, (MAP_HEIGHT / 2) - 4}, {.7, .7, .7}, {0, 62}, 25}));
     this->generateMap(time(nullptr));
 }

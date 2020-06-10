@@ -44,32 +44,25 @@ void Game::PowerUpContact(PowerUp *bonus, Player *player, IrrlichtDevice *window
 
 void Game::PowerUpsTimerHandling(Player *player, IrrlichtDevice *window)
 {
-    core::vector2di playerPos;
+    core::aabbox3df playerPos;
+    core::vector2di pos;
     int count = 1;
 
-    // if (player->getWallPass() && window->getTimer()->getTime() - player->getWallPassTime() >= 3500) {
-    //     player->setWallPass(0, false);
-    //     playerPos = this->getMapPosition(player);
-    //     while (1) {
-    //         if (!getObjectFromMap(playerPos.X + count, playerPos.Y)->getType()) {
-    //             placeInMap(player, playerPos.X, playerPos.Y);
-    //             break;
-    //         }
-    //         if (!getObjectFromMap(playerPos.X - count, playerPos.Y)->getType()) {
-    //             placeInMap(player, playerPos.X, playerPos.Y);
-    //             break;
-    //         }
-    //         if (!getObjectFromMap(playerPos.X, playerPos.Y + count)->getType()) {
-    //             placeInMap(player, playerPos.X, playerPos.Y);
-    //             break;
-    //         }
-    //         if (!getObjectFromMap(playerPos.X, playerPos.Y - count)->getType()) {
-    //             placeInMap(player, playerPos.X, playerPos.Y);
-    //             break;
-    //         }
-    //         count++;
-    //     }
-    // }
+    if (player->getWallPass() && window->getTimer()->getTime() - player->getWallPassTime() >= 3500) {
+        player->setWallPass(0, false);
+        playerPos = player->getBoundingPos();
+        pos = getMapPosition({playerPos.MaxEdge.X, 0, player->getPos().Z});
+        if (pos.X + 1 < MAP_WIDTH && !getObjectFromGame(playerPos.MaxEdge.X + 1, player->getPos().Z) && getObjectFromGame(player->getPos().X, player->getPos().Z))
+            placeInMap(player, pos.X + 1, pos.Y);
+        else if (pos.X - 1 > 0 && !getObjectFromGame(player->getPos().X - 1, player->getPos().Z) && getObjectFromGame(player->getPos().X, player->getPos().Z))
+            placeInMap(player, pos.X - 1, pos.Y);
+        else if (pos.Y + 1 < MAP_HEIGHT && !getObjectFromGame(player->getPos().X, player->getPos().Z + 1) && getObjectFromGame(player->getPos().X, player->getPos().Z))
+            placeInMap(player, pos.X, pos.Y - 1);
+        else if (pos.Y - 1 > 0 && !getObjectFromGame(player->getPos().X, player->getPos().Z - 1) && getObjectFromGame(player->getPos().X, player->getPos().Z))
+            placeInMap(player, pos.X, pos.Y + 1);
+        else
+            player->setPos(player->getOriginalPos());
+    }
     if (player->getSpeedUp() == 1.5 && window->getTimer()->getTime() - player->getSpeedUpTime() >= 5000)
         player->setSpeedUp(0, 1);
 }

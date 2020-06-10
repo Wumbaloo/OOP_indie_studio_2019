@@ -28,6 +28,7 @@ file(GLOB SRC
         src/Scenes/GameScene/Game.cpp
         src/Scenes/GameScene/Create.cpp
         src/Scenes/GameScene/BombEvent.cpp
+        src/Scenes/GameScene/Movements.cpp
         src/Scenes/GameScene/PowerUpsEvent.cpp
         src/Scenes/GameScene/Event.cpp
         src/Scenes/GameScene/Get.cpp
@@ -37,6 +38,7 @@ file(GLOB SRC
         src/Scenes/SettingsScene/GenerateSettings.cpp
         src/Scenes/SettingsScene/CreateSettingsTools.cpp
         src/Scenes/AScene.cpp
+        src/Scenes/HowToPlay/HowToPlay.cpp
         )
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/libs" ${CMAKE_MODULE_PATH})

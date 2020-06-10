@@ -30,7 +30,7 @@ class AScene
         virtual Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) = 0;
         virtual void resetScene(IrrlichtDevice *, settings_t *, InputManager *) = 0;
         virtual void createButtons() = 0;
-        virtual void checkHoverButton(irr::core::vector2d<s32> cursorPos) = 0;
+        void checkHoverButton(irr::core::vector2d<s32> cursorPos, std::vector<irr::gui::IGUIButton *>, std::vector<irr::gui::IGUIButton *>);
 };
 
 class Menu : public AScene
@@ -50,8 +50,23 @@ class Menu : public AScene
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
         void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
         void createButtons() override;
-        void checkHoverButton(irr::core::vector2d<s32> cursorPos) override;
         void close(void);
+};
+
+class HowToPlay : public AScene
+{
+    private:
+        std::vector<irr::gui::IGUIButton *> _defaultButtons;
+        std::vector<irr::gui::IGUIButton *> _hoverButtons;
+        video::ITexture *_htpBackground;
+
+    public:
+        HowToPlay(IrrlichtDevice *);
+        ~HowToPlay() = default;
+        void display() override;
+        void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
+        void createButtons() override;
+        Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
 };
 
 class Settings : public AScene
@@ -84,7 +99,6 @@ class Settings : public AScene
         void updateSettings(settings_t *);
         void display() override;
         void createButtons() override;
-        void checkHoverButton(irr::core::vector2d<s32> cursorPos) override;
         void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
 };
 
@@ -111,7 +125,7 @@ class Game : public AScene
 
         // create
         Model *createObject(std::string, std::string, std::string, core::vector3df, core::vector3df, ObjectType type = NOTYPE);
-        Player *createPlayerObject(int, std::string, data_animations_t, InputManager *);
+        Player *createPlayerObject(int, std::string, data_animations_t, InputManager *, bool isHuman);
         Bomb *createBombObject(std::string, data_animations_t, std::string, u32);
         PowerUp *createPowerUpObject(PowerUpsType, std::string, data_animations_t);
         scene::IAnimatedMeshSceneNode *createAnimatedModel(std::string, std::string, data_animations_t);
@@ -124,6 +138,8 @@ class Game : public AScene
         void BombHandling(IrrlichtDevice *window, InputManager *inputManager, Player *player);
         void PowerUpContact(PowerUp *bonus, Player *player, IrrlichtDevice *);
         void PlayerMovements(Player *, InputManager *);
+        bool AIGoToNearest(Player *, core::vector3df, core::vector2di);
+        bool AIMovements(Player *);
         void BombExploded(Bomb *bomb);
         void deleteWall(Model *wall);
         void CheckIfNotBreakable(bool *, Bomb *, int);
@@ -136,6 +152,7 @@ class Game : public AScene
         Model *getModelByName(std::string) const;
         Bomb *getBombByName(std::string) const;
         Player *getPlayerByName(std::string) const;
+        void movePlayer(Player *player, core::vector2di dir);
         void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
         void destroy(void);
         void close(void);
@@ -148,6 +165,7 @@ class Game : public AScene
         Model *getObjectFromGame(float x, float z);
         AObject *getObjectFromGame(core::vector3df pos);
         core::vector2di getMapPosition(AObject *object);
+        core::vector2di getMapPosition(core::vector3df pos);
 
         // saves
         void save(void);
@@ -155,5 +173,4 @@ class Game : public AScene
 
         //Unused
         void createButtons() override {};
-        void checkHoverButton(irr::core::vector2d<s32> cursorPos) override {};
 };

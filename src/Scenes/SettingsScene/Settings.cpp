@@ -11,11 +11,6 @@ Settings::Settings(IrrlichtDevice *window) : AScene(window)
 {
 }
 
-void Settings::checkHoverButton(irr::core::vector2d<s32> cursorPos)
-{
-    this->_menuButtonHover->setVisible(this->_menuButtonDefault->isPointInside(cursorPos));
-}
-
 void Settings::checkEditBoxUpdate(settings_t *settings)
 {
     for (int i = 0; i < 4; i++)
@@ -58,7 +53,7 @@ void Settings::updateSettings(settings_t *settings)
 
 Events Settings::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
 {
-    this->checkHoverButton(window->getCursorControl()->getPosition());
+    this->checkHoverButton(window->getCursorControl()->getPosition(), {this->_menuButtonDefault}, {this->_menuButtonHover});
     for (int i = 0; settings->nbrPlayers < 2; i++) {
         if (!settings->playing[i]) {
             settings->playing[i] = true;

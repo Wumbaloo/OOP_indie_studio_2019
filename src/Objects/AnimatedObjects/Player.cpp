@@ -9,7 +9,7 @@
 #include "Object.hpp"
 #include "AnimatedObjects.hpp"
 
-Player::Player(int nb ,scene::IAnimatedMeshSceneNode *node, std::string name, InputManager *im) : AnimatedModel(node, name, PLAYER)
+Player::Player(int nb ,scene::IAnimatedMeshSceneNode *node, std::string name, InputManager *im, bool isHuman) : AnimatedModel(node, name, PLAYER)
 {
     this->_node = node;
     this->_nb = nb;
@@ -20,6 +20,9 @@ Player::Player(int nb ,scene::IAnimatedMeshSceneNode *node, std::string name, In
     this->_speedUp = 1;
     this->_fireUp = 1;
     this->_wallPass = false;
+    this->_isHuman = isHuman;
+    this->_speedupTime = 0;
+    this->_wallpassTime = 0;
     switch (nb) {
         default:
         case 1:
@@ -27,28 +30,28 @@ Player::Player(int nb ,scene::IAnimatedMeshSceneNode *node, std::string name, In
             im->bindActionToKey(MOVE_DOWN_1, KEY_KEY_S);
             im->bindActionToKey(MOVE_LEFT_1, KEY_KEY_Q);
             im->bindActionToKey(MOVE_RIGHT_1, KEY_KEY_D);
-            im->bindActionToKey(BOMB_1, KEY_SPACE);
+            im->bindActionToKey(BOMB_1, KEY_SPACE, true);
             break;
         case 2:
             im->bindActionToKey(MOVE_UP_2, KEY_UP);
             im->bindActionToKey(MOVE_DOWN_2, KEY_DOWN);
             im->bindActionToKey(MOVE_LEFT_2, KEY_LEFT);
             im->bindActionToKey(MOVE_RIGHT_2, KEY_RIGHT);
-            im->bindActionToKey(BOMB_2, KEY_RCONTROL);
+            im->bindActionToKey(BOMB_2, KEY_RCONTROL, true);
             break;
         case 3:
             im->bindActionToKey(MOVE_UP_3, KEY_KEY_Y);
             im->bindActionToKey(MOVE_DOWN_3, KEY_KEY_H);
             im->bindActionToKey(MOVE_LEFT_3, KEY_KEY_G);
             im->bindActionToKey(MOVE_RIGHT_3, KEY_KEY_J);
-            im->bindActionToKey(BOMB_3, KEY_KEY_T);
+            im->bindActionToKey(BOMB_3, KEY_KEY_T, true);
             break;
         case 4:
             im->bindActionToKey(MOVE_UP_4, KEY_KEY_O);
             im->bindActionToKey(MOVE_DOWN_4, KEY_KEY_L);
             im->bindActionToKey(MOVE_LEFT_4, KEY_KEY_K);
             im->bindActionToKey(MOVE_RIGHT_4, KEY_KEY_M);
-            im->bindActionToKey(BOMB_4, KEY_KEY_I);
+            im->bindActionToKey(BOMB_4, KEY_KEY_I, true);
             break;
     }
 }
@@ -102,6 +105,11 @@ void Player::setWallPass(u32 time, bool status)
 {
     this->_wallPass = status;
     this->_wallpassTime = time;
+}
+
+void Player::setOriginalPos(core::vector3df pos)
+{
+    this->_originalPos = pos;
 }
 
 int Player::getBombUp(void) const
@@ -212,4 +220,14 @@ enum Events Player::getBombEvent(void) const
         case 4:
             return (BOMB_4);
     }
+}
+
+bool Player::isHuman(void) const
+{
+    return this->_isHuman;
+}
+
+core::vector3df Player::getOriginalPos(void) const
+{
+    return this->_originalPos;
 }
