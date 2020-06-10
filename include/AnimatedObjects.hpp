@@ -61,6 +61,7 @@ class Player : public AnimatedModel
         float _speedUp;
         int _fireUp;
         bool _wallPass;
+        bool _isHuman;
         u32 _speedupTime;
         u32 _wallpassTime;
         enum Events _upEvent;
@@ -69,7 +70,7 @@ class Player : public AnimatedModel
         enum Events _rightEvent;
 
     public:
-        Player(int, scene::IAnimatedMeshSceneNode *, std::string, InputManager *);
+        Player(int, scene::IAnimatedMeshSceneNode *, std::string, InputManager *, bool isHuman);
         ~Player();
 
         core::vector3df getRotateFix(void) const;
@@ -84,6 +85,7 @@ class Player : public AnimatedModel
         enum Events getLeftEvent(void) const;
         enum Events getRightEvent(void) const;
         enum Events getBombEvent(void) const;
+        bool isHuman(void) const;
 
         void setSpeedUp(u32, float = 1.5);
         void setRange(int = 1);

@@ -125,7 +125,7 @@ class Game : public AScene
 
         // create
         Model *createObject(std::string, std::string, std::string, core::vector3df, core::vector3df, ObjectType type = NOTYPE);
-        Player *createPlayerObject(int, std::string, data_animations_t, InputManager *);
+        Player *createPlayerObject(int, std::string, data_animations_t, InputManager *, bool isHuman);
         Bomb *createBombObject(std::string, data_animations_t, std::string, u32);
         PowerUp *createPowerUpObject(PowerUpsType, std::string, data_animations_t);
         scene::IAnimatedMeshSceneNode *createAnimatedModel(std::string, std::string, data_animations_t);
@@ -138,6 +138,8 @@ class Game : public AScene
         void BombHandling(IrrlichtDevice *window, InputManager *inputManager, Player *player);
         void PowerUpContact(PowerUp *bonus, Player *player, IrrlichtDevice *);
         void PlayerMovements(Player *, InputManager *);
+        bool AIGoToNearest(Player *, core::vector3df, core::vector2di);
+        bool AIMovements(Player *);
         void BombExploded(Bomb *bomb);
         void deleteWall(Model *wall);
         void CheckIfNotBreakable(bool *, Bomb *, int);
@@ -150,6 +152,7 @@ class Game : public AScene
         Model *getModelByName(std::string) const;
         Bomb *getBombByName(std::string) const;
         Player *getPlayerByName(std::string) const;
+        void movePlayer(Player *player, core::vector2di dir);
         void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
         void destroy(void);
         void close(void);
@@ -161,8 +164,8 @@ class Game : public AScene
         AObject *getObjectFromMap(int x, int y);
         Model *getObjectFromGame(float x, float z);
         AObject *getObjectFromGame(core::vector3df pos);
-        core::vector2df getMapPosition(AObject *object);
-        core::vector2df getMapPosition(core::vector3df pos);
+        core::vector2di getMapPosition(AObject *object);
+        core::vector2di getMapPosition(core::vector3df pos);
 
         // saves
         void save(void);

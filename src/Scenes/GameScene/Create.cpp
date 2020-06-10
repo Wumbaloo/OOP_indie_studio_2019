@@ -60,7 +60,7 @@ Model *Game::createObject(std::string name, std::string model, std::string textu
     return NewObject;
 }
 
-Player *Game::createPlayerObject(int nb, std::string name, data_animations_t data, InputManager *im)
+Player *Game::createPlayerObject(int nb, std::string name, data_animations_t data, InputManager *im, bool isHuman)
 {
     Player *NewObject = NULL;
     scene::IAnimatedMeshSceneNode *object;
@@ -70,7 +70,7 @@ Player *Game::createPlayerObject(int nb, std::string name, data_animations_t dat
         std::cout << "Failed to create a model" << std::endl;
         exit(84);
     }
-    NewObject = new Player(nb, object, name, im);
+    NewObject = new Player(nb, object, name, im, isHuman);
     return NewObject;
 }
 
@@ -107,7 +107,7 @@ void Game::createGameScene(settings_t *settings, InputManager *im)
 {
     for (int i = 0; i < settings->types.size(); i++) {
         if (settings->playing.at(i) == true) {
-            std::string name = std::string("Player ") + std::to_string(i);
+            std::string name = (settings->types.at(i) == AI ? std::string("AI ") : std::string("Player ")) + std::to_string(i + 1);
             irr::core::vector3df pos;
 
             switch (i + 1) {
@@ -126,7 +126,7 @@ void Game::createGameScene(settings_t *settings, InputManager *im)
                     break;
             }
             this->_playerObjects.push_back(this->createPlayerObject(i + 1, name,
-                {"guard.md3", std::string("Guard") + std::to_string(i + 1) + std::string(".png"), pos, {0.035, 0.035, 0.035}, {0, 200}, 32.5}, im));
+                {"guard.md3", std::string("Guard") + std::to_string(i + 1) + std::string(".png"), pos, {0.035, 0.035, 0.035}, {0, 200}, 32.5}, im, settings->types.at(i) == HUMAN));
         }
     }
     this->_powerUpObjects.push_back(this->createPowerUpObject(WALLPASS, "WallPass", {"WallPass.md3", "WallPass.bmp",

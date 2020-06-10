@@ -78,7 +78,7 @@ void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Play
             delete(obj);
         }
     }
-    if (inputManager->isKeyPressed(player->getBombEvent())) {
+    if ((player->isHuman() && inputManager->isKeyPressed(player->getBombEvent()))) {
         if (getNbBombByOwner(player->getName()) < player->getBombUp())
             this->_bombObjects.push_back(this->createBombObject("bomb", {"bomb_animated.md3", "bomb.png", {player->getPos()}, {.8, .8, .8}, {0, 20}, 20}, player->getName(), window->getTimer()->getTime()));
     }

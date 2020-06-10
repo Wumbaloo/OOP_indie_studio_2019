@@ -45,7 +45,7 @@ void Game::PowerUpContact(PowerUp *bonus, Player *player, IrrlichtDevice *window
 void Game::PowerUpsTimerHandling(Player *player, IrrlichtDevice *window)
 {
     core::aabbox3df playerPos;
-    core::vector2df pos;
+    core::vector2di pos;
     int count = 1;
 
     if (player->getWallPass() && window->getTimer()->getTime() - player->getWallPassTime() >= 3500) {

@@ -9,7 +9,7 @@
 #include "Object.hpp"
 #include "AnimatedObjects.hpp"
 
-Player::Player(int nb ,scene::IAnimatedMeshSceneNode *node, std::string name, InputManager *im) : AnimatedModel(node, name, PLAYER)
+Player::Player(int nb ,scene::IAnimatedMeshSceneNode *node, std::string name, InputManager *im, bool isHuman) : AnimatedModel(node, name, PLAYER)
 {
     this->_node = node;
     this->_nb = nb;
@@ -20,6 +20,7 @@ Player::Player(int nb ,scene::IAnimatedMeshSceneNode *node, std::string name, In
     this->_speedUp = 1;
     this->_fireUp = 1;
     this->_wallPass = false;
+    this->_isHuman = isHuman;
     switch (nb) {
         default:
         case 1:
@@ -212,4 +213,9 @@ enum Events Player::getBombEvent(void) const
         case 4:
             return (BOMB_4);
     }
+}
+
+bool Player::isHuman(void) const
+{
+    return this->_isHuman;
 }
