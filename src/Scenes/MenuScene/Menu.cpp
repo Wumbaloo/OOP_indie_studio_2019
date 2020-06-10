@@ -32,7 +32,8 @@ void Menu::display()
         irr::core::rect<irr::s32>(0,0,1920,1080), 0,
         irr::video::SColor(255, 255, 255, 255), true);
     this->_smgr->drawAll();
-    this->_guienv->drawAll();
+    if (this->_guienv)
+        this->_guienv->drawAll();
 }
 
 Menu::Menu(IrrlichtDevice *window) : AScene(window)
