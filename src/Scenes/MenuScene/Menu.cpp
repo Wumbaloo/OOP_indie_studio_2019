@@ -50,6 +50,7 @@ void Menu::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_hoverButtons.clear();
     this->createButtons();
     Menu::Title_music(this->_musics);
+    this->_musics->_title_music.play();
     this->_musics->_main_music.stop();
     this->_menuBackground = this->_driver->getTexture("../assets/images/backgroundMenu.png");
 }

@@ -48,7 +48,7 @@ class Menu : public AScene
         Menu(IrrlichtDevice *);
         ~Menu() = default;
         static void Hover_sound_effect(music_t *_musics);
-        static int Title_music(music_t *_musics);
+        static void Title_music(music_t *_musics);
         void display() override;
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
         void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
@@ -127,7 +127,7 @@ class Game : public AScene
     public:
         Game(IrrlichtDevice *);
         ~Game() = default;
-        static int Main_music(music_t *_musics);
+        void Main_music(music_t *_musics);
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
         void display(void) override;
 
