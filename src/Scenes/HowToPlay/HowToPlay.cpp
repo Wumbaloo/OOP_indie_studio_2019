@@ -21,26 +21,30 @@ void HowToPlay::display()
     this->_guienv->drawAll();
 }
 
-Events HowToPlay::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
-{
+Events HowToPlay::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings) {
     std::vector<Events> types = {BACK_MENU, PLAY};
 
-    this->checkHoverButton(window->getCursorControl()->getPosition(), this->_defaultButtons, this->_hoverButtons);
-    for (int i = 0; i < this->_defaultButtons.size(); i++)
-        if (this->_hoverButtons[i]->isPressed())
+    this->checkHoverButton(window->getCursorControl()->getPosition(),
+        this->_defaultButtons, this->_hoverButtons);
+    for (int i = 0; i < this->_defaultButtons.size(); i++) {
+        if (this->_hoverButtons[i]->isPressed()) {
+            this->_musics->_bomb.play();
             return types[i];
-    if (inputManager->isKeyPressed(CLOSE))
+        }
+    }
+    if (inputManager->isKeyPressed(CLOSE)) {
+        this->_musics->_bomb.play();
         return CLOSE;
+    }
     return NONE;
 }
 
 void HowToPlay::createButtons()
 {
-//    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 610, 690, 770), true, "../assets/images/playDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(50, 850, 470, 1010), true, "../assets/images/quitDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(1450, 850, 1870, 1010), true, "../assets/images/playDefault.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(50, 850, 470, 1010), false, "../assets/images/quitHover.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(1450, 850, 1870, 1010), false, "../assets/images/playHover.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(50, 850, 470, 1010), true, "../assets/images/menuDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(1450, 850, 1870, 1010), true, "../assets/images/proceedDefault.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(50, 850, 470, 1010), false, "../assets/images/menuHover.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(1450, 850, 1870, 1010), false, "../assets/images/proceedHover.png"));
 }
 
 void HowToPlay::resetScene(IrrlichtDevice *, settings_t *, InputManager *)

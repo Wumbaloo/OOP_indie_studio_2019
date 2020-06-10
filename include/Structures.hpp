@@ -11,6 +11,7 @@
 #include <iostream>
 #include <vector>
 #include <irrlicht/irrlicht.h>
+#include <SFML/Audio/Music.hpp>
 #include "Enums.hpp"
 
 using namespace std;
@@ -38,13 +39,20 @@ typedef struct data_animations_s
     float animationSpeed;
 } data_animations_t;
 
+typedef struct music_s
+{
+    sf::Music _title_music;
+    sf::Music _main_music;
+    sf::Music _bomb;
+} music_t;
+
 typedef struct settings_s
 {
-    int volume = 100;
     int nbrPlayers = 4;
     std::vector<PlayerType> types = {HUMAN, AI, AI, AI};
     std::vector<std::wstring> names = {L"Human", L"BotOne", L"BotTwo", L"BotThree"};
     std::vector<bool> playing = {true, true, true, true};
+    bool isMuted = false;
 } settings_t;
 
 #endif

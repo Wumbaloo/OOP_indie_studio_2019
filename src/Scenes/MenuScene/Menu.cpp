@@ -7,16 +7,21 @@
 
 #include "Scenes.hpp"
 
-Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
-{
+Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings) {
     std::vector<Events> types = {HELP, TO_SETTINGS, CLOSE};
-
-    this->checkHoverButton(window->getCursorControl()->getPosition(), this->_defaultButtons, this->_hoverButtons);
-    for (int i = 0; i < this->_defaultButtons.size(); i++)
-        if (this->_hoverButtons[i]->isPressed())
+    Menu::Hover_sound_effect(this->_musics);
+    this->checkHoverButton(window->getCursorControl()->getPosition(),
+        this->_defaultButtons, this->_hoverButtons);
+    for (int i = 0; i < this->_defaultButtons.size(); i++) {
+        if (this->_hoverButtons[i]->isPressed()) {
+            this->_musics->_bomb.play();
             return types[i];
-    if (inputManager->isKeyPressed(CLOSE))
+        }
+    }
+    if (inputManager->isKeyPressed(CLOSE)) {
+        this->_musics->_bomb.play();
         return CLOSE;
+    }
     return NONE;
 }
 
@@ -35,6 +40,7 @@ Menu::Menu(IrrlichtDevice *window) : AScene(window)
 {
 }
 
+
 void Menu::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *im)
 {
     this->_guienv->clear();
@@ -43,10 +49,11 @@ void Menu::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_defaultButtons.clear();
     this->_hoverButtons.clear();
     this->createButtons();
+    Menu::Title_music(this->_musics);
+    this->_musics->_main_music.stop();
     this->_menuBackground = this->_driver->getTexture("../assets/images/backgroundMenu.png");
-    this->Music_play();
-    this->_title_music.play();
 }
+
 
 void Menu::createButtons()
 {

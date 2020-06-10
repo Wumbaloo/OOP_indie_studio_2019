@@ -86,16 +86,19 @@ Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
     for (auto player = this->_playerObjects.begin(); player != this->_playerObjects.end(); player++) {
         this->CheckPowerUpsColision((*player), window);
         this->BombHandling(window, inputManager, (*player));
-        if ((*player)->isHuman())
-            this->PlayerMovements((*player), inputManager);
-        else {
-            if (this->AIMovements((*player))) {
-                if (getNbBombByOwner((*player)->getName()) < (*player)->getBombUp())
-                    this->_bombObjects.push_back(
-                        this->createBombObject("bomb", {"bomb_animated.md3", "bomb.png",
-                        {(*player)->getPos()}, {.8, .8, .8}, {0, 20}, 20}, (*player)->getName(), window->getTimer()->getTime()));
-            }
-        }
+        std::cout << "HELLO4\n";
+        // if (!(*player))
+        //     continue;
+        // if ((*player)->isHuman())
+        //     this->PlayerMovements((*player), inputManager);
+        // else {
+        //     if (this->AIMovements((*player))) {
+        //         if (getNbBombByOwner((*player)->getName()) < (*player)->getBombUp())
+        //             this->_bombObjects.push_back(
+        //                 this->createBombObject("bomb", {"bomb_animated.md3", "bomb.png",
+        //                 {(*player)->getPos()}, {.8, .8, .8}, {0, 20}, 20}, (*player)->getName(), window->getTimer()->getTime()));
+        //     }
+        // }
     }
     return NONE;
 }

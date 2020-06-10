@@ -5,18 +5,27 @@
 ** Created by nicolas,
 */
 
+#include "Structures.hpp"
 #include "Scenes.hpp"
 
-void Menu::Music_play()
-{
-    this->_title_music.openFromFile("../assets/Music/Title-music.ogg");
-    this->_title_music.setVolume(50);
-    this->_title_music.setLoop(true);
+
+int Menu::Title_music(music_t *_musics) {
+    _musics->_title_music.openFromFile("../assets/Music/Title-music.ogg");
+    _musics->_title_music.setVolume(50);
+    _musics->_title_music.setLoop(true);
+    return (1);
 }
 
-void Game::Music_play()
-{
-    this->_main_music.openFromFile("../assets/Music/Battle-music.ogg");
-    this->_main_music.setVolume(50);
-    this->_main_music.setLoop(true);
+
+int Game::Main_music(music_t *_musics) {
+    _musics->_main_music.openFromFile("../assets/Music/Battle-music.ogg");
+    _musics->_main_music.setVolume(50);
+    _musics->_main_music.setLoop(true);
+    return (1);
 }
+
+void Menu::Hover_sound_effect(music_t *_musics) {
+    _musics->_bomb.openFromFile("../assets/Music/sound_effect/sound_effect_5.ogg");
+    _musics->_bomb.setVolume(100);
+}
+

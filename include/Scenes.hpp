@@ -14,23 +14,27 @@
 
 using namespace irr;
 
-class AScene
-{
+class AScene {
     protected:
-        gui::IGUIEnvironment* _guienv;
-        video::IVideoDriver* _driver;
-        scene::ISceneManager* _smgr;
+    gui::IGUIEnvironment *_guienv;
+    video::IVideoDriver *_driver;
+    scene::ISceneManager *_smgr;
     public:
-        explicit AScene(IrrlichtDevice *);
-        ~AScene() = default;
-        void refreshWindow();
-        irr::gui::IGUIButton *newButton(irr::core::rect<irr::s32> pos,
-            bool visible, irr::core::string<fschar_t> path);
-        virtual void display() = 0;
-        virtual Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) = 0;
-        virtual void resetScene(IrrlichtDevice *, settings_t *, InputManager *) = 0;
-        virtual void createButtons() = 0;
-        void checkHoverButton(irr::core::vector2d<s32> cursorPos, std::vector<irr::gui::IGUIButton *>, std::vector<irr::gui::IGUIButton *>);
+    explicit AScene(IrrlichtDevice *);
+    ~AScene() = default;
+    music_t *_musics = new music_t;
+    void refreshWindow();
+    irr::gui::IGUIButton *newButton(irr::core::rect<irr::s32> pos, bool visible,
+        irr::core::string<fschar_t> path
+    );
+    virtual void display() = 0;
+    virtual Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *
+    ) = 0;
+    virtual void resetScene(IrrlichtDevice *, settings_t *, InputManager *) = 0;
+    virtual void createButtons() = 0;
+    void checkHoverButton(irr::core::vector2d<s32> cursorPos,
+        std::vector<irr::gui::IGUIButton *>, std::vector<irr::gui::IGUIButton *>
+    );
 };
 
 class Menu : public AScene
@@ -39,13 +43,12 @@ class Menu : public AScene
         std::vector<irr::gui::IGUIButton *> _defaultButtons;
         std::vector<irr::gui::IGUIButton *> _hoverButtons;
         video::ITexture *_menuBackground;
-        sf::Music _title_music;
 
     public:
-        void Music_play();
         Menu(IrrlichtDevice *);
         ~Menu() = default;
-
+        static void Hover_sound_effect(music_t *_musics);
+        static int Title_music(music_t *_musics);
         void display() override;
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
         void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
@@ -73,10 +76,13 @@ class Settings : public AScene
 {
     private:
         video::ITexture *_settingsBackground;
+        std::vector<irr::gui::IGUIButton *> _soundsDefault;
+        std::vector<irr::gui::IGUIButton *> _soundsHover;
         irr::gui::IGUIButton *_menuButtonDefault;
         irr::gui::IGUIButton *_menuButtonHover;
-        irr::gui::IGUISpinBox *_volumeBox;
         std::vector<irr::gui::IGUIEditBox *> _nameBoxes;
+        std::vector<irr::video::ITexture *> _skinsEnabled;
+        irr::video::ITexture *_skinDisabled;
         std::vector<irr::gui::IGUIListBox *> _listBoxes;
         std::vector<irr::gui::IGUICheckBox *> _checkboxes;
 
@@ -86,18 +92,21 @@ class Settings : public AScene
 
         void generateSettings(settings_t *);
         void generateNameBoxes(settings_t *);
+        void generateSkins(settings_t *);
         void generateListBoxes(settings_t *);
         void generateCheckBoxes(settings_t *);
-        irr::gui::IGUIEditBox *newNameBox(const wchar_t *, irr::core::rect<s32>, bool);
         irr::gui::IGUIListBox *newListBox(irr::core::rect<s32>, PlayerType, bool);
+        irr::gui::IGUIEditBox *newNameBox(const wchar_t *, irr::core::rect<s32>, bool);
         irr::gui::IGUICheckBox *newCheckBox(irr::core::rect<s32>, bool);
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
+        void manageMute(IrrlichtDevice *, settings_t *);
         void checkEditBoxUpdate(settings_t *);
         void checkListBoxUpdate(settings_t *);
         void checkCheckBoxUpdate(settings_t *);
         void updateEnabledPlayers(settings_t *);
         void updateSettings(settings_t *);
         void display() override;
+        void displaySkins();
         void createButtons() override;
         void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
 };
@@ -114,12 +123,11 @@ class Game : public AScene
         std::vector<Player *> _playerObjects;
         std::vector<Bomb *> _bombObjects;
         std::vector<PowerUp *> _powerUpObjects;
-        sf::Music _main_music;
 
     public:
-        void Music_play();
         Game(IrrlichtDevice *);
         ~Game() = default;
+        static int Main_music(music_t *_musics);
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
         void display(void) override;
 
@@ -140,9 +148,10 @@ class Game : public AScene
         void PlayerMovements(Player *, InputManager *);
         bool AIGoToNearest(Player *, core::vector3df, core::vector2di);
         bool AIMovements(Player *);
-        void BombExploded(Bomb *bomb);
+        void BombExploded(Bomb *bomb, vector<Player *> *deadPlayer);
         void deleteWall(Model *wall);
         void CheckIfNotBreakable(bool *, Bomb *, int);
+        void CheckIfPlayer(bool *, Bomb *, vector<Player *> *, int);
         void CheckPowerUpsColision(Player *player, IrrlichtDevice *);
         void SpawnPowerUps(core::vector3df pos);
         void PowerUpsTimerHandling(Player *player, IrrlichtDevice *);
