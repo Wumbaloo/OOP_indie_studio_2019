@@ -11,6 +11,7 @@
 #include <iostream>
 #include <vector>
 #include <irrlicht/irrlicht.h>
+#include <SFML/Audio/Music.hpp>
 #include "Enums.hpp"
 
 using namespace std;
@@ -37,6 +38,12 @@ typedef struct data_animations_s
     vector2f_t frameLoop;
     float animationSpeed;
 } data_animations_t;
+
+typedef struct music_s
+{
+    sf::Music _title_music;
+    sf::Music _main_music;
+} music_t;
 
 typedef struct settings_s
 {

@@ -10,24 +10,14 @@
 
 using namespace irr;
 
-void Irrlicht::destroy(void)
+void Irrlicht::destroy()
 {
 //    for (auto object : this->_objects)
 //        delete (object);
 //    this->_objects.clear();
 }
 
-void Irrlicht::close(void)
+void Irrlicht::close()
 {
     this->_window->drop();
-}
-
-void Game::close(void)
-{
-    this->_main_music.stop();
-}
-
-void Menu::close(void)
-{
-    this->_title_music.stop();
 }

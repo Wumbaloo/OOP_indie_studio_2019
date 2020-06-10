@@ -34,6 +34,7 @@ Menu::Menu(IrrlichtDevice *window) : AScene(window)
 {
 }
 
+
 void Menu::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *im)
 {
     this->_guienv->clear();
@@ -42,10 +43,14 @@ void Menu::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_defaultButtons.clear();
     this->_hoverButtons.clear();
     this->createButtons();
+    Menu::Title_music(this->_musics);
+    this->_musics->_title_music.play();
+    this->_musics->_main_music.stop();
     this->_menuBackground = this->_driver->getTexture("../assets/images/backgroundMenu.png");
-    this->Music_play();
-    this->_title_music.play();
 }
+
+
+
 
 void Menu::createButtons()
 {
