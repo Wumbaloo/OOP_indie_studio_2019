@@ -43,20 +43,20 @@ void Game::save()
     string *buffer;
     FILE *fileStream = fopen("savefile.sav", "w");
 
-    for (int i = 0; i < MAP_HEIGHT + 2; i++) {
-        for (int j = 0; j < MAP_WIDTH; j++) {
-            switch (this->_map[i][j]->getType()) {
-                case BREAKABLE :
-                    fwrite("x", 1, 1, fileStream);
-                    break;
-                case OBSTACLE :
-                    fwrite("o", 1, 1, fileStream);
-                    break;
-                default :
-                    fwrite("_", 1, 1, fileStream);
-            }
-        }
-    }
+    // for (int i = 0; i < MAP_HEIGHT + 2; i++) {
+    //     for (int j = 0; j < MAP_WIDTH; j++) {
+    //         switch (this->_map[i][j]->getType()) {
+    //             case BREAKABLE :
+    //                 fwrite("x", 1, 1, fileStream);
+    //                 break;
+    //             case OBSTACLE :
+    //                 fwrite("o", 1, 1, fileStream);
+    //                 break;
+    //             default :
+    //                 fwrite("_", 1, 1, fileStream);
+    //         }
+    //     }
+    // }
     fclose(fileStream);
 }
 
