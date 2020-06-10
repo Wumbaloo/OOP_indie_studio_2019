@@ -53,6 +53,8 @@ typedef struct settings_s
     std::vector<std::wstring> names = {L"Human", L"BotOne", L"BotTwo", L"BotThree"};
     std::vector<bool> playing = {true, true, true, true};
     bool isMuted = false;
+    bool loadFile = false;
+    int winnerIdx;
 } settings_t;
 
 #endif

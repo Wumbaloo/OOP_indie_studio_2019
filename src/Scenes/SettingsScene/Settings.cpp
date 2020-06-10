@@ -53,8 +53,7 @@ void Settings::updateSettings(settings_t *settings)
 
 void Settings::manageMute(IrrlichtDevice *window, settings_t *settings)
 {
-    if (!settings->isMuted)
-    {
+    if (!settings->isMuted) {
         this->_soundsDefault[1]->setVisible(false);
         this->_soundsHover[1]->setVisible(false);
         this->_soundsHover[0]->setVisible(this->_soundsDefault[0]->isPointInside(window->getCursorControl()->getPosition()));

@@ -22,6 +22,12 @@ Events checkTransition(Irrlicht *lib)
         case HELP:
             lib->changeGameStatus(HOWTOPLAY);
             break;
+        case GO_WIN:
+            lib->changeGameStatus(WIN_PANEL);
+            break;
+        case GO_LOAD:
+            lib->changeGameStatus(LOAD);
+            break;
         case RESTART:
             break;
         case CLOSE:
@@ -40,6 +46,9 @@ int GameManager(Irrlicht *lib)
     lib->addScene(new Game(lib->getWindow()));
     lib->addScene(new Settings(lib->getWindow()));
     lib->addScene(new HowToPlay(lib->getWindow()));
+    lib->addScene(new Win(lib->getWindow()));
+    lib->addScene(new Load(lib->getWindow()));
+    lib->changeGameStatus(MENU);
     lib->getScene()->resetScene(lib->getWindow(), lib->getSettings(), lib->getInputManager());
     while(lib->isWindowOpen()) {
         lib->getScene()->display();
