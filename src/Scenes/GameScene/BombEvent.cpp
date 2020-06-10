@@ -32,28 +32,24 @@ void Game::CheckIfPlayer(bool exploded[4], Bomb *bomb, vector<Player *> *deadPla
             && (player->getPos().Z > bomb->getBoundingPos().MinEdge.Z && player->getPos().Z < bomb->getBoundingPos().MaxEdge.Z)) {
             exploded[0] = 1;
             pushBackDeadPlayer(deadPlayer, player);
-            std::cout << player->getName() << "destroy x+" << endl;
             continue;
         }
         if (!exploded[1] && bomb->getBoundingPos().MinEdge.X- (1 + i) < player->getBoundingPos().MaxEdge.X && bomb->getBoundingPos().MinEdge.X - (1 + i) > player->getBoundingPos().MinEdge.X
             && (player->getPos().Z > bomb->getBoundingPos().MinEdge.Z && player->getPos().Z < bomb->getBoundingPos().MaxEdge.Z)) {
             exploded[1] = 1;
             pushBackDeadPlayer(deadPlayer, player);
-            std::cout << player->getName() << "destroy x-" << endl;
             continue;
         }
         if (!exploded[2] && bomb->getBoundingPos().MaxEdge.Z + (1 + i) > player->getBoundingPos().MinEdge.Z && bomb->getBoundingPos().MaxEdge.Z + (1 + i) < player->getBoundingPos().MaxEdge.Z
             && (player->getPos().X > bomb->getBoundingPos().MinEdge.X && player->getPos().X < bomb->getBoundingPos().MaxEdge.X)) {
             exploded[2] = 1;
             pushBackDeadPlayer(deadPlayer, player);
-            std::cout << player->getName() << "destroy z+" << endl;
             continue;
         }
         if (!exploded[3] && bomb->getBoundingPos().MinEdge.Z - (1 + i) < player->getBoundingPos().MaxEdge.Z && bomb->getBoundingPos().MinEdge.Z - (1 + i) > player->getBoundingPos().MinEdge.Z
             && (player->getPos().X > bomb->getBoundingPos().MinEdge.X && player->getPos().X < bomb->getBoundingPos().MaxEdge.X)) {
             exploded[3] = 1;
             pushBackDeadPlayer(deadPlayer, player);
-            std::cout << player->getName() << "destroy z-" << endl;
             continue;
         }
     }
@@ -114,6 +110,24 @@ void Game::BombExploded(Bomb *bomb, vector<Player *> *deadPlayer)
     }
 }
 
+void DeletePlayers(vector<Player *> *deadPlayer, vector<Player *> *_playerObjects)
+{
+    if (deadPlayer->size() > 0) {
+        for (Player *_deadPlayer : (*deadPlayer)) {
+            for (int i = 0; i < _playerObjects->size(); i++) {
+                if (_deadPlayer->getId() == _playerObjects->at(i)->getId()) {
+                    Player *save = _playerObjects->at(i);
+                    cout << save->getName() << endl;
+
+                    _playerObjects->erase(std::remove(_playerObjects->begin(), _playerObjects->end(), _playerObjects->at(i)), _playerObjects->end());
+                    delete(save);
+                }
+            }
+        }
+        deadPlayer->clear();
+    }
+}
+
 void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Player *player)
 {
     vector<Player *> deadPlayer;
@@ -123,20 +137,7 @@ void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Play
         if (obj->getTime() >= 2000) {
             this->_bombObjects.erase(std::remove(this->_bombObjects.begin(), this->_bombObjects.end(), obj), this->_bombObjects.end());
             this->BombExploded(obj, &deadPlayer);
-            if (deadPlayer.size() > 0) {
-                for (Player *_deadPlayer : deadPlayer) {
-                    for (int i = 0; i < this->_playerObjects.size(); i++) {
-                        if (_deadPlayer->getId() == this->_playerObjects.at(i)->getId()) {
-                            Player *save = this->_playerObjects.at(i);
-                            cout << save->getName() << endl;
-
-                            this->_playerObjects.erase(std::remove(this->_playerObjects.begin(), this->_playerObjects.end(), this->_playerObjects.at(i)), this->_playerObjects.end());
-                            delete(save);
-                        }
-                    }
-                }
-                deadPlayer.clear();
-            }
+            DeletePlayers(&deadPlayer, &this->_playerObjects);
             delete(obj);
         }
     }
