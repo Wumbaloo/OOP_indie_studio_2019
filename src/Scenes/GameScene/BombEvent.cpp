@@ -27,7 +27,6 @@ void pushBackDeadPlayer(vector<Player *> *deadPlayer, Player *player)
 
 void Game::CheckIfPlayer(bool exploded[4], Bomb *bomb, vector<Player *> *deadPlayer, int i)
 {
-    cout << "LOOL" << endl;
     for (Player *player : this->_playerObjects) {
         if (!exploded[0] && bomb->getBoundingPos().MaxEdge.X + (1 + i) > player->getBoundingPos().MinEdge.X
             && (player->getPos().Z > bomb->getBoundingPos().MinEdge.Z && player->getPos().Z < bomb->getBoundingPos().MaxEdge.Z)) {
@@ -84,7 +83,6 @@ void Game::BombExploded(Bomb *bomb, vector<Player *> *deadPlayer)
     for (int i = 0; i <= range; i++) {
         this->CheckIfNotBreakable(exploded, bomb, i);
         this->CheckIfPlayer(exploded, bomb, deadPlayer, i);
-        // std::cout << "HELLO\n";
         if (!exploded[0] && this->getObjectFromGame(bomb->getBoundingPos().MaxEdge.X + (1 + i), bomb->getPos().Z)
                 && this->getObjectFromGame(bomb->getBoundingPos().MaxEdge.X + (1 + i), bomb->getPos().Z)->getType() == BREAKABLE) {
             if (rand() % 4 == 1)
@@ -113,7 +111,6 @@ void Game::BombExploded(Bomb *bomb, vector<Player *> *deadPlayer)
             this->deleteWall(this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MinEdge.Z - (1 + i)));
             exploded[3] = 1;
         }
-        // std::cout << "HELLO2\n";
     }
 }
 
@@ -126,13 +123,14 @@ void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Play
         if (obj->getTime() >= 2000) {
             this->_bombObjects.erase(std::remove(this->_bombObjects.begin(), this->_bombObjects.end(), obj), this->_bombObjects.end());
             this->BombExploded(obj, &deadPlayer);
-            cout << deadPlayer.size() << endl;
             if (deadPlayer.size() > 0) {
                 for (Player *_deadPlayer : deadPlayer) {
-                    for (auto player = this->_playerObjects.begin(); player != this->_playerObjects.end(); player++) {
-                        if (_deadPlayer->getId() == (*player)->getId()) {
-                            this->_playerObjects.erase(std::remove(this->_playerObjects.begin(), this->_playerObjects.end(), (*player)), this->_playerObjects.end());
-                            delete((*player));
+                    for (auto _player = this->_playerObjects.begin(); _player != this->_playerObjects.end(); _player++) {
+                        if (_deadPlayer->getId() == (*_player)->getId()) {
+                            Player *save = (*_player);
+
+                            this->_playerObjects.erase(std::remove(this->_playerObjects.begin(), this->_playerObjects.end(), (*_player)), this->_playerObjects.end());
+                            delete(save);
                         }
                     }
                 }
