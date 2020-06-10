@@ -49,6 +49,9 @@ void Menu::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_defaultButtons.clear();
     this->_hoverButtons.clear();
     this->createButtons();
+    Menu::Hover_sound_effect(this->_musics);
+    Menu::Bonus_sound_effect(this->_musics);
+    Menu::Main_music(this->_musics);
     Menu::Title_music(this->_musics);
     this->_musics->_title_music.play();
     this->_musics->_main_music.stop();
