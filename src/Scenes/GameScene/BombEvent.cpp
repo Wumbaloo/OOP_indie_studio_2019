@@ -28,28 +28,28 @@ void pushBackDeadPlayer(vector<Player *> *deadPlayer, Player *player)
 void Game::CheckIfPlayer(bool exploded[4], Bomb *bomb, vector<Player *> *deadPlayer, int i)
 {
     for (Player *player : this->_playerObjects) {
-        if (!exploded[0] && bomb->getBoundingPos().MaxEdge.X + (1 + i) > player->getBoundingPos().MinEdge.X
+        if (!exploded[0] && bomb->getBoundingPos().MaxEdge.X + (1 + i) > player->getBoundingPos().MinEdge.X && bomb->getBoundingPos().MaxEdge.X + (1 + i) < player->getBoundingPos().MaxEdge.X
             && (player->getPos().Z > bomb->getBoundingPos().MinEdge.Z && player->getPos().Z < bomb->getBoundingPos().MaxEdge.Z)) {
             exploded[0] = 1;
             pushBackDeadPlayer(deadPlayer, player);
             std::cout << player->getName() << "destroy x+" << endl;
             continue;
         }
-        if (!exploded[1] && bomb->getBoundingPos().MinEdge.X + (1 + i) < player->getBoundingPos().MaxEdge.X
+        if (!exploded[1] && bomb->getBoundingPos().MinEdge.X- (1 + i) < player->getBoundingPos().MaxEdge.X && bomb->getBoundingPos().MinEdge.X - (1 + i) > player->getBoundingPos().MinEdge.X
             && (player->getPos().Z > bomb->getBoundingPos().MinEdge.Z && player->getPos().Z < bomb->getBoundingPos().MaxEdge.Z)) {
             exploded[1] = 1;
             pushBackDeadPlayer(deadPlayer, player);
             std::cout << player->getName() << "destroy x-" << endl;
             continue;
         }
-        if (!exploded[2] && bomb->getBoundingPos().MaxEdge.Z + (1 + i) > player->getBoundingPos().MinEdge.Z
+        if (!exploded[2] && bomb->getBoundingPos().MaxEdge.Z + (1 + i) > player->getBoundingPos().MinEdge.Z && bomb->getBoundingPos().MaxEdge.Z + (1 + i) < player->getBoundingPos().MaxEdge.Z
             && (player->getPos().X > bomb->getBoundingPos().MinEdge.X && player->getPos().X < bomb->getBoundingPos().MaxEdge.X)) {
             exploded[2] = 1;
             pushBackDeadPlayer(deadPlayer, player);
             std::cout << player->getName() << "destroy z+" << endl;
             continue;
         }
-        if (!exploded[3] && bomb->getBoundingPos().MinEdge.Z - (1 + i) < player->getBoundingPos().MaxEdge.Z
+        if (!exploded[3] && bomb->getBoundingPos().MinEdge.Z - (1 + i) < player->getBoundingPos().MaxEdge.Z && bomb->getBoundingPos().MinEdge.Z - (1 + i) > player->getBoundingPos().MinEdge.Z
             && (player->getPos().X > bomb->getBoundingPos().MinEdge.X && player->getPos().X < bomb->getBoundingPos().MaxEdge.X)) {
             exploded[3] = 1;
             pushBackDeadPlayer(deadPlayer, player);
