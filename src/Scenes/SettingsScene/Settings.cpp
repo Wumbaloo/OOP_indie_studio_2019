@@ -70,6 +70,22 @@ Events Settings::checkEvents(IrrlichtDevice *window, InputManager *inputManager,
     return NONE;
 }
 
+void Settings::displaySkins()
+{
+    std::vector<irr::core::position2d<irr::s32>> skinsPositions =
+        {
+            {260, 465},
+            {460, 465},
+            {660, 465},
+            {860, 465}
+        };
+    for (int i = 0; i < 4; i++) {
+        this->_driver->draw2DImage(this->_skinsEnabled[i], skinsPositions[i]);
+        if (!this->_checkboxes[i]->isChecked())
+            this->_driver->draw2DImage(this->_skinDisabled, skinsPositions[i]);
+    }
+}
+
 void Settings::display()
 {
     this->_driver->beginScene(true, true, video::SColor(255, 100, 101, 140));
@@ -77,6 +93,7 @@ void Settings::display()
         irr::core::position2d<irr::s32>(0, 0),
         irr::core::rect<irr::s32>(0, 0, 1920, 1080), 0,
         irr::video::SColor(255, 255, 255, 255), true);
+    this->displaySkins();
     this->_smgr->drawAll();
     this->_guienv->drawAll();
 }
@@ -92,6 +109,7 @@ void Settings::resetScene(IrrlichtDevice *window, settings_t *settings, InputMan
     this->_nameBoxes.clear();
     this->_listBoxes.clear();
     this->_checkboxes.clear();
+    this->_skinsEnabled.clear();
     this->_guienv->clear();
     this->_smgr->clear();
     this->_driver->removeAllTextures();

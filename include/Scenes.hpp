@@ -79,6 +79,8 @@ class Settings : public AScene
         irr::gui::IGUIButton *_menuButtonHover;
         irr::gui::IGUISpinBox *_volumeBox;
         std::vector<irr::gui::IGUIEditBox *> _nameBoxes;
+        std::vector<irr::video::ITexture *> _skinsEnabled;
+        irr::video::ITexture *_skinDisabled;
         std::vector<irr::gui::IGUIListBox *> _listBoxes;
         std::vector<irr::gui::IGUICheckBox *> _checkboxes;
 
@@ -88,6 +90,7 @@ class Settings : public AScene
 
         void generateSettings(settings_t *);
         void generateNameBoxes(settings_t *);
+        void generateSkins(settings_t *);
         void generateListBoxes(settings_t *);
         void generateCheckBoxes(settings_t *);
         irr::gui::IGUIEditBox *newNameBox(const wchar_t *, irr::core::rect<s32>, bool);
@@ -100,6 +103,7 @@ class Settings : public AScene
         void updateEnabledPlayers(settings_t *);
         void updateSettings(settings_t *);
         void display() override;
+        void displaySkins();
         void createButtons() override;
         void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
 };
