@@ -125,11 +125,12 @@ void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Play
             this->BombExploded(obj, &deadPlayer);
             if (deadPlayer.size() > 0) {
                 for (Player *_deadPlayer : deadPlayer) {
-                    for (auto _player = this->_playerObjects.begin(); _player != this->_playerObjects.end(); _player++) {
-                        if (_deadPlayer->getId() == (*_player)->getId()) {
-                            Player *save = (*_player);
+                    for (int i = 0; i < this->_playerObjects.size(); i++) {
+                        if (_deadPlayer->getId() == this->_playerObjects.at(i)->getId()) {
+                            Player *save = this->_playerObjects.at(i);
+                            cout << save->getName() << endl;
 
-                            this->_playerObjects.erase(std::remove(this->_playerObjects.begin(), this->_playerObjects.end(), (*_player)), this->_playerObjects.end());
+                            this->_playerObjects.erase(std::remove(this->_playerObjects.begin(), this->_playerObjects.end(), this->_playerObjects.at(i)), this->_playerObjects.end());
                             delete(save);
                         }
                     }
