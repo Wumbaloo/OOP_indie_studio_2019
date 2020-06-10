@@ -10,8 +10,6 @@
 
 bool Game::checkColision(AnimatedModel *object, std::vector<Model *> wall[], Direction dir, bool IsWallPass)
 {
-    // if (IsWallPass == true)
-    //     return true;
     for (int y = 0; y < MAP_HEIGHT + 2; y++) {
         for (Model *wall : this->_map[y]) {
             switch (dir) {
@@ -59,8 +57,33 @@ bool Game::checkColision(AnimatedModel *object, std::vector<Model *> wall[], Dir
     return true;
 }
 
+void Game::PlayerEvents(InputManager *inputManager, IrrlichtDevice *window)
+{
+    for (auto player = this->_playerObjects.begin(); player != this->_playerObjects.end(); player++) {
+        this->CheckPowerUpsColision((*player), window);
+        this->BombHandling(window, inputManager, (*player));
+        if (!(*player))
+            continue;
+        if ((*player)->isHuman())
+            this->PlayerMovements((*player), inputManager);
+        else {
+            if (this->AIMovements((*player))) {
+                if (getNbBombByOwner((*player)->getName()) < (*player)->getBombUp())
+                    this->_bombObjects.push_back(
+                        this->createBombObject("bomb", {"bomb_animated.md3", "bomb.png",
+                        {(*player)->getPos()}, {.8, .8, .8}, {0, 20}, 20}, (*player)->getName(), window->getTimer()->getTime()));
+            }
+        }
+    }
+}
+
 Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
 {
+    if (inputManager->isKeyPressed(SAVE_GAME)) {
+        this->save();
+        this->destroy();
+        return SAVE_GAME;
+    }
     if (inputManager->isKeyPressed(CLOSE)) {
         this->destroy();
         return CLOSE;
@@ -78,23 +101,7 @@ Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
         this->destroy();
         return BACK_MENU;
     }
-    for (auto player = this->_playerObjects.begin(); player != this->_playerObjects.end(); player++) {
-        this->CheckPowerUpsColision((*player), window);
-        this->BombHandling(window, inputManager, (*player));
-        std::cout << "HELLO4\n";
-        // if (!(*player))
-        //     continue;
-        // if ((*player)->isHuman())
-        //     this->PlayerMovements((*player), inputManager);
-        // else {
-        //     if (this->AIMovements((*player))) {
-        //         if (getNbBombByOwner((*player)->getName()) < (*player)->getBombUp())
-        //             this->_bombObjects.push_back(
-        //                 this->createBombObject("bomb", {"bomb_animated.md3", "bomb.png",
-        //                 {(*player)->getPos()}, {.8, .8, .8}, {0, 20}, 20}, (*player)->getName(), window->getTimer()->getTime()));
-        //     }
-        // }
-    }
+    this->PlayerEvents(inputManager, window);
     return NONE;
 }
 

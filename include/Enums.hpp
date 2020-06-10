@@ -20,6 +20,8 @@ enum Events
     END_GAME,
     PAUSE,
     TO_SETTINGS,
+    SAVE_GAME,
+    LOAD_GAME,
     HELP,
     MOVE_UP_1,
     MOVE_DOWN_1,

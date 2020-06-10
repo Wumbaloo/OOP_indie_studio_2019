@@ -76,8 +76,12 @@ class Menu : public AScene
     public:
         Menu(IrrlichtDevice *);
         ~Menu() = default;
+
+        static void Main_music(music_t *_musics);
+        static void Bonus_sound_effect(music_t *_musics);
         static void Hover_sound_effect(music_t *_musics);
-        static int Title_music(music_t *_musics);
+        static void Title_music(music_t *_musics);
+
         void display() override;
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
         void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
@@ -156,7 +160,7 @@ class Game : public AScene
     public:
         Game(IrrlichtDevice *);
         ~Game() = default;
-        static int Main_music(music_t *_musics);
+
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
         void display(void) override;
 
@@ -172,18 +176,19 @@ class Game : public AScene
         // event
         bool checkColision(AnimatedModel *, std::vector<Model *>[], Direction, bool);
         Events KeyboardEvents(InputManager *, IrrlichtDevice *);
-        void BombHandling(IrrlichtDevice *window, InputManager *inputManager, Player *player);
-        void PowerUpContact(PowerUp *bonus, Player *player, IrrlichtDevice *);
+        void BombHandling(IrrlichtDevice *, InputManager *, Player *);
+        void PowerUpContact(PowerUp *, Player *, IrrlichtDevice *);
         void PlayerMovements(Player *, InputManager *);
         bool AIGoToNearest(Player *, core::vector3df, core::vector2di);
         bool AIMovements(Player *);
-        void BombExploded(Bomb *bomb, vector<Player *> *deadPlayer);
-        void deleteWall(Model *wall);
+        void BombExploded(Bomb *, vector<Player *> *);
+        void deleteWall(Model *);
         void CheckIfNotBreakable(bool *, Bomb *, int);
         void CheckIfPlayer(bool *, Bomb *, vector<Player *> *, int);
-        void CheckPowerUpsColision(Player *player, IrrlichtDevice *);
-        void SpawnPowerUps(core::vector3df pos);
-        void PowerUpsTimerHandling(Player *player, IrrlichtDevice *);
+        void CheckPowerUpsColision(Player *, IrrlichtDevice *);
+        void SpawnPowerUps(core::vector3df );
+        void PowerUpsTimerHandling(Player *, IrrlichtDevice *);
+        void PlayerEvents(InputManager *, IrrlichtDevice *);
 
         // others
         int getNbBombByOwner(std::string owner) const;

@@ -33,7 +33,7 @@ void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_smgr->addCameraSceneNode(0, core::vector3df(0, 25, -5),
         core::vector3df(0, -12.5, -2.5));
     this->_then = window->getTimer()->getTime();
-    Game::Main_music(this->_musics);
+    this->_musics->_main_music.play();
     this->_musics->_title_music.stop();
     this->createGameScene(settings, im);
 }
@@ -43,20 +43,20 @@ void Game::save()
     string *buffer;
     FILE *fileStream = fopen("savefile.sav", "w");
 
-    for (int i = 0; i < MAP_HEIGHT + 2; i++) {
-        for (int j = 0; j < MAP_WIDTH; j++) {
-            switch (this->_map[i][j]->getType()) {
-                case BREAKABLE :
-                    fwrite("x", 1, 1, fileStream);
-                    break;
-                case OBSTACLE :
-                    fwrite("o", 1, 1, fileStream);
-                    break;
-                default :
-                    fwrite("_", 1, 1, fileStream);
-            }
-        }
-    }
+    // for (int i = 0; i < MAP_HEIGHT + 2; i++) {
+    //     for (int j = 0; j < MAP_WIDTH; j++) {
+    //         switch (this->_map[i][j]->getType()) {
+    //             case BREAKABLE :
+    //                 fwrite("x", 1, 1, fileStream);
+    //                 break;
+    //             case OBSTACLE :
+    //                 fwrite("o", 1, 1, fileStream);
+    //                 break;
+    //             default :
+    //                 fwrite("_", 1, 1, fileStream);
+    //         }
+    //     }
+    // }
     fclose(fileStream);
 }
 

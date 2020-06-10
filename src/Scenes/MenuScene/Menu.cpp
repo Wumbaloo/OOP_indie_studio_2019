@@ -32,7 +32,8 @@ void Menu::display()
         irr::core::rect<irr::s32>(0,0,1920,1080), 0,
         irr::video::SColor(255, 255, 255, 255), true);
     this->_smgr->drawAll();
-    this->_guienv->drawAll();
+    if (this->_guienv)
+        this->_guienv->drawAll();
 }
 
 Menu::Menu(IrrlichtDevice *window) : AScene(window)
@@ -48,7 +49,11 @@ void Menu::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_defaultButtons.clear();
     this->_hoverButtons.clear();
     this->createButtons();
+    Menu::Hover_sound_effect(this->_musics);
+    Menu::Bonus_sound_effect(this->_musics);
+    Menu::Main_music(this->_musics);
     Menu::Title_music(this->_musics);
+    this->_musics->_title_music.play();
     this->_musics->_main_music.stop();
     this->_menuBackground = this->_driver->getTexture("../assets/images/backgroundMenu.png");
 }
