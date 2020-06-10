@@ -63,15 +63,8 @@ void Game::generateMap(unsigned int seed)
 
 void Game::placeInMap(AObject *obj, int x, int y)
 {
-<<<<<<< HEAD
-    // float _x = (-(MAP_WIDTH) + this->_grid) + (x * this->_grid);
-    // float _z = -((-(MAP_HEIGHT) + 2 * this->_grid) + (y * this->_grid));
-    float _x = (x * this->_grid) - MAP_WIDTH;
-    float _z = ((y * this->_grid) - 7) * (-1);
-=======
     float _x = (x * 2) - 11;
     float _z = ((y * 2) - 7) * (-1);
->>>>>>> a9c9d5a554945dcc3189afaa0f1ae2f504f0b0de
 
     obj->setPos({_x, 0, _z});
 }
@@ -120,7 +113,7 @@ core::vector2di Game::getMapPosition(core::vector3df pos)
     else
         x = ((-11 - pos.X) / 2) * (-1);
     y = (7 - pos.Z) / 2;
-    return {round(x), round(y)};
+    return {(int) round(x), (int) round(y)};
 }
 
 core::vector2di Game::getMapPosition(AObject *object)
