@@ -112,23 +112,23 @@ bool Game::AIMovements(Player *player)
 {
     core::vector3df nodePosition = player->getPos();
     core::vector2di mapPos = this->getMapPosition(nodePosition);
-    AObject *obj = this->getObjectFromMap(mapPos.X - 1, mapPos.Y);
+    AObject *obj = this->getObjectFromGame(player->getBoundingPos().MaxEdge.X + 1, player->getPos().Z);
 
     if (obj && obj->getType() == BREAKABLE) {
         movePlayer(player, {1, 0});
         return (true);
     }
-    obj = this->getObjectFromMap(mapPos.X + 1, mapPos.Y);
+    obj = this->getObjectFromGame(player->getBoundingPos().MinEdge.X - 1, player->getPos().Z);
     if (obj && obj->getType() == BREAKABLE) {
         movePlayer(player, {1, 0});
         return (true);
     }
-    obj = this->getObjectFromMap(mapPos.X, mapPos.Y - 1);
+    obj = this->getObjectFromGame(player->getPos().X, player->getBoundingPos().MaxEdge.Z + 1);
     if (obj && obj->getType() == BREAKABLE) {
         movePlayer(player, {0, 1});
         return (true);
     }
-    obj = this->getObjectFromMap(mapPos.X, mapPos.Y + 1);
+    obj = this->getObjectFromGame(player->getPos().X, player->getBoundingPos().MinEdge.Z - 1);
     if (obj && obj->getType() == BREAKABLE) {
         movePlayer(player, {0, -1});
         return (true);

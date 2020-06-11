@@ -17,7 +17,7 @@ Game::Game(IrrlichtDevice *window) : AScene(window)
 
 void Game::display()
 {
-    this->_driver->beginScene(true, true, video::SColor(255, 100, 101, 140));
+    this->_driver->beginScene(true, true, video::SColor(255, 82, 138, 85.4));
     // if (!this->_paused)
     this->_smgr->drawAll();
     this->_guienv->drawAll();
@@ -30,7 +30,7 @@ void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_guienv->clear();
     this->_objects.clear();
     this->_smgr->clear();
-    this->_smgr->addCameraSceneNode(0, core::vector3df(0, 25, -5),
+    scene::ICameraSceneNode *camera = this->_smgr->addCameraSceneNode(0, core::vector3df(0, 25, -5),
         core::vector3df(0, -12.5, -2.5));
     this->_then = window->getTimer()->getTime();
     this->_musics->_main_music.play();

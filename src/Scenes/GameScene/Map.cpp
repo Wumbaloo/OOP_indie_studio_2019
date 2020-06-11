@@ -58,7 +58,6 @@ void Game::generateMap(unsigned int seed)
         }
         i++;
     }
-    this->createObject("ground", "ground.obj", "Grass.jpg", {0, -2, -2.5}, {0.01, 0.01, 0.01});
 }
 
 void Game::placeInMap(AObject *obj, int x, int y)
@@ -93,8 +92,6 @@ AObject *Game::getObjectFromMap(int x, int y)
 
     if (y < 0 || y > MAP_HEIGHT + 1)
         return (NULL);
-    // std::cout << "POS X IS " << _x << " Y: " << y << std::endl;
-    // std::cout << this->_map[y + 1].at(1)->getName() << " X IS " << this->_map[y + 1].at(1)->getPos().X << " Y: " << this->_map[y + 1].at(1)->getPos().Y << std::endl;
     for (auto it = this->_map[y + 1].begin(); it != this->_map[y + 1].end(); it++) {
         core::vector3df pos = (*it)->getPos();
 
