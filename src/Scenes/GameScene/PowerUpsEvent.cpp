@@ -6,7 +6,7 @@
 */
 
 #include <iostream>
-#include <bits/stdc++.h>
+#include <algorithm>
 #include "Scenes.hpp"
 
 void Game::SpawnPowerUps(core::vector3df pos)

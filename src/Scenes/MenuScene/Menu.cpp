@@ -32,9 +32,10 @@ Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager, set
 void Menu::display()
 {
     this->_driver->beginScene(true, true, video::SColor(255, 100, 101, 140));
-    this->_driver->draw2DImage(this->_menuBackground, core::position2d<s32>(0,0),
-        core::rect<s32>(0,0,1920,1080), 0,
-        video::SColor(255, 255, 255, 255), true);
+    core::dimension2d<u32> size = this->_driver->getScreenSize();
+    this->_driver->draw2DImage(this->_menuBackground, irr::core::rect<irr::s32>(0,0, size.Width, size.Height),
+        irr::core::rect<irr::s32>(0,0,this->_menuBackground->getOriginalSize().Width,this->_menuBackground->getOriginalSize().Height), 0,
+        0, true);
     this->_smgr->drawAll();
     if (this->_guienv)
         this->_guienv->drawAll();

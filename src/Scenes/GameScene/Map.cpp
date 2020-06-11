@@ -46,14 +46,14 @@ void Game::generateMap(unsigned int seed)
     this->makeBorderMap();
     for (int z = MAP_HEIGHT; z > 0; z--) {
         for (int x = 0; x < MAP_WIDTH; x++) {
-            int random = rand() % 4;
+            int random = rand() % 6;
             Model *obj = NULL;
             core::vector3df pos = {(x + 1) * this->_grid - MAP_WIDTH, 0,
                                     z * this->_grid - MAP_HEIGHT - (this->_grid * 2)};
 
             if (random == 0 || isACorner({x, 0, z}))
                 continue;
-            else if ((random > 0 && random < 3))
+            else if ((random > 0 && random < 5))
                 obj = this->createObject("destructible", "Cube.obj", "Cube.jpg", pos, {1, 1, 1}, BREAKABLE);
             else
                 obj = this->createObject("wall", "Cube.obj", "Square.jpg", pos, {1, 1, 1}, OBSTACLE);

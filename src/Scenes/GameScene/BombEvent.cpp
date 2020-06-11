@@ -5,7 +5,7 @@
 ** BombEvent.cpp
 */
 
-#include <bits/stdc++.h>
+#include <algorithm>
 #include "Scenes.hpp"
 
 void Game::deleteWall(Model *wall)
@@ -137,8 +137,10 @@ void DeletePlayers(vector<Player *> *deadPlayer, vector<Player *> *_playerObject
 void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Player *player)
 {
     vector<Player *> deadPlayer;
+    int bombEnd = this->_bombObjects.size();
 
-    for (Bomb *obj : this->_bombObjects) {
+    for (int i = 0; i < bombEnd; i++) {
+        Bomb *obj = this->_bombObjects.at(i);
         obj->setTime(window->getTimer()->getTime());
         if (obj->getTime() >= 2000) {
             this->_music->playBombExploSound();
@@ -148,6 +150,7 @@ void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Play
             if (this->_playerObjects.size() == 1)
                 this->_winner = this->_playerObjects.at(0)->getNb();
             delete(obj);
+            bombEnd--;
         }
     }
     if (player && (player->isHuman() && inputManager->isKeyPressed(player->getBombEvent()))) {
