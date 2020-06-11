@@ -5,6 +5,7 @@
 ** Created by Anthony ANICOTTE,
 */
 
+#include <fstream>
 #include "Scenes.hpp"
 
 HowToPlay::HowToPlay(IrrlichtDevice *window) : AScene(window)
@@ -21,16 +22,22 @@ void HowToPlay::display()
     this->_guienv->drawAll();
 }
 
-Events HowToPlay::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings) {
-    std::vector<Events> types = {BACK_MENU, PLAY};
+Events HowToPlay::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
+{
+    ifstream save("../bomberman.sav");
 
     this->checkHoverButton(window->getCursorControl()->getPosition(),
         this->_defaultButtons, this->_hoverButtons);
-    for (int i = 0; i < this->_defaultButtons.size(); i++) {
-        if (this->_hoverButtons[i]->isPressed()) {
-            this->_musics->_bomb.play();
-            return types[i];
+    if (this->_hoverButtons[0]->isPressed()) {
+        if (save.is_open())
+            save.close();
+        return BACK_MENU;
+    } else if (this->_hoverButtons[1]->isPressed()) {
+        if (save.is_open()) {
+            save.close();
+            return GO_LOAD;
         }
+        return PLAY;
     }
     if (inputManager->isKeyPressed(CLOSE)) {
         this->_musics->_bomb.play();

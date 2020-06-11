@@ -14,6 +14,8 @@ enum Events
     CLOSE,
     PLAY,
     BACK_MENU,
+    GO_WIN,
+    GO_LOAD,
     RESTART,
     END_GAME,
     PAUSE,
@@ -52,7 +54,9 @@ enum GameStatus {
     MENU,
     GAME,
     SETTINGS,
-    HOWTOPLAY
+    HOWTOPLAY,
+    WIN_PANEL,
+    LOAD
 };
 
 enum PlayerAnimations {

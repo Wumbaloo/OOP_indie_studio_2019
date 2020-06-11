@@ -53,8 +53,7 @@ void Settings::updateSettings(settings_t *settings)
 
 void Settings::manageMute(IrrlichtDevice *window, settings_t *settings)
 {
-    if (!settings->isMuted)
-    {
+    if (!settings->isMuted) {
         this->_soundsDefault[1]->setVisible(false);
         this->_soundsHover[1]->setVisible(false);
         this->_soundsHover[0]->setVisible(this->_soundsDefault[0]->isPointInside(window->getCursorControl()->getPosition()));
@@ -81,8 +80,10 @@ Events Settings::checkEvents(IrrlichtDevice *window, InputManager *inputManager,
         }
     }
     this->updateSettings(settings);
-    if (inputManager->isKeyPressed(CLOSE))
+    if (inputManager->isKeyPressed(CLOSE)) {
+        this->_musics->_bomb.play();
         return CLOSE;
+    }
     if (this->_menuButtonHover->isPressed()) {
         this->_musics->_bomb.play();
         return BACK_MENU;

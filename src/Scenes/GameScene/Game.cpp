@@ -33,7 +33,7 @@ void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_smgr->addCameraSceneNode(0, core::vector3df(0, 25, -5),
         core::vector3df(0, -12.5, -2.5));
     this->_then = window->getTimer()->getTime();
-    Game::Main_music(this->_musics);
+    this->_musics->_main_music.play();
     this->_musics->_title_music.stop();
     this->createGameScene(settings, im);
 }

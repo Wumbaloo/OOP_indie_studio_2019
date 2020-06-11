@@ -16,25 +16,54 @@ using namespace irr;
 
 class AScene {
     protected:
-    gui::IGUIEnvironment *_guienv;
-    video::IVideoDriver *_driver;
-    scene::ISceneManager *_smgr;
+        gui::IGUIEnvironment *_guienv;
+        video::IVideoDriver *_driver;
+        scene::ISceneManager *_smgr;
     public:
-    explicit AScene(IrrlichtDevice *);
-    ~AScene() = default;
-    music_t *_musics = new music_t;
-    void refreshWindow();
-    irr::gui::IGUIButton *newButton(irr::core::rect<irr::s32> pos, bool visible,
-        irr::core::string<fschar_t> path
-    );
-    virtual void display() = 0;
-    virtual Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *
-    ) = 0;
-    virtual void resetScene(IrrlichtDevice *, settings_t *, InputManager *) = 0;
-    virtual void createButtons() = 0;
-    void checkHoverButton(irr::core::vector2d<s32> cursorPos,
-        std::vector<irr::gui::IGUIButton *>, std::vector<irr::gui::IGUIButton *>
-    );
+        explicit AScene(IrrlichtDevice *);
+        ~AScene() = default;
+        music_t *_musics = new music_t;
+        void refreshWindow();
+        irr::gui::IGUIButton *newButton(irr::core::rect<irr::s32> pos, bool visible,
+            irr::core::string<fschar_t> path);
+        virtual void display() = 0;
+        virtual Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) = 0;
+        virtual void resetScene(IrrlichtDevice *, settings_t *, InputManager *) = 0;
+        virtual void createButtons() = 0;
+        void checkHoverButton(irr::core::vector2d<s32> cursorPos,
+            std::vector<irr::gui::IGUIButton *>, std::vector<irr::gui::IGUIButton *>);
+};
+
+class Win : public AScene
+{
+    private:
+        irr::video::ITexture *_winPanel;
+        irr::video::ITexture *_playerSkin;
+        irr::gui::IGUIButton *_menuDefault;
+        irr::gui::IGUIButton *_menuHover;
+        irr::gui::IGUIStaticText *_playerName;
+    public:
+        Win(IrrlichtDevice *);
+        ~Win() = default;
+        void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
+        Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
+        void display() override;
+        void createButtons() override;
+};
+
+class Load : public AScene
+{
+    private:
+        std::vector<irr::gui::IGUIButton *> _defaultButtons;
+        std::vector<irr::gui::IGUIButton *> _hoverButtons;
+        irr::video::ITexture *_loadBackground;
+    public:
+        Load(IrrlichtDevice *);
+        ~Load() = default;
+        void display() override;
+        void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
+        void createButtons() override;
+        Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
 };
 
 class Menu : public AScene
@@ -47,8 +76,12 @@ class Menu : public AScene
     public:
         Menu(IrrlichtDevice *);
         ~Menu() = default;
+
+        static void Main_music(music_t *_musics);
+        static void Bonus_sound_effect(music_t *_musics);
         static void Hover_sound_effect(music_t *_musics);
-        static int Title_music(music_t *_musics);
+        static void Title_music(music_t *_musics);
+
         void display() override;
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
         void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
@@ -127,7 +160,7 @@ class Game : public AScene
     public:
         Game(IrrlichtDevice *);
         ~Game() = default;
-        static int Main_music(music_t *_musics);
+
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
         void display(void) override;
 
@@ -143,18 +176,19 @@ class Game : public AScene
         // event
         bool checkColision(AnimatedModel *, std::vector<Model *>[], Direction, bool);
         Events KeyboardEvents(InputManager *, IrrlichtDevice *);
-        void BombHandling(IrrlichtDevice *window, InputManager *inputManager, Player *player);
-        void PowerUpContact(PowerUp *bonus, Player *player, IrrlichtDevice *);
+        void BombHandling(IrrlichtDevice *, InputManager *, Player *);
+        void PowerUpContact(PowerUp *, Player *, IrrlichtDevice *);
         void PlayerMovements(Player *, InputManager *);
         bool AIGoToNearest(Player *, core::vector3df, core::vector2di);
         bool AIMovements(Player *);
-        void BombExploded(Bomb *bomb, vector<Player *> *deadPlayer);
-        void deleteWall(Model *wall);
+        void BombExploded(Bomb *, vector<Player *> *);
+        void deleteWall(Model *);
         void CheckIfNotBreakable(bool *, Bomb *, int);
         void CheckIfPlayer(bool *, Bomb *, vector<Player *> *, int);
-        void CheckPowerUpsColision(Player *player, IrrlichtDevice *);
-        void SpawnPowerUps(core::vector3df pos);
-        void PowerUpsTimerHandling(Player *player, IrrlichtDevice *);
+        void CheckPowerUpsColision(Player *, IrrlichtDevice *);
+        void SpawnPowerUps(core::vector3df );
+        void PowerUpsTimerHandling(Player *, IrrlichtDevice *);
+        void PlayerEvents(InputManager *, IrrlichtDevice *);
 
         // others
         int getNbBombByOwner(std::string owner) const;

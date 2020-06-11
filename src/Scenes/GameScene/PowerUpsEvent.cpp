@@ -39,6 +39,7 @@ void Game::PowerUpContact(PowerUp *bonus, Player *player, IrrlichtDevice *window
 {
     this->_powerUpObjects.erase(std::remove(this->_powerUpObjects.begin(), this->_powerUpObjects.end(), bonus), this->_powerUpObjects.end());
     bonus->affectPlayer(player, window);
+    this->_musics->_bonus.play();
     delete(bonus);
 }
 

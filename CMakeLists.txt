@@ -38,7 +38,9 @@ file(GLOB SRC
         src/Scenes/SettingsScene/GenerateSettings.cpp
         src/Scenes/SettingsScene/CreateSettingsTools.cpp
         src/Scenes/AScene.cpp
-        src/Scenes/HowToPlay/HowToPlay.cpp
+        src/Scenes/HowToPlayScene/HowToPlay.cpp
+        src/Scenes/WinScene/Win.cpp
+        src/Scenes/LoadScene/Load.cpp
         )
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/libs" ${CMAKE_MODULE_PATH})
