@@ -9,7 +9,7 @@
 #define ANIMATED_OBJECT_HPP
 
 #include <iostream>
-#include <irrlicht/irrlicht.h>
+#include <irrlicht.h>
 #include "Object.hpp"
 #include "Enums.hpp"
 #include "InputManager.hpp"
