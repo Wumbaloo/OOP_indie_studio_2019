@@ -5,7 +5,7 @@
 ** Music.cpp
 */
 
-#include <irrKlang/irrKlang.h>
+#include <irrKlang.h>
 
 class Music
 {

@@ -5,6 +5,7 @@
 ** Created by Anthony ANICOTTE,
 */
 
+#include <string>
 #include "Scenes.hpp"
 
 Win::Win(IrrlichtDevice *window) : AScene(window)

@@ -5,6 +5,8 @@
 ** create game component cpp
 */
 
+#include <string>
+#include <time.h>
 #include "IndieStudio.hpp"
 #include "AnimatedObjects.hpp"
 

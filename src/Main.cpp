@@ -5,6 +5,7 @@
 ** main.c
 */
 
+#include <time.h>
 #include "IndieStudio.hpp"
 
 int main()

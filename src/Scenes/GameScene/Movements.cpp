@@ -13,25 +13,30 @@ void Game::movePlayer(Player *player, core::vector2di dir)
     float speedUp = player->getSpeedUp();
     core::vector3df rotateFix = player->getRotateFix();
     bool wallPass = player->getWallPass();
+    core::vector2di zero = {0, 0};
 
-    if (dir != (core::vector2di) {0, 0})
+    if (dir != zero)
         player->changeAnimation(RUNNING);
     if (dir.X == 0 && dir.Y == 1 &&
         (checkColision(player, this->_map, UP, wallPass))) {
         nodePosition.Z += PLAYER_SPEED * this->_frameDeltaTime * speedUp;
-        player->setRotation((core::vector3df) {0.f, 180.f, .0f} - rotateFix);
+        core::vector3df rot = {0, 180, 0};
+        player->setRotation(rot - rotateFix);
     } else if (dir.X == 0 && dir.Y == - 1 &&
         (checkColision(player, this->_map, DOWN, wallPass))) {
         nodePosition.Z -= PLAYER_SPEED * this->_frameDeltaTime * speedUp;
-        player->setRotation((core::vector3df) {0.f, 0.f, 0.f} - rotateFix);
+        core::vector3df rot = {0, 0, 0};
+        player->setRotation(rot - rotateFix);
     } else if (dir.X == -1 && dir.Y == 0 &&
         (checkColision(player, this->_map, LEFT, wallPass))) {
         nodePosition.X -= PLAYER_SPEED * this->_frameDeltaTime * speedUp;
-        player->setRotation((core::vector3df) {0.f, 90.f, 0.f} - rotateFix);
+        core::vector3df rot = {0, 90, 0};
+        player->setRotation(rot - rotateFix);
     } else if (dir.X == 1 && dir.Y == 0 &&
         (checkColision(player, this->_map, RIGHT, wallPass))) {
         nodePosition.X += PLAYER_SPEED * this->_frameDeltaTime * speedUp;
-        player->setRotation((core::vector3df) {0.f, -90.f, 0.f} - rotateFix);
+        core::vector3df rot = {0, -90, 0};
+        player->setRotation(rot - rotateFix);
     } else {
         if (player->isRunning())
             player->changeAnimation(IDLE);
