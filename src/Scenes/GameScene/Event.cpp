@@ -62,7 +62,6 @@ bool Game::checkColision(AnimatedModel *object, std::vector<Model *> wall[], Dir
 Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
 {
     if (inputManager->isKeyPressed(SAVE_GAME)) {
-        this->save();
         this->destroy();
         return SAVE_GAME;
     }
