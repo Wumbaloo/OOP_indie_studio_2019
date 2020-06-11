@@ -5,7 +5,6 @@
 ** Created by Anthony ANICOTTE,
 */
 
-#include <SFML/Audio.hpp>
 #include "Object.hpp"
 #include "InputManager.hpp"
 #include "AnimatedObjects.hpp"

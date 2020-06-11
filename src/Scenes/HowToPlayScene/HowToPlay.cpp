@@ -40,7 +40,7 @@ Events HowToPlay::checkEvents(IrrlichtDevice *window, InputManager *inputManager
         return PLAY;
     }
     if (inputManager->isKeyPressed(CLOSE)) {
-        this->_musics->_bomb.play();
+        // this->_musics->_bomb.play();
         return CLOSE;
     }
     return NONE;

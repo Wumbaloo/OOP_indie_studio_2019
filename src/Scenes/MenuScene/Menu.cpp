@@ -14,12 +14,12 @@ Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager, set
         this->_defaultButtons, this->_hoverButtons);
     for (int i = 0; i < this->_defaultButtons.size(); i++) {
         if (this->_hoverButtons[i]->isPressed()) {
-            this->_musics->_bomb.play();
+            // this->_musics->_bomb.play();
             return types[i];
         }
     }
     if (inputManager->isKeyPressed(CLOSE)) {
-        this->_musics->_bomb.play();
+        // this->_musics->_bomb.play();
         return CLOSE;
     }
     return NONE;
@@ -53,8 +53,8 @@ void Menu::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     Menu::Bonus_sound_effect(this->_musics);
     Menu::Main_music(this->_musics);
     Menu::Title_music(this->_musics);
-    this->_musics->_title_music.play();
-    this->_musics->_main_music.stop();
+    // this->_musics->_title_music.play();
+    // this->_musics->_main_music.stop();
     this->_menuBackground = this->_driver->getTexture("../assets/images/backgroundMenu.png");
 }
 

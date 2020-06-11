@@ -5,6 +5,7 @@
 ** BombEvent.cpp
 */
 
+#include <bits/stdc++.h>
 #include "Scenes.hpp"
 
 void Game::deleteWall(Model *wall)

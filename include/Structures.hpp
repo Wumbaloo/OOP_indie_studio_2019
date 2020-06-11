@@ -11,7 +11,6 @@
 #include <iostream>
 #include <vector>
 #include <irrlicht/irrlicht.h>
-#include <SFML/Audio/Music.hpp>
 #include "Enums.hpp"
 
 using namespace std;
@@ -41,10 +40,10 @@ typedef struct data_animations_s
 
 typedef struct music_s
 {
-    sf::Music _title_music;
-    sf::Music _main_music;
-    sf::Music _bomb;
-    sf::Music _bonus;
+    // sf::Music _title_music;
+    // sf::Music _main_music;
+    // sf::Music _bomb;
+    // sf::Music _bonus;
 } music_t;
 
 typedef struct settings_s

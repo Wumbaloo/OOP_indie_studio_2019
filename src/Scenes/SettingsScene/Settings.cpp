@@ -81,11 +81,11 @@ Events Settings::checkEvents(IrrlichtDevice *window, InputManager *inputManager,
     }
     this->updateSettings(settings);
     if (inputManager->isKeyPressed(CLOSE)) {
-        this->_musics->_bomb.play();
+        // this->_musics->_bomb.play();
         return CLOSE;
     }
     if (this->_menuButtonHover->isPressed()) {
-        this->_musics->_bomb.play();
+        // this->_musics->_bomb.play();
         return BACK_MENU;
     }
     return NONE;

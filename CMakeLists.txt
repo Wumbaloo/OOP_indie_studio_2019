@@ -53,14 +53,11 @@ include(FindIrrlicht)
 include_directories(${Irrlicht_INCLUDE_DIRS})
 
 
-# SFML LIB
-set(SFML_DIR "${CMAKE_SOURCE_DIR}/libs/SFML/cmake/SFML")
-set(SFML_DOC_DIR "${SFML_DIR}/doc")
-set(SFML_FIND_REQUIRED True)
-find_package(SFML 2.5 COMPONENTS audio REQUIRED)
-include(FindSFML)
-include_directories(${SFML_INCLUDE_DIRS})
+# IRRKLANG LIB
+set(IrrKlang_DIR "${CMAKE_SOURCE_DIR}/libs/irrKlang")
+set(IrrKlang_FIND_REQUIRED True)
+include(FindIrrKlang)
+include_directories(${IrrKlang_INCLUDE_DIRS})
+
 add_executable(${NAME} ${SRC})
-# target_link_libraries(${NAME} sfml-audio)
-target_link_libraries(${NAME} ${Irrlicht_LIBRARIES})
-target_link_libraries(${NAME} ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+target_link_libraries(${NAME} ${Irrlicht_LIBRARIES} ${IrrKlang_LIBRARIES})
