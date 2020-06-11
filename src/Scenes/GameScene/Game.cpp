@@ -5,7 +5,6 @@
 ** Created by Anthony ANICOTTE,
 */
 
-// #include <IrrlichtDevice.h>
 #include "IndieStudio.hpp"
 
 Game::Game(IrrlichtDevice *window) : AScene(window)
@@ -19,7 +18,6 @@ Game::Game(IrrlichtDevice *window) : AScene(window)
 void Game::display()
 {
     this->_driver->beginScene(true, true, video::SColor(255, 82, 138, 85.4));
-    // if (!this->_paused)
     this->_smgr->drawAll();
     this->_guienv->drawAll();
 }
@@ -34,8 +32,12 @@ void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     scene::ICameraSceneNode *camera = this->_smgr->addCameraSceneNode(0, core::vector3df(0, 25, -5),
         core::vector3df(0, -12.5, -2.5));
     this->_then = window->getTimer()->getTime();
-    // this->_musics->_main_music.play();
-    // this->_musics->_title_music.stop();
+    if (settings->isMuted)
+        this->_music->muteAll();
+    else
+        this->_music->demute();
+    if (!this->_music->isMusicOn())
+        this->_music->playGameMusic();
     this->createGameScene(settings, im);
 }
 

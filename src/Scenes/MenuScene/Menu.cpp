@@ -7,19 +7,23 @@
 
 #include "Scenes.hpp"
 
-Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings) {
+Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
+{
     std::vector<Events> types = {HELP, TO_SETTINGS, CLOSE};
-    Menu::Hover_sound_effect(this->_musics);
+
     this->checkHoverButton(window->getCursorControl()->getPosition(),
         this->_defaultButtons, this->_hoverButtons);
     for (int i = 0; i < this->_defaultButtons.size(); i++) {
         if (this->_hoverButtons[i]->isPressed()) {
-            // this->_musics->_bomb.play();
+            this->_music->playHoverSound();
+            if (types[i] == HELP)
+                this->_music->stopSound();
             return types[i];
         }
     }
     if (inputManager->isKeyPressed(CLOSE)) {
-        // this->_musics->_bomb.play();
+        this->_music->dropSound();
+        delete(this->_music);
         return CLOSE;
     }
     return NONE;
@@ -28,9 +32,9 @@ Events Menu::checkEvents(IrrlichtDevice *window, InputManager *inputManager, set
 void Menu::display()
 {
     this->_driver->beginScene(true, true, video::SColor(255, 100, 101, 140));
-    this->_driver->draw2DImage(this->_menuBackground, irr::core::position2d<irr::s32>(0,0),
-        irr::core::rect<irr::s32>(0,0,1920,1080), 0,
-        irr::video::SColor(255, 255, 255, 255), true);
+    this->_driver->draw2DImage(this->_menuBackground, core::position2d<s32>(0,0),
+        core::rect<s32>(0,0,1920,1080), 0,
+        video::SColor(255, 255, 255, 255), true);
     this->_smgr->drawAll();
     if (this->_guienv)
         this->_guienv->drawAll();
@@ -40,7 +44,6 @@ Menu::Menu(IrrlichtDevice *window) : AScene(window)
 {
 }
 
-
 void Menu::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *im)
 {
     this->_guienv->clear();
@@ -49,22 +52,21 @@ void Menu::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_defaultButtons.clear();
     this->_hoverButtons.clear();
     this->createButtons();
-    Menu::Hover_sound_effect(this->_musics);
-    Menu::Bonus_sound_effect(this->_musics);
-    Menu::Main_music(this->_musics);
-    Menu::Title_music(this->_musics);
-    // this->_musics->_title_music.play();
-    // this->_musics->_main_music.stop();
+    if (settings->isMuted)
+        this->_music->muteAll();
+    else
+        this->_music->demute();
+    if (!this->_music->isMusicOn())
+        this->_music->playMenuMusic();
     this->_menuBackground = this->_driver->getTexture("../assets/images/backgroundMenu.png");
 }
 
-
 void Menu::createButtons()
 {
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 410, 690, 570), true, "../assets/images/playDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 610, 690, 770), true, "../assets/images/settingsDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 810, 690, 970), true, "../assets/images/quitDefault.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 410, 690, 570), false, "../assets/images/playHover.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 610, 690, 770), false, "../assets/images/settingsHover.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(270, 810, 690, 970), false, "../assets/images/quitHover.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(270, 410, 690, 570), true, "../assets/images/playDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(270, 610, 690, 770), true, "../assets/images/settingsDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(270, 810, 690, 970), true, "../assets/images/quitDefault.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(270, 410, 690, 570), false, "../assets/images/playHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(270, 610, 690, 770), false, "../assets/images/settingsHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(270, 810, 690, 970), false, "../assets/images/quitHover.png"));
 }

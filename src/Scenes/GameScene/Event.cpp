@@ -68,10 +68,12 @@ void Game::PlayerEvents(InputManager *inputManager, IrrlichtDevice *window)
             this->PlayerMovements((*player), inputManager);
         else {
             if (this->AIMovements((*player))) {
-                if (getNbBombByOwner((*player)->getName()) < (*player)->getBombUp())
+                if (getNbBombByOwner((*player)->getName()) < (*player)->getBombUp()) {
                     this->_bombObjects.push_back(
                         this->createBombObject("bomb", {"bomb_animated.md3", "bomb.png",
                         {(*player)->getPos()}, {.8, .8, .8}, {0, 20}, 20}, (*player)->getName(), window->getTimer()->getTime()));
+                    this->_music->playBombSound();
+                }
             }
         }
     }
@@ -85,6 +87,8 @@ Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
         return SAVE_GAME;
     }
     if (inputManager->isKeyPressed(CLOSE)) {
+        this->_music->dropSound();
+        delete(this->_music);
         this->destroy();
         return CLOSE;
     }
@@ -98,6 +102,7 @@ Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
     if (this->_paused)
         return NONE;
     if (inputManager->isKeyPressed(BACK_MENU)) {
+        this->_music->stopSound();
         this->destroy();
         return BACK_MENU;
     }

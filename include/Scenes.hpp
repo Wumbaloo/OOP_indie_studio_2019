@@ -10,6 +10,7 @@
 #include "AnimatedObjects.hpp"
 #include "PowerUps.hpp"
 #include "Macros.hpp"
+#include "Music.hpp"
 
 using namespace irr;
 
@@ -18,10 +19,11 @@ class AScene {
         gui::IGUIEnvironment *_guienv;
         video::IVideoDriver *_driver;
         scene::ISceneManager *_smgr;
+        Music *_music;
+
     public:
         explicit AScene(IrrlichtDevice *);
         ~AScene() = default;
-        music_t *_musics = new music_t;
         void refreshWindow();
         gui::IGUIButton *newButton(core::rect<s32> pos, bool visible,
             core::string<fschar_t> path);
@@ -41,6 +43,7 @@ class Win : public AScene
         gui::IGUIButton *_menuDefault;
         gui::IGUIButton *_menuHover;
         gui::IGUIStaticText *_playerName;
+
     public:
         Win(IrrlichtDevice *);
         ~Win() = default;
@@ -56,6 +59,7 @@ class Load : public AScene
         std::vector<gui::IGUIButton *> _defaultButtons;
         std::vector<gui::IGUIButton *> _hoverButtons;
         video::ITexture *_loadBackground;
+
     public:
         Load(IrrlichtDevice *);
         ~Load() = default;
@@ -75,11 +79,6 @@ class Menu : public AScene
     public:
         Menu(IrrlichtDevice *);
         ~Menu() = default;
-
-        static void Main_music(music_t *_musics);
-        static void Bonus_sound_effect(music_t *_musics);
-        static void Hover_sound_effect(music_t *_musics);
-        static void Title_music(music_t *_musics);
 
         void display() override;
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;

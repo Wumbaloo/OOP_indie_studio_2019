@@ -75,12 +75,15 @@ void Game::generateTree(core::vector3df initialPos)
         return;
     if (tmp.X == -22) {
         for (float i = 0; i <= 32; i += 4)
-            this->_objects.push_back(this->createObject("tree", "Fir_Tree.obj", "Fir_Tree.mtl", {-14 + i, 0, 14}, {1, 1 ,1}, NOTYPE));
+            this->_objects.push_back(this->createObject("tree", "Fir_Tree.obj",
+                "Fir_Tree.mtl", {-14 + i, 0, 14}, {1, 1 ,1}, NOTYPE));
         for (float i = 0; i <= 32; i += 4)
-            this->_objects.push_back(this->createObject("tree", "Fir_Tree.obj", "Fir_Tree.mtl", {-16 + i, 0, -20}, {1, 1 ,1}, NOTYPE));
+            this->_objects.push_back(this->createObject("tree", "Fir_Tree.obj",
+                "Fir_Tree.mtl", {-16 + i, 0, -20}, {1, 1 ,1}, NOTYPE));
     }
     for (float i = 0; i <= 7; i++) {
-        this->_objects.push_back(this->createObject("tree", "Fir_Tree.obj", "Fir_Tree.mtl", initialPos, {1, 1 ,1}, NOTYPE));
+        this->_objects.push_back(this->createObject("tree", "Fir_Tree.obj",
+            "Fir_Tree.mtl", initialPos, {1, 1 ,1}, NOTYPE));
         if (((int)i % 2) == 0)
             initialPos.X += 2;
         else

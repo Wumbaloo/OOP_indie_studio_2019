@@ -29,10 +29,12 @@ Events HowToPlay::checkEvents(IrrlichtDevice *window, InputManager *inputManager
     this->checkHoverButton(window->getCursorControl()->getPosition(),
         this->_defaultButtons, this->_hoverButtons);
     if (this->_hoverButtons[0]->isPressed()) {
+        this->_music->playHoverSound();
         if (save.is_open())
             save.close();
         return BACK_MENU;
     } else if (this->_hoverButtons[1]->isPressed()) {
+        this->_music->playHoverSound();
         if (save.is_open()) {
             save.close();
             return GO_LOAD;
@@ -40,7 +42,8 @@ Events HowToPlay::checkEvents(IrrlichtDevice *window, InputManager *inputManager
         return PLAY;
     }
     if (inputManager->isKeyPressed(CLOSE)) {
-        // this->_musics->_bomb.play();
+        this->_music->dropSound();
+        delete(this->_music);
         return CLOSE;
     }
     return NONE;
@@ -54,7 +57,7 @@ void HowToPlay::createButtons()
     this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(1450, 850, 1870, 1010), false, "../assets/images/proceedHover.png"));
 }
 
-void HowToPlay::resetScene(IrrlichtDevice *, settings_t *, InputManager *)
+void HowToPlay::resetScene(IrrlichtDevice *, settings_t *settings, InputManager *)
 {
     this->_guienv->clear();
     this->_smgr->clear();
@@ -63,4 +66,8 @@ void HowToPlay::resetScene(IrrlichtDevice *, settings_t *, InputManager *)
     this->_hoverButtons.clear();
     this->createButtons();
     this->_htpBackground = this->_driver->getTexture("../assets/images/howToPlay.png");
+    if (settings->isMuted)
+        this->_music->muteAll();
+    else
+        this->_music->demute();
 }

@@ -38,14 +38,6 @@ typedef struct data_animations_s
     float animationSpeed;
 } data_animations_t;
 
-typedef struct music_s
-{
-    // sf::Music _title_music;
-    // sf::Music _main_music;
-    // sf::Music _bomb;
-    // sf::Music _bonus;
-} music_t;
-
 typedef struct settings_s
 {
     int nbrPlayers = 4;

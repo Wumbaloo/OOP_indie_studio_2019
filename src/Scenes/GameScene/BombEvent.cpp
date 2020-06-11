@@ -115,7 +115,7 @@ void Game::BombExploded(Bomb *bomb, vector<Player *> *deadPlayer)
     }
 }
 
-void DeletePlayers(vector<Player *> *deadPlayer, vector<Player *> *_playerObjects)
+void DeletePlayers(vector<Player *> *deadPlayer, vector<Player *> *_playerObjects, Music *music)
 {
     if (deadPlayer->size() > 0) {
         for (Player *_deadPlayer : (*deadPlayer)) {
@@ -123,6 +123,7 @@ void DeletePlayers(vector<Player *> *deadPlayer, vector<Player *> *_playerObject
                 if (_deadPlayer->getId() == _playerObjects->at(i)->getId()) {
                     Player *save = _playerObjects->at(i);
 
+                    music->playDeadSound();
                     _playerObjects->erase(std::remove(_playerObjects->begin(),
                         _playerObjects->end(), _playerObjects->at(i)), _playerObjects->end());
                     delete(save);
@@ -140,17 +141,20 @@ void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Play
     for (Bomb *obj : this->_bombObjects) {
         obj->setTime(window->getTimer()->getTime());
         if (obj->getTime() >= 2000) {
+            this->_music->playBombExploSound();
             this->_bombObjects.erase(std::remove(this->_bombObjects.begin(), this->_bombObjects.end(), obj), this->_bombObjects.end());
             this->BombExploded(obj, &deadPlayer);
-            DeletePlayers(&deadPlayer, &this->_playerObjects);
+            DeletePlayers(&deadPlayer, &this->_playerObjects, this->_music);
             if (this->_playerObjects.size() == 1)
                 this->_winner = this->_playerObjects.at(0)->getNb();
             delete(obj);
         }
     }
     if (player && (player->isHuman() && inputManager->isKeyPressed(player->getBombEvent()))) {
-        if (getNbBombByOwner(player->getName()) < player->getBombUp())
+        if (getNbBombByOwner(player->getName()) < player->getBombUp()) {
             this->_bombObjects.push_back(this->createBombObject("bomb", {"bomb_animated.md3", "bomb.png",
                 {player->getPos()}, {.8, .8, .8}, {0, 20}, 20}, player->getName(), window->getTimer()->getTime()));
+            this->_music->playBombSound();
+        }
     }
 }

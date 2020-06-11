@@ -78,7 +78,9 @@ void Game::CheckPowerUpsColision(Player *player, IrrlichtDevice *window)
     if (player->getWallPass() || player->getSpeedUp() == 1.5)
         this->PowerUpsTimerHandling(player, window);
     for (PowerUp *obj : this->_powerUpObjects) {
-        if (obj->getBoundingPos().intersectsWithBox(player->getBoundingPos()))
+        if (obj->getBoundingPos().intersectsWithBox(player->getBoundingPos())) {
             this->PowerUpContact(obj, player, window);
+            this->_music->playBonusSound();
+        }
     }
 }
