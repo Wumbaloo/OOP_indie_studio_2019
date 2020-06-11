@@ -23,11 +23,13 @@ void Game::makeBorderMap()
         float zPos = z * this->_grid - MAP_HEIGHT - this->_grid * 2;
         Model *left = this->createObject("bound", "Square.obj", "Square.jpg", {(float) (-MAP_WIDTH), 0, zPos}, {1, 1, 1}, OBSTACLE);
         Model *right = this->createObject("bound", "Square.obj", "Square.jpg", {(float) (MAP_WIDTH + this->_grid), 0, zPos}, {1, 1, 1}, OBSTACLE);
+
         this->_map[z].push_back(left);
         this->_map[z].push_back(right);
         if (z == 0 || z == MAP_HEIGHT + 1) {
             for (float x = 0; x < MAP_WIDTH + 1; x++) {
                 Model *wall = this->createObject("bound", "Square.obj", "Square.jpg", {x * this->_grid - MAP_WIDTH, 0, zPos}, {1, 1, 1}, OBSTACLE);
+
                 this->_map[z].push_back(wall);
             }
         }
@@ -48,6 +50,7 @@ void Game::generateMap(unsigned int seed)
             Model *obj = NULL;
             core::vector3df pos = {(x + 1) * this->_grid - MAP_WIDTH, 0,
                                     z * this->_grid - MAP_HEIGHT - (this->_grid * 2)};
+
             if (random == 0 || isACorner({x, 0, z}))
                 continue;
             else if ((random > 0 && random < 3))

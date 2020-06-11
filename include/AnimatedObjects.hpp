@@ -88,6 +88,7 @@ class Player : public AnimatedModel
         enum Events getBombEvent(void) const;
         bool isHuman(void) const;
         core::vector3df getOriginalPos(void) const;
+        int getNb() const;
 
         void setSpeedUp(u32, float = 1.5);
         void setRange(int = 1);

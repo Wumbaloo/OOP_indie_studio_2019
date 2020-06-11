@@ -53,13 +53,17 @@ void Game::PowerUpsTimerHandling(Player *player, IrrlichtDevice *window)
         player->setWallPass(0, false);
         playerPos = player->getBoundingPos();
         pos = getMapPosition({playerPos.MaxEdge.X, 0, player->getPos().Z});
-        if (pos.X + 1 < MAP_WIDTH && !getObjectFromGame(playerPos.MaxEdge.X + 1, player->getPos().Z) && getObjectFromGame(player->getPos().X, player->getPos().Z))
+        if (pos.X + 1 < MAP_WIDTH && !getObjectFromGame(playerPos.MaxEdge.X + 1, player->getPos().Z)
+            && getObjectFromGame(player->getPos().X, player->getPos().Z))
             placeInMap(player, pos.X + 1, pos.Y);
-        else if (pos.X - 1 > 0 && !getObjectFromGame(player->getPos().X - 1, player->getPos().Z) && getObjectFromGame(player->getPos().X, player->getPos().Z))
+        else if (pos.X - 1 > 0 && !getObjectFromGame(player->getPos().X - 1, player->getPos().Z)
+            && getObjectFromGame(player->getPos().X, player->getPos().Z))
             placeInMap(player, pos.X - 1, pos.Y);
-        else if (pos.Y + 1 < MAP_HEIGHT && !getObjectFromGame(player->getPos().X, player->getPos().Z + 1) && getObjectFromGame(player->getPos().X, player->getPos().Z))
+        else if (pos.Y + 1 < MAP_HEIGHT && !getObjectFromGame(player->getPos().X, player->getPos().Z + 1)
+            && getObjectFromGame(player->getPos().X, player->getPos().Z))
             placeInMap(player, pos.X, pos.Y - 1);
-        else if (pos.Y - 1 > 0 && !getObjectFromGame(player->getPos().X, player->getPos().Z - 1) && getObjectFromGame(player->getPos().X, player->getPos().Z))
+        else if (pos.Y - 1 > 0 && !getObjectFromGame(player->getPos().X, player->getPos().Z - 1)
+            && getObjectFromGame(player->getPos().X, player->getPos().Z))
             placeInMap(player, pos.X, pos.Y + 1);
         else
             player->setPos(player->getOriginalPos());

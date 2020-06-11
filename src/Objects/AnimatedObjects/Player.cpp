@@ -85,18 +85,18 @@ void Player::changeAnimation(PlayerAnimations anim)
     }
 }
 
-void Player::setSpeedUp(u32 time, float value) // take 1.5 by default (just call the function wihtout value)
+void Player::setSpeedUp(u32 time, float value)
 {
     this->_speedUp = value;
     this->_speedupTime = time;
 }
 
-void Player::setRange(int value) // take 1 by default (just call the function wihtout value)
+void Player::setRange(int value)
 {
     this->_fireUp += value;
 }
 
-void Player::setBombUp(int value) // take 1 by default (just call the function wihtout value)
+void Player::setBombUp(int value)
 {
     this->_bombUp += value;
 }
@@ -230,4 +230,9 @@ bool Player::isHuman(void) const
 core::vector3df Player::getOriginalPos(void) const
 {
     return this->_originalPos;
+}
+
+int Player::getNb() const
+{
+    return this->_nb;
 }

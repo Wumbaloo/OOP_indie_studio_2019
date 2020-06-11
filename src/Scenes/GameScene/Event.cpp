@@ -111,5 +111,10 @@ Events Game::checkEvents(IrrlichtDevice *window, InputManager *inputManager, set
 
     this->_frameDeltaTime = (f32)(now - this->_then) / 1000.f;
     this->_then = now;
+    if (this->_winner != -1) {
+        settings->winnerIdx = this->_winner;
+        this->destroy();
+        return GO_WIN;
+    }
     return (KeyboardEvents(inputManager, window));
 }

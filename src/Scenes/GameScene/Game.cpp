@@ -13,6 +13,7 @@ Game::Game(IrrlichtDevice *window) : AScene(window)
     this->_paused = false;
     this->_then = 0;
     this->_frameDeltaTime = 0;
+    this->_winner = -1;
 }
 
 void Game::display()
