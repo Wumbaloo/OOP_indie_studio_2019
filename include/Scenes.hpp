@@ -203,6 +203,7 @@ class Game : public AScene
         // map
         void makeBorderMap(void);
         void generateMap(unsigned int);
+        void generateTree(core::vector3df initialPos);
         void placeInMap(AObject *, int x, int y);
         AObject *getObjectFromMap(int x, int y);
         Model *getObjectFromGame(float x, float z);

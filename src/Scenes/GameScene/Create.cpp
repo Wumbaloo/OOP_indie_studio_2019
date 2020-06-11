@@ -129,5 +129,6 @@ void Game::createGameScene(settings_t *settings, InputManager *im)
             this->_playerObjects.at(i)->setOriginalPos(pos);
         }
     }
+    this->generateTree({-22, 0, 11});
     this->generateMap(time(nullptr));
 }
