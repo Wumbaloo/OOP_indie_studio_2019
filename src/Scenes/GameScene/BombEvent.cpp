@@ -117,9 +117,11 @@ void Game::BombExploded(Bomb *bomb, vector<Player *> *deadPlayer)
 
 void DeletePlayers(vector<Player *> *deadPlayer, vector<Player *> *_playerObjects, Music *music)
 {
+    int endPlayers = _playerObjects->size();
+
     if (deadPlayer->size() > 0) {
         for (Player *_deadPlayer : (*deadPlayer)) {
-            for (int i = 0; i < _playerObjects->size(); i++) {
+            for (int i = 0; i < endPlayers; i++) {
                 if (_deadPlayer->getId() == _playerObjects->at(i)->getId()) {
                     Player *save = _playerObjects->at(i);
 
@@ -127,6 +129,7 @@ void DeletePlayers(vector<Player *> *deadPlayer, vector<Player *> *_playerObject
                     _playerObjects->erase(std::remove(_playerObjects->begin(),
                         _playerObjects->end(), _playerObjects->at(i)), _playerObjects->end());
                     delete(save);
+                    endPlayers--;
                 }
             }
         }
@@ -151,6 +154,7 @@ void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Play
                 this->_winner = this->_playerObjects.at(0)->getNb();
             delete(obj);
             bombEnd--;
+            i = 0;
         }
     }
     if (player && (player->isHuman() && inputManager->isKeyPressed(player->getBombEvent()))) {
