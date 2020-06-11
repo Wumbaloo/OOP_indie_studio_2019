@@ -42,7 +42,6 @@ Events HowToPlay::checkEvents(IrrlichtDevice *window, InputManager *inputManager
         return PLAY;
     }
     if (inputManager->isKeyPressed(CLOSE)) {
-        this->_music->dropSound();
         delete(this->_music);
         return CLOSE;
     }

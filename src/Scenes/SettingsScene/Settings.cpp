@@ -85,7 +85,6 @@ Events Settings::checkEvents(IrrlichtDevice *window, InputManager *inputManager,
     }
     this->updateSettings(settings);
     if (inputManager->isKeyPressed(CLOSE)) {
-        this->_music->dropSound();
         delete(this->_music);
         return CLOSE;
     }
