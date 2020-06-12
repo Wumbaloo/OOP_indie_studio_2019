@@ -41,29 +41,29 @@ void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
 void Game::save()
 {
     string *buffer;
-    FILE *fileStream = fopen("savefile.sav", "w");
+    FILE *fileStream = fopen("bomberman.sav", "w");
 
-    // for (int i = 0; i < MAP_HEIGHT + 2; i++) {
-    //     for (int j = 0; j < MAP_WIDTH; j++) {
-    //         switch (this->_map[i][j]->getType()) {
-    //             case BREAKABLE :
-    //                 fwrite("x", 1, 1, fileStream);
-    //                 break;
-    //             case OBSTACLE :
-    //                 fwrite("o", 1, 1, fileStream);
-    //                 break;
-    //             default :
-    //                 fwrite("_", 1, 1, fileStream);
-    //         }
-    //     }
-    // }
+    for (int i = 0; i < MAP_HEIGHT + 2; i++) {
+        for (int j = 0; j < MAP_WIDTH; j++) {
+            switch (this->_map[i][j]->getType()) {
+                case BREAKABLE :
+                    fwrite("x", 1, 1, fileStream);
+                    break;
+                case OBSTACLE :
+                    fwrite("o", 1, 1, fileStream);
+                    break;
+                default :
+                    fwrite("_", 1, 1, fileStream);
+            }
+        }
+    }
     fclose(fileStream);
 }
 
 void Game::load()
 {
     string *buffer;
-    FILE *fileStream = fopen("savefile.sav", "r");
+    FILE *fileStream = fopen("bomberman.sav", "r");
     size_t size_read = 0;
     int k = 0;
     int x = 0;
@@ -71,6 +71,7 @@ void Game::load()
 
     for (int i = 0; i < MAP_HEIGHT + 2; i++) {
         size_read = fread(buffer, sizeof(char), MAP_WIDTH, fileStream);
+        std::cout << "buffer = " << std::endl << buffer;
         for (int j = 0; j < MAP_WIDTH; j++) {
             Model *obj = NULL;
             if (buffer->at(j) == 'o')

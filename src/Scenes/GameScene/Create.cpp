@@ -129,5 +129,8 @@ void Game::createGameScene(settings_t *settings, InputManager *im)
             this->_playerObjects.at(i)->setOriginalPos(pos);
         }
     }
-    this->generateMap(time(nullptr));
+    if (settings->loadFile)
+        this->load();
+    else
+        this->generateMap(time(nullptr));
 }
