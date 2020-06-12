@@ -116,6 +116,7 @@ class Settings : public AScene
         video::ITexture *_skinDisabled = NULL;
         std::vector<gui::IGUIListBox *> _listBoxes;
         std::vector<gui::IGUICheckBox *> _checkboxes;
+        irr::gui::IGUISpinBox *_volumeBox;
 
     public:
         explicit Settings(IrrlichtDevice *);

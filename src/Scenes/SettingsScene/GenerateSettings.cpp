@@ -51,4 +51,9 @@ void Settings::generateSettings(settings_t *settings)
     this->generateSkins(settings);
     this->generateListBoxes(settings);
     this->generateCheckBoxes(settings);
+    this->_volumeBox = this->_guienv->addSpinBox(L"Volume", core::rect<s32>(900, 920, 950, 940), true);
+    this->_volumeBox->setRange(1, 100);
+    this->_volumeBox->setDecimalPlaces(0);
+    this->_volumeBox->setValue(settings->volume);
+    this->_volumeBox->setStepSize(1);
 }

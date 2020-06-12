@@ -73,6 +73,7 @@ void Settings::manageMute(IrrlichtDevice *window, settings_t *settings)
 
 Events Settings::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
 {
+    settings->volume = this->_volumeBox->getValue();
     this->checkHoverButton(window->getCursorControl()->getPosition(), {this->_menuButtonDefault}, {this->_menuButtonHover});
     this->manageMute(window, settings);
     for (int i = 0; settings->nbrPlayers < 2; i++) {
