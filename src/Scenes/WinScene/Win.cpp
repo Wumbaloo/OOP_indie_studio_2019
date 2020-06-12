@@ -52,4 +52,5 @@ void Win::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager 
     this->_winPanel = this->_driver->getTexture("../assets/images/winPanel.jpg");
     this->_playerSkin = this->_driver->getTexture(path.c_str());
     this->_playerName = this->_guienv->addStaticText((const wchar_t *) settings->names.at(settings->winnerIdx - 1).c_str(), irr::core::rect<s32>(940, 405, 940 + 100, 405 + 30));
+    this->_music->playWinSound();
 }
