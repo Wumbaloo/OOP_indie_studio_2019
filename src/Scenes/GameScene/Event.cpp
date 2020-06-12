@@ -117,7 +117,9 @@ Events Game::checkEvents(IrrlichtDevice *window, InputManager *inputManager, set
     this->_then = now;
     if (this->_winner != -1) {
         settings->winnerIdx = this->_winner;
+        this->_music->stopSound();
         this->destroy();
+        this->_winner = -1;
         return GO_WIN;
     }
     return (KeyboardEvents(inputManager, window));

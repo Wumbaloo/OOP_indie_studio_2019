@@ -15,8 +15,12 @@ Win::Win(IrrlichtDevice *window) : AScene(window)
 Events Win::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
 {
     this->checkHoverButton(window->getCursorControl()->getPosition(), {this->_menuDefault}, {this->_menuHover});
-    if (this->_menuHover->isPressed())
+    if (this->_menuHover->isPressed()) {
         return BACK_MENU;
+    }
+     if (inputManager->isKeyPressed(CLOSE)) {
+        return CLOSE;
+    }
     return NONE;
 }
 

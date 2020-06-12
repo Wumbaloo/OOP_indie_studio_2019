@@ -29,6 +29,8 @@ void pushBackDeadPlayer(vector<Player *> *deadPlayer, Player *player)
 void Game::CheckIfPlayer(bool exploded[4], Bomb *bomb, vector<Player *> *deadPlayer, int i)
 {
     for (Player *player : this->_playerObjects) {
+        if (player->isHuman() && this->getMapPosition(bomb->getPos()) == this->getMapPosition(player->getPos()))
+            pushBackDeadPlayer(deadPlayer, player);
         if (!exploded[0] && bomb->getBoundingPos().MaxEdge.X + (1 + i) > player->getBoundingPos().MinEdge.X
             && bomb->getBoundingPos().MaxEdge.X + (1 + i) < player->getBoundingPos().MaxEdge.X
             && (player->getPos().Z > bomb->getBoundingPos().MinEdge.Z && player->getPos().Z < bomb->getBoundingPos().MaxEdge.Z)) {
