@@ -5,6 +5,8 @@
 ** Created by nicolas,
 */
 
+#include <iostream>
+#include <string>
 #include "Structures.hpp"
 #include "Scenes.hpp"
 
