@@ -37,10 +37,10 @@ Events Load::checkEvents(IrrlichtDevice *window, InputManager *inputManager, set
 
 void Load::createButtons()
 {
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(950, 850, 1370, 1010), true, "../assets/images/yesDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(500, 850, 920, 1010), true, "../assets/images/noDefault.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(950, 850, 1370, 1010), false, "../assets/images/yesHover.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(500, 850, 920, 1010), false, "../assets/images/noHover.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(950, 850, 1370, 1010), true, "./assets/images/yesDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(500, 850, 920, 1010), true, "./assets/images/noDefault.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(950, 850, 1370, 1010), false, "./assets/images/yesHover.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(500, 850, 920, 1010), false, "./assets/images/noHover.png"));
 }
 
 void Load::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *inputManager)
@@ -50,7 +50,7 @@ void Load::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_driver->removeAllTextures();
     this->_defaultButtons.clear();
     this->_hoverButtons.clear();
-    this->_loadBackground = this->_driver->getTexture("../assets/images/load.jpg");
+    this->_loadBackground = this->_driver->getTexture("./assets/images/load.jpg");
     this->createButtons();
     // if (settings->isMuted)
     //     this->_music->muteAll();

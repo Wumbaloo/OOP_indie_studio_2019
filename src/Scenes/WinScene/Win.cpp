@@ -40,20 +40,24 @@ void Win::display()
 
 void Win::createButtons()
 {
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(200, 850, 620, 1010), true, "../assets/images/menuDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(750, 850, 1170, 1010), true, "../assets/images/playDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(1320, 850, 1740, 1010), true, "../assets/images/quitDefault.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(200, 850, 620, 1010), false, "../assets/images/menuHover.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(750, 850, 1170, 1010), false, "../assets/images/playHover.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(1320, 850, 1740, 1010), false, "../assets/images/quitHover.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(200, 850, 620, 1010), true, "./assets/images/menuDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(750, 850, 1170, 1010), true, "./assets/images/playDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(1320, 850, 1740, 1010), true, "./assets/images/quitDefault.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(200, 850, 620, 1010), false, "./assets/images/menuHover.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(750, 850, 1170, 1010), false, "./assets/images/playHover.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(1320, 850, 1740, 1010), false, "./assets/images/quitHover.png"));
 }
 
 void Win::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *inputManager)
 {
-    std::string path = std::string("../assets/images/guard") + std::to_string(settings->winnerIdx) + std::string(".png");
+    std::string path = std::string("./assets/images/guard") + std::to_string(settings->winnerIdx) + std::string(".png");
     this->createButtons();
-    this->_winPanel = this->_driver->getTexture("../assets/images/winPanel.jpg");
+    this->_winPanel = this->_driver->getTexture("./assets/images/winPanel.jpg");
     this->_playerSkin = this->_driver->getTexture(path.c_str());
     this->_playerName = this->_guienv->addStaticText((const wchar_t *) settings->names.at(settings->winnerIdx - 1).c_str(), irr::core::rect<s32>(940, 405, 940 + 100, 405 + 30));
+    if (settings->isMuted)
+        this->_music->muteAll();
+    else
+        this->_music->demute();
     this->_music->playWinSound();
 }

@@ -22,11 +22,11 @@ void Settings::generateNameBoxes(settings_t *settings)
 
 void Settings::generateSkins(settings_t *settings)
 {
-    this->_skinsEnabled.push_back(this->_driver->getTexture("../assets/images/guard1.png"));
-    this->_skinsEnabled.push_back(this->_driver->getTexture("../assets/images/guard2.png"));
-    this->_skinsEnabled.push_back(this->_driver->getTexture("../assets/images/guard3.png"));
-    this->_skinsEnabled.push_back(this->_driver->getTexture("../assets/images/guard4.png"));
-    this->_skinDisabled = this->_driver->getTexture("../assets/images/noguard.png");
+    this->_skinsEnabled.push_back(this->_driver->getTexture("./assets/images/guard1.png"));
+    this->_skinsEnabled.push_back(this->_driver->getTexture("./assets/images/guard2.png"));
+    this->_skinsEnabled.push_back(this->_driver->getTexture("./assets/images/guard3.png"));
+    this->_skinsEnabled.push_back(this->_driver->getTexture("./assets/images/guard4.png"));
+    this->_skinDisabled = this->_driver->getTexture("./assets/images/noguard.png");
 }
 
 void Settings::generateListBoxes(settings_t *settings)

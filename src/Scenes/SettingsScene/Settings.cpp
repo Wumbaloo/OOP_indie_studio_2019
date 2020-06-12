@@ -125,12 +125,12 @@ void Settings::display()
 
 void Settings::createButtons()
 {
-    this->_menuButtonDefault = this->newButton(core::rect<s32>(10, 850, 430, 1010), true, "../assets/images/menuDefault.png");
-    this->_menuButtonHover = this->newButton(core::rect<s32>(10, 850, 430, 1010), false, "../assets/images/menuHover.png");
-    this->_soundsDefault.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), true, "../assets/images/soundOnDefault.png"));
-    this->_soundsHover.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), false, "../assets/images/soundOnHover.png"));
-    this->_soundsDefault.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), false, "../assets/images/soundOffDefault.png"));
-    this->_soundsHover.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), false, "../assets/images/soundOffHover.png"));
+    this->_menuButtonDefault = this->newButton(core::rect<s32>(10, 850, 430, 1010), true, "./assets/images/menuDefault.png");
+    this->_menuButtonHover = this->newButton(core::rect<s32>(10, 850, 430, 1010), false, "./assets/images/menuHover.png");
+    this->_soundsDefault.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), true, "./assets/images/soundOnDefault.png"));
+    this->_soundsHover.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), false, "./assets/images/soundOnHover.png"));
+    this->_soundsDefault.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), false, "./assets/images/soundOffDefault.png"));
+    this->_soundsHover.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), false, "./assets/images/soundOffHover.png"));
 }
 
 void Settings::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *im)
@@ -144,7 +144,7 @@ void Settings::resetScene(IrrlichtDevice *window, settings_t *settings, InputMan
     this->_guienv->clear();
     this->_smgr->clear();
     this->_driver->removeAllTextures();
-    this->_settingsBackground = this->_driver->getTexture("../assets/images/backgroundMenu.png");
+    this->_settingsBackground = this->_driver->getTexture("./assets/images/backgroundMenu.png");
     this->createButtons();
     this->generateSettings(settings);
     if (settings->isMuted)
