@@ -17,6 +17,7 @@ class Music
         irrklang::ISoundSource* _bombSound = NULL;
         irrklang::ISoundSource* _deadSound = NULL;
         irrklang::ISoundSource* _bombExploSound = NULL;
+        irrklang::ISoundSource* _winSound = NULL;
         bool _mute;
 
     public:
@@ -30,6 +31,7 @@ class Music
         void playBombSound(void);
         void playBombExploSound(void);
         void playDeadSound(void);
+        void playWinSound(void);
         void dropSound(void);
         void muteAll(void);
         void demute(void);

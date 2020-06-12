@@ -41,12 +41,21 @@ Music::Music()
     if (!_bombExploSound)
         error("Failed to open explosion sound", 84);
     this->_bombExploSound->setDefaultVolume(.2);
+    this->_winSound = this->_engine->addSoundSourceFromFile("../assets/Music/sound_effect/win.ogg");
+    if (!_winSound)
+        error("Failed to open win sound", 84);
+    this->_winSound->setDefaultVolume(.3);
     this->_mute = false;
 }
 
 Music::~Music()
 {
     this->_engine->drop();
+    this->_hoverSound->drop();
+    this->_bombSound->drop();
+    this->_deadSound->drop();
+    this->_bombExploSound->drop();
+    this->_bonusSound->drop();
 }
 
 void Music::playMenuMusic(void)
@@ -102,6 +111,13 @@ void Music::playBombSound(void)
     if (this->_mute)
         return;
     this->_engine->play2D(this->_bombSound);
+}
+
+void Music::playWinSound(void)
+{
+    if (this->_mute)
+        return;
+    this->_engine->play2D(this->_winSound);
 }
 
 void Music::muteAll()
