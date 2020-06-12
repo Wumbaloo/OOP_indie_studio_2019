@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include <algorithm>
 #include "Scenes.hpp"
 
 void Game::SpawnPowerUps(core::vector3df pos)
@@ -39,7 +40,7 @@ void Game::PowerUpContact(PowerUp *bonus, Player *player, IrrlichtDevice *window
 {
     this->_powerUpObjects.erase(std::remove(this->_powerUpObjects.begin(), this->_powerUpObjects.end(), bonus), this->_powerUpObjects.end());
     bonus->affectPlayer(player, window);
-    this->_musics->_bonus.play();
+    // this->_musics->_bonus.play();
     delete(bonus);
 }
 
@@ -53,13 +54,17 @@ void Game::PowerUpsTimerHandling(Player *player, IrrlichtDevice *window)
         player->setWallPass(0, false);
         playerPos = player->getBoundingPos();
         pos = getMapPosition({playerPos.MaxEdge.X, 0, player->getPos().Z});
-        if (pos.X + 1 < MAP_WIDTH && !getObjectFromGame(playerPos.MaxEdge.X + 1, player->getPos().Z) && getObjectFromGame(player->getPos().X, player->getPos().Z))
+        if (pos.X + 1 < MAP_WIDTH && !getObjectFromGame(playerPos.MaxEdge.X + 1, player->getPos().Z)
+            && getObjectFromGame(player->getPos().X, player->getPos().Z))
             placeInMap(player, pos.X + 1, pos.Y);
-        else if (pos.X - 1 > 0 && !getObjectFromGame(player->getPos().X - 1, player->getPos().Z) && getObjectFromGame(player->getPos().X, player->getPos().Z))
+        else if (pos.X - 1 > 0 && !getObjectFromGame(player->getPos().X - 1, player->getPos().Z)
+            && getObjectFromGame(player->getPos().X, player->getPos().Z))
             placeInMap(player, pos.X - 1, pos.Y);
-        else if (pos.Y + 1 < MAP_HEIGHT && !getObjectFromGame(player->getPos().X, player->getPos().Z + 1) && getObjectFromGame(player->getPos().X, player->getPos().Z))
+        else if (pos.Y + 1 < MAP_HEIGHT && !getObjectFromGame(player->getPos().X, player->getPos().Z + 1)
+            && getObjectFromGame(player->getPos().X, player->getPos().Z))
             placeInMap(player, pos.X, pos.Y - 1);
-        else if (pos.Y - 1 > 0 && !getObjectFromGame(player->getPos().X, player->getPos().Z - 1) && getObjectFromGame(player->getPos().X, player->getPos().Z))
+        else if (pos.Y - 1 > 0 && !getObjectFromGame(player->getPos().X, player->getPos().Z - 1)
+            && getObjectFromGame(player->getPos().X, player->getPos().Z))
             placeInMap(player, pos.X, pos.Y + 1);
         else
             player->setPos(player->getOriginalPos());
@@ -73,7 +78,9 @@ void Game::CheckPowerUpsColision(Player *player, IrrlichtDevice *window)
     if (player->getWallPass() || player->getSpeedUp() == 1.5)
         this->PowerUpsTimerHandling(player, window);
     for (PowerUp *obj : this->_powerUpObjects) {
-        if (obj->getBoundingPos().intersectsWithBox(player->getBoundingPos()))
+        if (obj->getBoundingPos().intersectsWithBox(player->getBoundingPos())) {
             this->PowerUpContact(obj, player, window);
+            this->_music->playBonusSound();
+        }
     }
 }

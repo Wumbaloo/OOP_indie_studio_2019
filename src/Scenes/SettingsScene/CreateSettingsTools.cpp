@@ -7,9 +7,9 @@
 
 #include "Scenes.hpp"
 
-irr::gui::IGUIEditBox *Settings::newNameBox(const wchar_t *name, irr::core::rect<s32> pos, bool isEnabled)
+gui::IGUIEditBox *Settings::newNameBox(const wchar_t *name, core::rect<s32> pos, bool isEnabled)
 {
-    irr::gui::IGUIEditBox *nameBox = this->_guienv->addEditBox(name, pos, true);
+    gui::IGUIEditBox *nameBox = this->_guienv->addEditBox(name, pos, true);
 
     nameBox->setMultiLine(false);
     nameBox->setMax(15);
@@ -18,9 +18,9 @@ irr::gui::IGUIEditBox *Settings::newNameBox(const wchar_t *name, irr::core::rect
     return nameBox;
 }
 
-irr::gui::IGUIListBox *Settings::newListBox(irr::core::rect<s32> pos, PlayerType type, bool isEnabled)
+gui::IGUIListBox *Settings::newListBox(core::rect<s32> pos, PlayerType type, bool isEnabled)
 {
-    irr::gui::IGUIListBox *listBox = this->_guienv->addListBox(pos);
+    gui::IGUIListBox *listBox = this->_guienv->addListBox(pos);
 
     listBox->addItem(L"Human");
     listBox->addItem(L"AI");
@@ -29,9 +29,9 @@ irr::gui::IGUIListBox *Settings::newListBox(irr::core::rect<s32> pos, PlayerType
     return listBox;
 }
 
-irr::gui::IGUICheckBox *Settings::newCheckBox(irr::core::rect<s32> pos, bool isEnabled)
+gui::IGUICheckBox *Settings::newCheckBox(core::rect<s32> pos, bool isEnabled)
 {
-    irr::gui::IGUICheckBox *checkBox = this->_guienv->addCheckBox(isEnabled, pos);
+    gui::IGUICheckBox *checkBox = this->_guienv->addCheckBox(isEnabled, pos);
 
     return checkBox;
 }

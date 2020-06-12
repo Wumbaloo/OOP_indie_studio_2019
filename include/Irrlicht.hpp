@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <vector>
-#include <irrlicht/irrlicht.h>
+#include <irrlicht.h>
 #include "Scenes.hpp"
 #include "InputManager.hpp"
 #include "IDisplayModule.hpp"

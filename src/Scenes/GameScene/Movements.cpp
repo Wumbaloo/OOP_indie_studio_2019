@@ -13,25 +13,30 @@ void Game::movePlayer(Player *player, core::vector2di dir)
     float speedUp = player->getSpeedUp();
     core::vector3df rotateFix = player->getRotateFix();
     bool wallPass = player->getWallPass();
+    core::vector2di zero = {0, 0};
 
-    if (dir != (core::vector2di) {0, 0})
+    if (dir != zero)
         player->changeAnimation(RUNNING);
     if (dir.X == 0 && dir.Y == 1 &&
         (checkColision(player, this->_map, UP, wallPass))) {
         nodePosition.Z += PLAYER_SPEED * this->_frameDeltaTime * speedUp;
-        player->setRotation((core::vector3df) {0.f, 180.f, .0f} - rotateFix);
+        core::vector3df rot = {0, 180, 0};
+        player->setRotation(rot - rotateFix);
     } else if (dir.X == 0 && dir.Y == - 1 &&
         (checkColision(player, this->_map, DOWN, wallPass))) {
         nodePosition.Z -= PLAYER_SPEED * this->_frameDeltaTime * speedUp;
-        player->setRotation((core::vector3df) {0.f, 0.f, 0.f} - rotateFix);
+        core::vector3df rot = {0, 0, 0};
+        player->setRotation(rot - rotateFix);
     } else if (dir.X == -1 && dir.Y == 0 &&
         (checkColision(player, this->_map, LEFT, wallPass))) {
         nodePosition.X -= PLAYER_SPEED * this->_frameDeltaTime * speedUp;
-        player->setRotation((core::vector3df) {0.f, 90.f, 0.f} - rotateFix);
+        core::vector3df rot = {0, 90, 0};
+        player->setRotation(rot - rotateFix);
     } else if (dir.X == 1 && dir.Y == 0 &&
         (checkColision(player, this->_map, RIGHT, wallPass))) {
         nodePosition.X += PLAYER_SPEED * this->_frameDeltaTime * speedUp;
-        player->setRotation((core::vector3df) {0.f, -90.f, 0.f} - rotateFix);
+        core::vector3df rot = {0, -90, 0};
+        player->setRotation(rot - rotateFix);
     } else {
         if (player->isRunning())
             player->changeAnimation(IDLE);
@@ -112,23 +117,23 @@ bool Game::AIMovements(Player *player)
 {
     core::vector3df nodePosition = player->getPos();
     core::vector2di mapPos = this->getMapPosition(nodePosition);
-    AObject *obj = this->getObjectFromMap(mapPos.X - 1, mapPos.Y);
+    AObject *obj = this->getObjectFromGame(player->getBoundingPos().MaxEdge.X + 1, player->getPos().Z);
 
     if (obj && obj->getType() == BREAKABLE) {
         movePlayer(player, {1, 0});
         return (true);
     }
-    obj = this->getObjectFromMap(mapPos.X + 1, mapPos.Y);
+    obj = this->getObjectFromGame(player->getBoundingPos().MinEdge.X - 1, player->getPos().Z);
     if (obj && obj->getType() == BREAKABLE) {
         movePlayer(player, {1, 0});
         return (true);
     }
-    obj = this->getObjectFromMap(mapPos.X, mapPos.Y - 1);
+    obj = this->getObjectFromGame(player->getPos().X, player->getBoundingPos().MaxEdge.Z + 1);
     if (obj && obj->getType() == BREAKABLE) {
         movePlayer(player, {0, 1});
         return (true);
     }
-    obj = this->getObjectFromMap(mapPos.X, mapPos.Y + 1);
+    obj = this->getObjectFromGame(player->getPos().X, player->getBoundingPos().MinEdge.Z - 1);
     if (obj && obj->getType() == BREAKABLE) {
         movePlayer(player, {0, -1});
         return (true);

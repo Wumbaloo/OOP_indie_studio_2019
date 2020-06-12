@@ -5,7 +5,7 @@
 ** main.c
 */
 
-#include <SFML/Audio.h>
+#include <time.h>
 #include "IndieStudio.hpp"
 
 int main()

@@ -8,7 +8,7 @@
 #ifndef INPUT_MANAGER_HPP
 #define INPUT_MANAGER_HPP
 
-#include <irrlicht/irrlicht.h>
+#include <irrlicht.h>
 #include <vector>
 #include "Enums.hpp"
 

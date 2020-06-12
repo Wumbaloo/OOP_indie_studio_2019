@@ -20,7 +20,6 @@ IF (NOT Irrlicht_INCLUDE_DIRS OR NOT Irrlicht_LIBRARIES)
   FIND_PATH(Irrlicht_INCLUDE_DIRS
     NAMES
       irrlicht.h
-      irrlicht/irrlicht.h
     PATHS
       /usr/include/irrlicht/        # Default Fedora28 system include path
       /usr/local/include/irrlicht/  # Default Fedora28 local include path

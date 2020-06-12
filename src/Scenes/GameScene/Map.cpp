@@ -23,11 +23,13 @@ void Game::makeBorderMap()
         float zPos = z * this->_grid - MAP_HEIGHT - this->_grid * 2;
         Model *left = this->createObject("bound", "Square.obj", "Square.jpg", {(float) (-MAP_WIDTH), 0, zPos}, {1, 1, 1}, OBSTACLE);
         Model *right = this->createObject("bound", "Square.obj", "Square.jpg", {(float) (MAP_WIDTH + this->_grid), 0, zPos}, {1, 1, 1}, OBSTACLE);
+
         this->_map[z].push_back(left);
         this->_map[z].push_back(right);
         if (z == 0 || z == MAP_HEIGHT + 1) {
             for (float x = 0; x < MAP_WIDTH + 1; x++) {
                 Model *wall = this->createObject("bound", "Square.obj", "Square.jpg", {x * this->_grid - MAP_WIDTH, 0, zPos}, {1, 1, 1}, OBSTACLE);
+
                 this->_map[z].push_back(wall);
             }
         }
@@ -44,13 +46,14 @@ void Game::generateMap(unsigned int seed)
     this->makeBorderMap();
     for (int z = MAP_HEIGHT; z > 0; z--) {
         for (int x = 0; x < MAP_WIDTH; x++) {
-            int random = rand() % 4;
+            int random = rand() % 6;
             Model *obj = NULL;
             core::vector3df pos = {(x + 1) * this->_grid - MAP_WIDTH, 0,
                                     z * this->_grid - MAP_HEIGHT - (this->_grid * 2)};
+
             if (random == 0 || isACorner({x, 0, z}))
                 continue;
-            else if ((random > 0 && random < 3))
+            else if ((random > 0 && random < 5))
                 obj = this->createObject("destructible", "Cube.obj", "Cube.jpg", pos, {1, 1, 1}, BREAKABLE);
             else
                 obj = this->createObject("wall", "Cube.obj", "Square.jpg", pos, {1, 1, 1}, OBSTACLE);
@@ -58,7 +61,38 @@ void Game::generateMap(unsigned int seed)
         }
         i++;
     }
-    this->createObject("ground", "ground.obj", "Grass.jpg", {0, -2, -2.5}, {0.01, 0.01, 0.01});
+}
+
+void Game::generateTree(core::vector3df initialPos)
+{
+    core::vector3df tmp = initialPos;
+
+    if (tmp.X > -20) {
+        tmp.X += MAP_WIDTH * 2 + 6;
+        tmp.Z -= 4;
+    }
+    if (tmp.X > 50)
+        return;
+    if (tmp.X == -22) {
+        for (float i = 0; i <= 32; i += 4)
+            this->_objects.push_back(this->createObject("tree", "Fir_Tree.obj",
+                "Fir_Tree.mtl", {-14 + i, 0, 14}, {1, 1 ,1}, NOTYPE));
+        for (float i = 0; i <= 32; i += 4)
+            this->_objects.push_back(this->createObject("tree", "Fir_Tree.obj",
+                "Fir_Tree.mtl", {-16 + i, 0, -20}, {1, 1 ,1}, NOTYPE));
+    }
+    for (float i = 0; i <= 7; i++) {
+        this->_objects.push_back(this->createObject("tree", "Fir_Tree.obj",
+            "Fir_Tree.mtl", initialPos, {1, 1 ,1}, NOTYPE));
+        if (((int)i % 2) == 0)
+            initialPos.X += 2;
+        else
+            initialPos.X -= 2;
+        initialPos.Z -= 4;
+    }
+    tmp.X += 4;
+    tmp.Z += 2;
+    this->generateTree(tmp);
 }
 
 void Game::placeInMap(AObject *obj, int x, int y)
@@ -93,8 +127,6 @@ AObject *Game::getObjectFromMap(int x, int y)
 
     if (y < 0 || y > MAP_HEIGHT + 1)
         return (NULL);
-    // std::cout << "POS X IS " << _x << " Y: " << y << std::endl;
-    // std::cout << this->_map[y + 1].at(1)->getName() << " X IS " << this->_map[y + 1].at(1)->getPos().X << " Y: " << this->_map[y + 1].at(1)->getPos().Y << std::endl;
     for (auto it = this->_map[y + 1].begin(); it != this->_map[y + 1].end(); it++) {
         core::vector3df pos = (*it)->getPos();
 

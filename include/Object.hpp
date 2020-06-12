@@ -9,7 +9,7 @@
 #define OBJECT_HPP
 
 #include <iostream>
-#include <irrlicht/irrlicht.h>
+#include <irrlicht.h>
 #include "Structures.hpp"
 #include "Enums.hpp"
 

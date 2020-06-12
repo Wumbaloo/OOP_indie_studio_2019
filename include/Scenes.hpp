@@ -5,12 +5,12 @@
 ** Created by Anthony ANICOTTE,
 */
 
-#include <SFML/Audio.hpp>
 #include "Object.hpp"
 #include "InputManager.hpp"
 #include "AnimatedObjects.hpp"
 #include "PowerUps.hpp"
 #include "Macros.hpp"
+#include "Music.hpp"
 
 using namespace irr;
 
@@ -19,29 +19,31 @@ class AScene {
         gui::IGUIEnvironment *_guienv;
         video::IVideoDriver *_driver;
         scene::ISceneManager *_smgr;
+        Music *_music;
+
     public:
         explicit AScene(IrrlichtDevice *);
         ~AScene() = default;
-        music_t *_musics = new music_t;
         void refreshWindow();
-        irr::gui::IGUIButton *newButton(irr::core::rect<irr::s32> pos, bool visible,
-            irr::core::string<fschar_t> path);
+        gui::IGUIButton *newButton(core::rect<s32> pos, bool visible,
+            core::string<fschar_t> path);
         virtual void display() = 0;
         virtual Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) = 0;
         virtual void resetScene(IrrlichtDevice *, settings_t *, InputManager *) = 0;
         virtual void createButtons() = 0;
-        void checkHoverButton(irr::core::vector2d<s32> cursorPos,
-            std::vector<irr::gui::IGUIButton *>, std::vector<irr::gui::IGUIButton *>);
+        void checkHoverButton(core::vector2d<s32> cursorPos,
+            std::vector<gui::IGUIButton *>, std::vector<gui::IGUIButton *>);
 };
 
 class Win : public AScene
 {
     private:
-        irr::video::ITexture *_winPanel;
-        irr::video::ITexture *_playerSkin;
-        irr::gui::IGUIButton *_menuDefault;
-        irr::gui::IGUIButton *_menuHover;
-        irr::gui::IGUIStaticText *_playerName;
+        video::ITexture *_winPanel;
+        video::ITexture *_playerSkin;
+        gui::IGUIButton *_menuDefault;
+        gui::IGUIButton *_menuHover;
+        gui::IGUIStaticText *_playerName;
+
     public:
         Win(IrrlichtDevice *);
         ~Win() = default;
@@ -54,9 +56,10 @@ class Win : public AScene
 class Load : public AScene
 {
     private:
-        std::vector<irr::gui::IGUIButton *> _defaultButtons;
-        std::vector<irr::gui::IGUIButton *> _hoverButtons;
-        irr::video::ITexture *_loadBackground;
+        std::vector<gui::IGUIButton *> _defaultButtons;
+        std::vector<gui::IGUIButton *> _hoverButtons;
+        video::ITexture *_loadBackground;
+
     public:
         Load(IrrlichtDevice *);
         ~Load() = default;
@@ -69,18 +72,13 @@ class Load : public AScene
 class Menu : public AScene
 {
     private:
-        std::vector<irr::gui::IGUIButton *> _defaultButtons;
-        std::vector<irr::gui::IGUIButton *> _hoverButtons;
+        std::vector<gui::IGUIButton *> _defaultButtons;
+        std::vector<gui::IGUIButton *> _hoverButtons;
         video::ITexture *_menuBackground;
 
     public:
         Menu(IrrlichtDevice *);
         ~Menu() = default;
-
-        static void Main_music(music_t *_musics);
-        static void Bonus_sound_effect(music_t *_musics);
-        static void Hover_sound_effect(music_t *_musics);
-        static void Title_music(music_t *_musics);
 
         void display() override;
         Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
@@ -92,8 +90,8 @@ class Menu : public AScene
 class HowToPlay : public AScene
 {
     private:
-        std::vector<irr::gui::IGUIButton *> _defaultButtons;
-        std::vector<irr::gui::IGUIButton *> _hoverButtons;
+        std::vector<gui::IGUIButton *> _defaultButtons;
+        std::vector<gui::IGUIButton *> _hoverButtons;
         video::ITexture *_htpBackground;
 
     public:
@@ -109,39 +107,44 @@ class Settings : public AScene
 {
     private:
         video::ITexture *_settingsBackground;
-        std::vector<irr::gui::IGUIButton *> _soundsDefault;
-        std::vector<irr::gui::IGUIButton *> _soundsHover;
-        irr::gui::IGUIButton *_menuButtonDefault;
-        irr::gui::IGUIButton *_menuButtonHover;
-        std::vector<irr::gui::IGUIEditBox *> _nameBoxes;
-        std::vector<irr::video::ITexture *> _skinsEnabled;
-        irr::video::ITexture *_skinDisabled;
-        std::vector<irr::gui::IGUIListBox *> _listBoxes;
-        std::vector<irr::gui::IGUICheckBox *> _checkboxes;
+        std::vector<gui::IGUIButton *> _soundsDefault;
+        std::vector<gui::IGUIButton *> _soundsHover;
+        gui::IGUIButton *_menuButtonDefault;
+        gui::IGUIButton *_menuButtonHover;
+        std::vector<gui::IGUIEditBox *> _nameBoxes;
+        std::vector<video::ITexture *> _skinsEnabled;
+        video::ITexture *_skinDisabled;
+        std::vector<gui::IGUIListBox *> _listBoxes;
+        std::vector<gui::IGUICheckBox *> _checkboxes;
 
     public:
         explicit Settings(IrrlichtDevice *);
         ~Settings() = default;
 
+        void display() override;
+        void createButtons() override;
+        void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
+        Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
+
+        // generate
         void generateSettings(settings_t *);
         void generateNameBoxes(settings_t *);
         void generateSkins(settings_t *);
         void generateListBoxes(settings_t *);
         void generateCheckBoxes(settings_t *);
-        irr::gui::IGUIListBox *newListBox(irr::core::rect<s32>, PlayerType, bool);
-        irr::gui::IGUIEditBox *newNameBox(const wchar_t *, irr::core::rect<s32>, bool);
-        irr::gui::IGUICheckBox *newCheckBox(irr::core::rect<s32>, bool);
-        Events checkEvents(IrrlichtDevice *, InputManager *, settings_t *) override;
+
+        // items
+        gui::IGUIListBox *newListBox(core::rect<s32>, PlayerType, bool);
+        gui::IGUIEditBox *newNameBox(const wchar_t *, core::rect<s32>, bool);
+        gui::IGUICheckBox *newCheckBox(core::rect<s32>, bool);
+
         void manageMute(IrrlichtDevice *, settings_t *);
         void checkEditBoxUpdate(settings_t *);
         void checkListBoxUpdate(settings_t *);
         void checkCheckBoxUpdate(settings_t *);
         void updateEnabledPlayers(settings_t *);
         void updateSettings(settings_t *);
-        void display() override;
         void displaySkins();
-        void createButtons() override;
-        void resetScene(IrrlichtDevice *, settings_t *, InputManager *) override;
 };
 
 class Game : public AScene
@@ -151,6 +154,7 @@ class Game : public AScene
         bool _paused;
         u32 _then;
         f32 _frameDeltaTime;
+        int _winner;
         std::vector<Model *> _map[MAP_HEIGHT + 2];
         std::vector<Model *> _objects;
         std::vector<Player *> _playerObjects;
@@ -203,6 +207,7 @@ class Game : public AScene
         // map
         void makeBorderMap(void);
         void generateMap(unsigned int);
+        void generateTree(core::vector3df initialPos);
         void placeInMap(AObject *, int x, int y);
         AObject *getObjectFromMap(int x, int y);
         Model *getObjectFromGame(float x, float z);
