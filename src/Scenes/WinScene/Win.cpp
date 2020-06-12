@@ -14,13 +14,12 @@ Win::Win(IrrlichtDevice *window) : AScene(window)
 
 Events Win::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
 {
-    this->checkHoverButton(window->getCursorControl()->getPosition(), {this->_menuDefault}, {this->_menuHover});
-    if (this->_menuHover->isPressed()) {
-        return BACK_MENU;
-    }
-     if (inputManager->isKeyPressed(CLOSE)) {
-        return CLOSE;
-    }
+    std::vector<Events> events = {BACK_MENU, PLAY, CLOSE};
+
+    this->checkHoverButton(window->getCursorControl()->getPosition(), this->_defaultButtons, this->_hoverButtons);
+    for (int i = 0; i < 3; i++)
+        if (this->_hoverButtons[i]->isPressed())
+            return events[i];
     return NONE;
 }
 
@@ -41,8 +40,12 @@ void Win::display()
 
 void Win::createButtons()
 {
-    this->_menuDefault = this->newButton(irr::core::rect<s32>(800, 850, 1220, 1010), true, "../assets/menuDefault.png");
-    this->_menuHover = this->newButton(irr::core::rect<s32>(800, 850, 1220, 1010), false, "../assets/menuHover.png");
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(200, 850, 620, 1010), true, "../assets/images/menuDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(750, 850, 1170, 1010), true, "../assets/images/playDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(1320, 850, 1740, 1010), true, "../assets/images/quitDefault.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(200, 850, 620, 1010), false, "../assets/images/menuHover.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(750, 850, 1170, 1010), false, "../assets/images/playHover.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(1320, 850, 1740, 1010), false, "../assets/images/quitHover.png"));
 }
 
 void Win::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *inputManager)
