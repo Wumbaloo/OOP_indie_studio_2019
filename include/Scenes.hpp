@@ -16,9 +16,9 @@ using namespace irr;
 
 class AScene {
     protected:
-        gui::IGUIEnvironment *_guienv;
-        video::IVideoDriver *_driver;
-        scene::ISceneManager *_smgr;
+        gui::IGUIEnvironment *_guienv = NULL;
+        video::IVideoDriver *_driver = NULL;
+        scene::ISceneManager *_smgr = NULL;
         Music *_music;
 
     public:
@@ -38,11 +38,11 @@ class AScene {
 class Win : public AScene
 {
     private:
-        video::ITexture *_winPanel;
-        video::ITexture *_playerSkin;
-        gui::IGUIButton *_menuDefault;
-        gui::IGUIButton *_menuHover;
-        gui::IGUIStaticText *_playerName;
+        video::ITexture *_winPanel = NULL;
+        video::ITexture *_playerSkin = NULL;
+        gui::IGUIButton *_menuDefault = NULL;
+        gui::IGUIButton *_menuHover = NULL;
+        gui::IGUIStaticText *_playerName = NULL;
 
     public:
         Win(IrrlichtDevice *);
@@ -58,7 +58,7 @@ class Load : public AScene
     private:
         std::vector<gui::IGUIButton *> _defaultButtons;
         std::vector<gui::IGUIButton *> _hoverButtons;
-        video::ITexture *_loadBackground;
+        video::ITexture *_loadBackground = NULL;
 
     public:
         Load(IrrlichtDevice *);
@@ -74,7 +74,7 @@ class Menu : public AScene
     private:
         std::vector<gui::IGUIButton *> _defaultButtons;
         std::vector<gui::IGUIButton *> _hoverButtons;
-        video::ITexture *_menuBackground;
+        video::ITexture *_menuBackground = NULL;
 
     public:
         Menu(IrrlichtDevice *);
@@ -92,7 +92,7 @@ class HowToPlay : public AScene
     private:
         std::vector<gui::IGUIButton *> _defaultButtons;
         std::vector<gui::IGUIButton *> _hoverButtons;
-        video::ITexture *_htpBackground;
+        video::ITexture *_htpBackground = NULL;
 
     public:
         HowToPlay(IrrlichtDevice *);
@@ -106,14 +106,14 @@ class HowToPlay : public AScene
 class Settings : public AScene
 {
     private:
-        video::ITexture *_settingsBackground;
+        video::ITexture *_settingsBackground = NULL;
         std::vector<gui::IGUIButton *> _soundsDefault;
         std::vector<gui::IGUIButton *> _soundsHover;
-        gui::IGUIButton *_menuButtonDefault;
-        gui::IGUIButton *_menuButtonHover;
+        gui::IGUIButton *_menuButtonDefault = NULL;
+        gui::IGUIButton *_menuButtonHover = NULL;
         std::vector<gui::IGUIEditBox *> _nameBoxes;
         std::vector<video::ITexture *> _skinsEnabled;
-        video::ITexture *_skinDisabled;
+        video::ITexture *_skinDisabled = NULL;
         std::vector<gui::IGUIListBox *> _listBoxes;
         std::vector<gui::IGUICheckBox *> _checkboxes;
 

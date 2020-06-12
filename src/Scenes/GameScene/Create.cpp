@@ -12,7 +12,7 @@
 
 scene::IMeshSceneNode *Game::createModel(std::string modelPath, std::string texturePath)
 {
-    scene::IMesh *mesh;
+    scene::IMesh *mesh = NULL;
     scene::IMeshSceneNode *node = NULL;
 
     mesh = this->_smgr->getMesh(std::string(MODELS_PATH + modelPath).c_str());
@@ -28,7 +28,7 @@ scene::IMeshSceneNode *Game::createModel(std::string modelPath, std::string text
 
 scene::IAnimatedMeshSceneNode *Game::createAnimatedModel(std::string modelPath, std::string texturePath, data_animations_t data)
 {
-    scene::IAnimatedMesh *mesh;
+    scene::IAnimatedMesh *mesh = NULL;
     scene::IAnimatedMeshSceneNode *node = NULL;
 
     mesh = this->_smgr->getMesh(std::string(MODELS_PATH + modelPath).c_str());
@@ -49,7 +49,7 @@ scene::IAnimatedMeshSceneNode *Game::createAnimatedModel(std::string modelPath, 
 Model *Game::createObject(std::string name, std::string model, std::string texture, core::vector3df pos, core::vector3df scale, ObjectType type)
 {
     Model *NewObject = NULL;
-    scene::IMeshSceneNode *object;
+    scene::IMeshSceneNode *object = NULL;
 
     object = createModel(model, texture);
     object->setPosition(pos);
@@ -65,7 +65,7 @@ Model *Game::createObject(std::string name, std::string model, std::string textu
 Player *Game::createPlayerObject(int nb, std::string name, data_animations_t data, InputManager *im, bool isHuman)
 {
     Player *NewObject = NULL;
-    scene::IAnimatedMeshSceneNode *object;
+    scene::IAnimatedMeshSceneNode *object = NULL;
 
     object = createAnimatedModel(data.model, data.texture, data);
     if (!object) {
@@ -79,7 +79,7 @@ Player *Game::createPlayerObject(int nb, std::string name, data_animations_t dat
 Bomb *Game::createBombObject(std::string name, data_animations_t data, std::string launcherName, u32 time)
 {
     Bomb *NewObject = NULL;
-    scene::IAnimatedMeshSceneNode *object;
+    scene::IAnimatedMeshSceneNode *object = NULL;
 
     object = createAnimatedModel(data.model, data.texture, data);
     if (!object) {
@@ -93,7 +93,7 @@ Bomb *Game::createBombObject(std::string name, data_animations_t data, std::stri
 PowerUp *Game::createPowerUpObject(PowerUpsType type, std::string name, data_animations_t data)
 {
     PowerUp *NewObject = NULL;
-    scene::IAnimatedMeshSceneNode *object;
+    scene::IAnimatedMeshSceneNode *object = NULL;
 
     object = createAnimatedModel(data.model, data.texture, data);
     if (!object) {

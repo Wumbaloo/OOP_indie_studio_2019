@@ -26,9 +26,9 @@ typedef struct input_s {
 class InputManager : public irr::IEventReceiver {
     private:
         std::vector<input_t> _events;
+
     public:
         InputManager();
-
         ~InputManager();
 
         virtual bool OnEvent(const irr::SEvent& event);

@@ -23,11 +23,11 @@ class Irrlicht : public IDisplayModule
 {
     private:
         const std::string _name;
-        IrrlichtDevice *_window;
+        IrrlichtDevice *_window = NULL;
         InputManager *_inputManager = NULL;
         std::vector<AScene *> _scenes;
         GameStatus _status = MENU;
-        settings_t *_gameSettings;
+        settings_t *_gameSettings = NULL;
     //        video::IVideoDriver* _driver;
     public:
         Irrlicht(const std::string name);

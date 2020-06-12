@@ -42,7 +42,7 @@ class AObject
 class Model : public AObject
 {
     private:
-        scene::IMeshSceneNode *_node;
+        scene::IMeshSceneNode *_node = NULL;
 
     public:
         Model() = delete;
