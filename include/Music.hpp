@@ -10,13 +10,13 @@
 class Music
 {
     private:
-        irrklang::ISoundEngine *_engine;
-        irrklang::ISound *_sound;
-        irrklang::ISoundSource* _hoverSound;
-        irrklang::ISoundSource* _bonusSound;
-        irrklang::ISoundSource* _bombSound;
-        irrklang::ISoundSource* _deadSound;
-        irrklang::ISoundSource* _bombExploSound;
+        irrklang::ISoundEngine *_engine = NULL;
+        irrklang::ISound *_sound = NULL;
+        irrklang::ISoundSource* _hoverSound = NULL;
+        irrklang::ISoundSource* _bonusSound = NULL;
+        irrklang::ISoundSource* _bombSound = NULL;
+        irrklang::ISoundSource* _deadSound = NULL;
+        irrklang::ISoundSource* _bombExploSound = NULL;
         bool _mute;
 
     public:
