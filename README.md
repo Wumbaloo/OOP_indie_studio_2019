@@ -16,6 +16,9 @@ Ensuite, le bomberman.exe est généré dans le dossier "build/Release", déplac
 - **OOP_indie_studio_2019/libs/irrKlang/bin**
 - **OOP_indie_studio_2019/libs/irrKlang/lib**
 
+# A savoir:
+Pour toutes modifications du son dans les options, celles-ci seront appliquées une fois retourné au menu principal
+
 # Touches
 
 Il existe différentes touches pour diverses actions :

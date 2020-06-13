@@ -59,5 +59,6 @@ void Win::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager 
         this->_music->muteAll();
     else
         this->_music->demute();
+    this->_music->manageVolume(settings->volume);
     this->_music->playWinSound();
 }

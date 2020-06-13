@@ -51,11 +51,6 @@ Music::Music()
 Music::~Music()
 {
     this->_engine->drop();
-    this->_hoverSound->drop();
-    this->_bombSound->drop();
-    this->_deadSound->drop();
-    this->_bombExploSound->drop();
-    this->_bonusSound->drop();
 }
 
 void Music::playMenuMusic(void)
@@ -164,4 +159,9 @@ bool Music::isMusicOn(void) const
     if (this->_sound && !this->_sound->isFinished())
         return true;
     return false;
+}
+
+void Music::manageVolume(float volume)
+{
+    this->_engine->setSoundVolume(0 + (volume / 100));
 }

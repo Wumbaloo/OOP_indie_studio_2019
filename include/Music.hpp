@@ -31,6 +31,7 @@ class Music
         void playBombSound(void);
         void playBombExploSound(void);
         void playDeadSound(void);
+        void manageVolume(float volume);
         void playWinSound(void);
         void dropSound(void);
         void muteAll(void);

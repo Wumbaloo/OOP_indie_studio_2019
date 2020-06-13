@@ -57,6 +57,7 @@ void Menu::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
         this->_music->muteAll();
     else
         this->_music->demute();
+    this->_music->manageVolume(settings->volume);
     if (!this->_music->isMusicOn())
         this->_music->playMenuMusic();
     this->_menuBackground = this->_driver->getTexture("./assets/images/backgroundMenu.png");
