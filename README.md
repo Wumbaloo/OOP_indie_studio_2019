@@ -5,7 +5,7 @@ Vous trouverez dans ce README une aide relative à l'installation, sinon, contac
 
 # Installer
 
-Un installeur est disponible à la racine de l'OOP_indie_studio_2019 pour Windows ou via [mon site web](http://william-gaudfrin.fr/indie/installer.msi)
+Un installeur est disponible à la racine de l'OOP_indie_studio_2019 pour Windows ou via [mon site web](http://william-gaudfrin.fr/indie/setup.exe)
 
 Sinon, lancez Git Bash, rendez-vous dans le dossier "build", et effectuez la commande :
 > cmake .. && cmake --build . --config Release
@@ -15,6 +15,9 @@ Ensuite, le bomberman.exe est généré dans le dossier "build/Release", déplac
 - **OOP_indie_studio_2019/libs/irrlicht/lib**
 - **OOP_indie_studio_2019/libs/irrKlang/bin**
 - **OOP_indie_studio_2019/libs/irrKlang/lib**
+
+Dans les deux cas, assurez-vous que le binaire (sur Linux et .exe sur Windows)
+se trouve bien dans le dossier "build", où se trouve les assets.
 
 # A savoir:
 Pour toutes modifications du son dans les options, celles-ci seront appliquées une fois retourné au menu principal
