@@ -192,7 +192,7 @@ void loadMute(settings_t *settings, std::string &buffer)
         exit(84);
     }
     std::cout << c << std::endl;
-    settings->isMuted = (c == '0');
+    settings->isMuted = !(c == '0');
 }
 
 void loadSettings(settings_t *settings)

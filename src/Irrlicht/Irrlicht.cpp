@@ -15,7 +15,8 @@ Irrlicht::Irrlicht(const std::string name) : _name(name)
 {
     this->_inputManager = new InputManager();
     this->_inputManager->bindActionToKey(PAUSE, KEY_ESCAPE);
-    this->_gameSettings = new settings_t;
+    this->_gameSettings = new settings_t();
+    loadSettings(_gameSettings);
 }
 
 bool Irrlicht::isWindowOpen(void) const
