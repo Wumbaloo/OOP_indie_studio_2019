@@ -50,6 +50,11 @@ void Win::createButtons()
 
 void Win::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *inputManager)
 {
+    this->_hoverButtons.clear();
+    this->_defaultButtons.clear();
+    this->_guienv->clear();
+    this->_smgr->clear();
+    this->_driver->removeAllTextures();
     std::string path = std::string("./assets/images/guard") + std::to_string(settings->winnerIdx) + std::string(".png");
     this->createButtons();
     this->_winPanel = this->_driver->getTexture("./assets/images/winPanel.jpg");
