@@ -15,12 +15,11 @@
 void Game::save()
 {
     std::string *buffer;
-    FILE *fileStream = fopen("bomberman.sav", "w");
     bool start = false;
+    std::ofstream saveFile("bomberman.sav");
 
-    if (!fileStream)
+    if (saveFile.fail())
         return;
-    std::ofstream saveFile(fileStream);
     for (int i = 1; i < MAP_HEIGHT + 1; i++) {
         std::cout << "+ I: " << i << std::endl;
         for (int j = 2; j < MAP_WIDTH; j++) {
@@ -48,7 +47,6 @@ void Game::save()
         saveFile << std::endl;
     }
     saveFile.close();
-    fclose(fileStream);
 }
 
 std::vector<std::string> split(std::string& s, std::string delimiter)
