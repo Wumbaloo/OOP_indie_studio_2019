@@ -46,14 +46,6 @@ void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
         exit(84);
     this->_defaultButtons.clear();
     this->_hoverButtons.clear();
-    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 210, 1170, 370), true, "./assets/images/playDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 410, 1170, 570), true, "./assets/images/menuDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 610, 1170, 770), true, "./assets/images/settingsDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 810, 1170, 970), true, "./assets/images/quitDefault.png"));
-    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 210, 1170, 370), false, "./assets/images/playHover.png"));
-    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 410, 1170, 570), false, "./assets/images/menuHover.png"));
-    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 610, 1170, 770), false, "./assets/images/settingsHover.png"));
-    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 810, 1170, 970), false, "./assets/images/quitHover.png"));
     scene::ICameraSceneNode *camera = this->_smgr->addCameraSceneNode(0, core::vector3df(0, 25, -5),
         core::vector3df(0, -12.5, -2.5));
     this->_then = window->getTimer()->getTime();
@@ -64,6 +56,7 @@ void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_music->manageVolume(settings->volume);
     if (!this->_music->isMusicOn())
         this->_music->playGameMusic();
+    this->createPauseScene();
     this->createGameScene(settings, im);
 }
 
