@@ -91,7 +91,7 @@ Events Game::PauseEvents(IrrlichtDevice *window)
             this->_music->stopSound();
             this->destroy();
             return TO_SETTINGS;
-        } else if (this->_hoverButtons[3]->isPressed())
+        } else if (this->_hoverButtons[4]->isPressed())
             return CLOSE;
     }
     return NONE;
@@ -99,7 +99,8 @@ Events Game::PauseEvents(IrrlichtDevice *window)
 
 Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
 {
-    if (inputManager->isKeyPressed(SAVE_GAME)) {
+    if (inputManager->isKeyPressed(SAVE_GAME) ||
+        (this->_paused && this->_hoverButtons.size() >= 4 && this->_hoverButtons[3]->isPressed())) {
         this->save();
         this->_music->stopSound();
         this->destroy();

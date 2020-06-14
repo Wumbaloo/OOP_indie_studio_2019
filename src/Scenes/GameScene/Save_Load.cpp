@@ -106,8 +106,10 @@ void Game::load()
                     this->createObject("wall", "Cube.obj", "Square.jpg", {(float) x, 0, (float) z}, {1, 1, 1}, OBSTACLE);
                     break;
             }
-            if (obj)
+            if (obj) {
                 this->_map[y].push_back(obj);
+                std::cout << "Y is " << y << std::endl;
+            }
         }
     }
     fileStream.close();
