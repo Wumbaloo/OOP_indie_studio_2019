@@ -21,12 +21,8 @@ void Game::display()
     this->_driver->beginScene(true, true, video::SColor(255, 82, 138, 85.4));
     this->_smgr->drawAll();
     if (this->_paused) {
-        if (this->_pauseBg)
-            this->_driver->draw2DImage(this->_pauseBg, core::position2d<s32>(0,0),
-            core::rect<s32>(0,0,1920,1080), 0,
-            video::SColor(255, 255, 255, 255), true);
         this->_pausegui->drawAll();
-        this->_guienv->drawAll();
+//        this->_guienv->drawAll();
     }
 }
 
@@ -41,9 +37,6 @@ void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_objects.clear();
     this->_smgr->clear();
     this->_pausegui = window->getGUIEnvironment();
-    this->_pauseBg = this->_driver->getTexture("./assets/images/background.png");
-    if (this->_pauseBg == nullptr)
-        exit(84);
     this->_defaultButtons.clear();
     this->_hoverButtons.clear();
     scene::ICameraSceneNode *camera = this->_smgr->addCameraSceneNode(0, core::vector3df(0, 25, -5),
@@ -128,8 +121,6 @@ void Game::destroy()
             delete(explosions);
         delete (object);
     }
-    if (this->_pauseBg)
-        delete(this->_pauseBg);
     this->_defaultButtons.clear();
     this->_hoverButtons.clear();
     this->_bombObjects.clear();

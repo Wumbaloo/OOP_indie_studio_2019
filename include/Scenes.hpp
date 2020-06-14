@@ -164,7 +164,6 @@ class Game : public AScene
         gui::IGUIEnvironment *_pausegui = NULL;
         std::vector<gui::IGUIButton *> _defaultButtons;
         std::vector<gui::IGUIButton *> _hoverButtons;
-        video::ITexture *_pauseBg = NULL;
 
     public:
         Game(IrrlichtDevice *);
