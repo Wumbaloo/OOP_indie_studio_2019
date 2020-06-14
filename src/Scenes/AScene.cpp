@@ -15,7 +15,7 @@ AScene::AScene(IrrlichtDevice *window)
     this->_music = new Music();
 }
 
-void AScene::checkHoverButton(irr::core::vector2d<s32> cursorPos, std::vector<irr::gui::IGUIButton *> _defaultButtons, std::vector<irr::gui::IGUIButton *> _hoverButtons)
+void AScene::checkHoverButton(core::vector2d<s32> cursorPos, std::vector<gui::IGUIButton *> _defaultButtons, std::vector<gui::IGUIButton *> _hoverButtons)
 {
     for (int i = 0; i < _defaultButtons.size(); i++) {
         if (!_hoverButtons[i])
@@ -29,11 +29,11 @@ void AScene::refreshWindow()
     this->_driver->endScene();
 }
 
-irr::gui::IGUIButton *AScene::newButton(irr::core::rect<irr::s32> pos,
-    bool visible, irr::core::string<fschar_t> path)
+gui::IGUIButton *AScene::newButton(core::rect<s32> pos,
+    bool visible, core::string<fschar_t> path)
 {
-    irr::gui::IGUIButton *button;
-    irr::video::ITexture *texture  = this->_driver->getTexture(path);
+    gui::IGUIButton *button;
+    video::ITexture *texture  = this->_driver->getTexture(path);
 
     if (texture == nullptr)
         exit (84);

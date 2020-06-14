@@ -10,7 +10,7 @@
 
 using namespace irr;
 
-const string &Irrlicht::getName(void) const
+const std::string &Irrlicht::getName(void) const
 {
     return (this->_name);
 }

@@ -16,41 +16,35 @@ void error(std::string msg, int value)
     exit(value);
 }
 
+
 Music::Music()
 {
     this->_engine = irrklang::createIrrKlangDevice();
     if (!this->_engine)
         error("Failed to create engine", 84);
-    this->_hoverSound = this->_engine->addSoundSourceFromFile("./assets/Music/sound_effect/menu.ogg");
-    if (!_hoverSound)
-        error("Failed to open hover sound", 84);
-    this->_hoverSound->setDefaultVolume(.1);
-    this->_bonusSound = this->_engine->addSoundSourceFromFile("./assets/Music/sound_effect/bonus.ogg");
-    if (!_bonusSound)
-        error("Failed to open bonus sound", 84);
-    this->_bonusSound->setDefaultVolume(.1);
-    this->_bombSound = this->_engine->addSoundSourceFromFile("./assets/Music/sound_effect/place_bomb.ogg");
-    if (!_bombSound)
-        error("Failed to open bomb sound", 84);
-    this->_bombSound->setDefaultVolume(.2);
-    this->_deadSound = this->_engine->addSoundSourceFromFile("./assets/Music/sound_effect/dead.ogg");
-    if (!_deadSound)
-        error("Failed to open dead sound", 84);
-    this->_deadSound->setDefaultVolume(.05);
-    this->_bombExploSound = this->_engine->addSoundSourceFromFile("./assets/Music/sound_effect/explosion.ogg");
-    if (!_bombExploSound)
-        error("Failed to open explosion sound", 84);
-    this->_bombExploSound->setDefaultVolume(.2);
-    this->_winSound = this->_engine->addSoundSourceFromFile("./assets/Music/sound_effect/win.ogg");
-    if (!_winSound)
-        error("Failed to open win sound", 84);
-    this->_winSound->setDefaultVolume(.3);
+    this->_hoverSound = this->createSourceSound("./assets/Music/sound_effect/menu.ogg", .1);
+    this->_bonusSound = this->createSourceSound("./assets/Music/sound_effect/bonus.ogg", .1);
+    this->_bombSound = this->createSourceSound("./assets/Music/sound_effect/place_bomb.ogg", .2);
+    this->_deadSound = this->createSourceSound("./assets/Music/sound_effect/dead.ogg", .05);
+    this->_bombExploSound = this->createSourceSound("./assets/Music/sound_effect/explosion.ogg", .2);
+    this->_winSound = this->createSourceSound("./assets/Music/sound_effect/win.ogg", .3);
     this->_mute = false;
 }
 
 Music::~Music()
 {
     this->_engine->drop();
+}
+
+irrklang::ISoundSource *Music::createSourceSound(std::string path, float volume)
+{
+    irrklang::ISoundSource *snd = NULL;
+
+    snd = this->_engine->addSoundSourceFromFile(path.c_str());
+    if (!snd)
+        error("Failed to open a source sound", 84);
+    snd->setDefaultVolume(volume);
+    return (snd);
 }
 
 void Music::playMenuMusic(void)

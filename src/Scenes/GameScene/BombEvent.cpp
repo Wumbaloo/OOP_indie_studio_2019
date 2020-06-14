@@ -15,7 +15,7 @@ void Game::deleteWall(Model *wall)
     delete(wall);
 }
 
-void pushBackDeadPlayer(vector<Player *> *deadPlayer, Player *player)
+void pushBackDeadPlayer(std::vector<Player *> *deadPlayer, Player *player)
 {
     if (deadPlayer->size() > 0) {
         for (Player *deadPlayer : (*deadPlayer)) {
@@ -26,7 +26,7 @@ void pushBackDeadPlayer(vector<Player *> *deadPlayer, Player *player)
     deadPlayer->push_back(player);
 }
 
-void Game::CheckIfPlayer(bool exploded[4], Bomb *bomb, vector<Player *> *deadPlayer, int i)
+void Game::CheckIfPlayer(bool exploded[4], Bomb *bomb, std::vector<Player *> *deadPlayer, int i)
 {
     for (Player *player : this->_playerObjects) {
         if (player->isHuman() && this->getMapPosition(bomb->getPos()) == this->getMapPosition(player->getPos()))
@@ -78,7 +78,7 @@ void Game::CheckIfNotBreakable(bool exploded[4], Bomb *bomb, int i)
         exploded[3] = 1;
 }
 
-void Game::BombExploded(Bomb *bomb, vector<Player *> *deadPlayer)
+void Game::BombExploded(Bomb *bomb, std::vector<Player *> *deadPlayer)
 {
     int range = bomb->getRange();
     bool exploded[4] = {0, 0, 0, 0};
@@ -118,7 +118,7 @@ void Game::BombExploded(Bomb *bomb, vector<Player *> *deadPlayer)
     }
 }
 
-void DeletePlayers(vector<Player *> *deadPlayer, vector<Player *> *_playerObjects, Music *music)
+void DeletePlayers(std::vector<Player *> *deadPlayer, std::vector<Player *> *_playerObjects, Music *music)
 {
     int endPlayers = _playerObjects->size();
 
@@ -169,9 +169,33 @@ void Game::addExplosionsObjects(Bomb *bomb)
     }
 }
 
+void BombExplosionsEffect(Bomb *obj, std::vector<Bomb *> *_bombObjects)
+{
+    std::vector<Model *> explosions = obj->getBombExplosions();
+    int endBomb = explosions.size();
+
+    for (int j = 0; j < endBomb; j++)
+        delete(explosions.at(j));
+    obj->clearExplosionsObjects();
+    _bombObjects->erase(std::remove(_bombObjects->begin(), _bombObjects->end(), obj), _bombObjects->end());
+    delete(obj);
+}
+
+void Game::BombCountEnd(Bomb *obj)
+{
+    std::vector<Player *> deadPlayer;
+
+    this->_music->playBombExploSound();
+    this->BombExploded(obj, &deadPlayer);
+    this->addExplosionsObjects(obj);
+    DeletePlayers(&deadPlayer, &this->_playerObjects, this->_music);
+    if (this->_playerObjects.size() == 1)
+        this->_winner = this->_playerObjects.at(0)->getNb();
+    obj->getSceneNode()->setVisible(false);
+}
+
 void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Player *player)
 {
-    vector<Player *> deadPlayer;
     int bombEnd = this->_bombObjects.size();
 
     for (int i = 0; i < bombEnd; i++) {
@@ -180,24 +204,11 @@ void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Play
             continue;
         obj->setTime(window->getTimer()->getTime());
         if (obj->getTime() >= 2500) {
-            std::vector<Model *> explosions = obj->getBombExplosions();
-            int endBomb = explosions.size();
-            for (int j = 0; j < endBomb; j++)
-                delete(explosions.at(j));
-            obj->clearExplosionsObjects();
-            this->_bombObjects.erase(std::remove(this->_bombObjects.begin(), this->_bombObjects.end(), obj), this->_bombObjects.end());
-            delete(obj);
+            BombExplosionsEffect(obj, &this->_bombObjects);
             bombEnd--;
             i = 0;
-        } else if (obj->getTime() >= 2000 && obj->getSceneNode()->isVisible()) {
-            this->_music->playBombExploSound();
-            this->BombExploded(obj, &deadPlayer);
-            this->addExplosionsObjects(obj);
-            DeletePlayers(&deadPlayer, &this->_playerObjects, this->_music);
-            if (this->_playerObjects.size() == 1)
-                this->_winner = this->_playerObjects.at(0)->getNb();
-            obj->getSceneNode()->setVisible(false);
-        }
+        } else if (obj->getTime() >= 2000 && obj->getSceneNode()->isVisible())
+            this->BombCountEnd(obj);
     }
     if (player && (player->isHuman() && inputManager->isKeyPressed(player->getBombEvent()))) {
         if (getNbBombByOwner(player->getName()) < player->getBombUp()) {

@@ -13,7 +13,7 @@
 #include <irrlicht.h>
 #include "Enums.hpp"
 
-using namespace std;
+using namespace irr;
 
 typedef struct vector3_s
 {
@@ -32,8 +32,8 @@ typedef struct data_animations_s
 {
     std::string model;
     std::string texture;
-    irr::core::vector3df pos;
-    irr::core::vector3df scale;
+    core::vector3df pos;
+    core::vector3df scale;
     vector2f_t frameLoop;
     float animationSpeed;
 } data_animations_t;

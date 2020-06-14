@@ -38,7 +38,6 @@ void Game::makeBorderMap()
 
 void Game::generateMap(unsigned int seed)
 {
-    this->_grid = 2;
     srand(seed);
     std::cout << "Map with seed: " << seed << std::endl;
     int i = 1;

@@ -26,13 +26,13 @@ Events Win::checkEvents(IrrlichtDevice *window, InputManager *inputManager, sett
 void Win::display()
 {
     this->_driver->beginScene(true, true, video::SColor(255, 100, 101, 140));
-    this->_driver->draw2DImage(this->_winPanel, irr::core::position2d<irr::s32>(0, 0),
-        irr::core::rect<irr::s32>(0, 0, 1920, 1080), 0,
-        irr::video::SColor(255, 255, 255, 255), true);
+    this->_driver->draw2DImage(this->_winPanel, core::position2d<s32>(0, 0),
+        core::rect<s32>(0, 0, 1920, 1080), 0,
+        video::SColor(255, 255, 255, 255), true);
     this->_driver->draw2DImage(this->_playerSkin,
-        irr::core::position2d<irr::s32>(870, 210),
-        irr::core::rect<irr::s32>(0, 0, 1920, 1080), 0,
-        irr::video::SColor(255, 255, 255, 255), true
+        core::position2d<s32>(870, 210),
+        core::rect<s32>(0, 0, 1920, 1080), 0,
+        video::SColor(255, 255, 255, 255), true
         );
     this->_smgr->drawAll();
     this->_guienv->drawAll();
@@ -40,12 +40,12 @@ void Win::display()
 
 void Win::createButtons()
 {
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(200, 850, 620, 1010), true, "./assets/images/menuDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(750, 850, 1170, 1010), true, "./assets/images/playDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<s32>(1320, 850, 1740, 1010), true, "./assets/images/quitDefault.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(200, 850, 620, 1010), false, "./assets/images/menuHover.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(750, 850, 1170, 1010), false, "./assets/images/playHover.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<s32>(1320, 850, 1740, 1010), false, "./assets/images/quitHover.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(200, 850, 620, 1010), true, "./assets/images/menuDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 850, 1170, 1010), true, "./assets/images/playDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(1320, 850, 1740, 1010), true, "./assets/images/quitDefault.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(200, 850, 620, 1010), false, "./assets/images/menuHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 850, 1170, 1010), false, "./assets/images/playHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(1320, 850, 1740, 1010), false, "./assets/images/quitHover.png"));
 }
 
 void Win::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *inputManager)
@@ -63,7 +63,7 @@ void Win::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager 
     this->_playerSkin = this->_driver->getTexture(path.c_str());
     if (this->_playerSkin == nullptr)
         exit (84);
-    this->_playerName = this->_guienv->addStaticText((const wchar_t *) settings->names.at(settings->winnerIdx - 1).c_str(), irr::core::rect<s32>(940, 405, 940 + 100, 405 + 30));
+    this->_playerName = this->_guienv->addStaticText((const wchar_t *) settings->names.at(settings->winnerIdx - 1).c_str(), core::rect<s32>(940, 405, 940 + 100, 405 + 30));
     if (settings->isMuted)
         this->_music->muteAll();
     else

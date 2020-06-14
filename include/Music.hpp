@@ -12,12 +12,12 @@ class Music
     private:
         irrklang::ISoundEngine *_engine = NULL;
         irrklang::ISound *_sound = NULL;
-        irrklang::ISoundSource* _hoverSound = NULL;
-        irrklang::ISoundSource* _bonusSound = NULL;
-        irrklang::ISoundSource* _bombSound = NULL;
-        irrklang::ISoundSource* _deadSound = NULL;
-        irrklang::ISoundSource* _bombExploSound = NULL;
-        irrklang::ISoundSource* _winSound = NULL;
+        irrklang::ISoundSource *_hoverSound = NULL;
+        irrklang::ISoundSource *_bonusSound = NULL;
+        irrklang::ISoundSource *_bombSound = NULL;
+        irrklang::ISoundSource *_deadSound = NULL;
+        irrklang::ISoundSource *_bombExploSound = NULL;
+        irrklang::ISoundSource *_winSound = NULL;
         bool _mute;
 
     public:
@@ -36,6 +36,7 @@ class Music
         void dropSound(void);
         void muteAll(void);
         void demute(void);
+        irrklang::ISoundSource *createSourceSound(std::string path, float volume);
         void stopSound(void) const;
         bool isMusicOn(void) const;
 };

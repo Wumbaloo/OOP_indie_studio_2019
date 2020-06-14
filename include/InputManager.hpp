@@ -12,8 +12,10 @@
 #include <vector>
 #include "Enums.hpp"
 
+using namespace irr;
+
 typedef struct inputKey_s {
-    irr::EKEY_CODE code;
+    EKEY_CODE code;
     bool releasedMode;
     bool isDown;
 } inputKey_t;
@@ -23,7 +25,7 @@ typedef struct input_s {
     enum Events event;
 } input_t;
 
-class InputManager : public irr::IEventReceiver {
+class InputManager : public IEventReceiver {
     private:
         std::vector<input_t> _events;
 
@@ -31,17 +33,17 @@ class InputManager : public irr::IEventReceiver {
         InputManager();
         ~InputManager();
 
-        virtual bool OnEvent(const irr::SEvent& event);
-        virtual bool IsKeyDown(irr::EKEY_CODE keyCode);
+        virtual bool OnEvent(const SEvent& event);
+        virtual bool IsKeyDown(EKEY_CODE keyCode);
 
-        enum Events getActionByKey(irr::EKEY_CODE keyCode) const;
-        input_t getKeyByKeyCode(irr::EKEY_CODE keyCode) const;
+        enum Events getActionByKey(EKEY_CODE keyCode) const;
+        input_t getKeyByKeyCode(EKEY_CODE keyCode) const;
         bool isKeyPressed(enum Events event);
 
-        void bindActionToKey(enum Events event, irr::EKEY_CODE keyCode, bool releasedMode = false);
-        void bindKeyToAction(irr::EKEY_CODE keyCode, enum Events event);
+        void bindActionToKey(enum Events event, EKEY_CODE keyCode, bool releasedMode = false);
+        void bindKeyToAction(EKEY_CODE keyCode, enum Events event);
         void removeKeysAtAction(enum Events event);
-        void removeKeyAtAction(irr::EKEY_CODE keyCode, enum Events event);
+        void removeKeyAtAction(EKEY_CODE keyCode, enum Events event);
 };
 
 #endif

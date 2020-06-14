@@ -19,7 +19,6 @@ InputManager::InputManager()
     this->bindActionToKey(BACK_MENU, KEY_KEY_B, true);
     this->bindActionToKey(RESTART, KEY_KEY_R, true);
     this->bindActionToKey(SAVE_GAME, KEY_KEY_P, true);
-    this->bindActionToKey(LOAD_GAME, KEY_KEY_L, true);
 }
 
 InputManager::~InputManager()

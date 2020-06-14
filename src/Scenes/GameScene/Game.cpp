@@ -22,9 +22,9 @@ void Game::display()
     this->_smgr->drawAll();
     if (this->_paused) {
         if (this->_pauseBg)
-            this->_driver->draw2DImage(this->_pauseBg, irr::core::position2d<irr::s32>(0,0),
-            irr::core::rect<irr::s32>(0,0,1920,1080), 0,
-            irr::video::SColor(255, 255, 255, 255), true);
+            this->_driver->draw2DImage(this->_pauseBg, core::position2d<s32>(0,0),
+            core::rect<s32>(0,0,1920,1080), 0,
+            video::SColor(255, 255, 255, 255), true);
         this->_pausegui->drawAll();
         this->_guienv->drawAll();
     }
@@ -69,7 +69,7 @@ void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
 
 void Game::save()
 {
-    string *buffer;
+    std::string *buffer;
     FILE *fileStream = fopen("../bomberman.sav", "w");
 
     for (int i = 0; i < MAP_HEIGHT + 2; i++) {
@@ -92,7 +92,7 @@ void Game::save()
 void Game::load()
 {
     std::string buffer;
-    ifstream fileStream("../bomberman.sav");
+    std::ifstream fileStream("./bomberman.sav");
 
     if (!fileStream.is_open())
         return;

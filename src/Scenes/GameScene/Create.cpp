@@ -132,9 +132,22 @@ void Game::createGameScene(settings_t *settings, InputManager *im)
             this->_playerObjects.at(i)->setOriginalPos(pos);
         }
     }
+    this->_grid = 2;
     if (settings->loadFile)
         this->load();
     else
         this->generateMap(time(nullptr));
     this->generateTree({-22, 0, 11});
+}
+
+void Game::createPauseScene(void)
+{
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 210, 1170, 370), true, "./assets/images/playDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 410, 1170, 570), true, "./assets/images/menuDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 610, 1170, 770), true, "./assets/images/settingsDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 810, 1170, 970), true, "./assets/images/quitDefault.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 210, 1170, 370), false, "./assets/images/playHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 410, 1170, 570), false, "./assets/images/menuHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 610, 1170, 770), false, "./assets/images/settingsHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 810, 1170, 970), false, "./assets/images/quitHover.png"));
 }

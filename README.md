@@ -30,7 +30,6 @@ Il existe différentes touches pour diverses actions :
  - "**R**" pour restart le jeu
  - "**B**" pour retourner au menu
  - "**P**" pour sauvegarder dans le jeu
- - "**L**" pour charger une sauvegarde dans le jeu
  - "**Échap**" pour faire pause dans le jeu
 
 ## Touches pour se déplacer
