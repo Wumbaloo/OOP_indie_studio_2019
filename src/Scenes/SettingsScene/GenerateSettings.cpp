@@ -26,7 +26,12 @@ void Settings::generateSkins(settings_t *settings)
     this->_skinsEnabled.push_back(this->_driver->getTexture("./assets/images/guard2.png"));
     this->_skinsEnabled.push_back(this->_driver->getTexture("./assets/images/guard3.png"));
     this->_skinsEnabled.push_back(this->_driver->getTexture("./assets/images/guard4.png"));
+    for (irr::video::ITexture *texture : this->_skinsEnabled)
+        if (texture == nullptr)
+            exit(84);
     this->_skinDisabled = this->_driver->getTexture("./assets/images/noguard.png");
+    if (this->_skinDisabled == nullptr)
+        exit(84);
 }
 
 void Settings::generateListBoxes(settings_t *settings)

@@ -51,6 +51,8 @@ void Load::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_defaultButtons.clear();
     this->_hoverButtons.clear();
     this->_loadBackground = this->_driver->getTexture("./assets/images/load.jpg");
+    if (this->_loadBackground == nullptr)
+        exit(84);
     this->createButtons();
     if (settings->isMuted)
         this->_music->muteAll();

@@ -61,6 +61,8 @@ void Menu::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     if (!this->_music->isMusicOn())
         this->_music->playMenuMusic();
     this->_menuBackground = this->_driver->getTexture("./assets/images/backgroundMenu.png");
+    if (this->_menuBackground == nullptr)
+        exit (84);
 }
 
 void Menu::createButtons()

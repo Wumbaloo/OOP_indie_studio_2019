@@ -146,6 +146,8 @@ void Settings::resetScene(IrrlichtDevice *window, settings_t *settings, InputMan
     this->_smgr->clear();
     this->_driver->removeAllTextures();
     this->_settingsBackground = this->_driver->getTexture("./assets/images/backgroundMenu.png");
+    if (this->_settingsBackground == nullptr)
+        exit (84);
     this->createButtons();
     this->generateSettings(settings);
     if (settings->isMuted)

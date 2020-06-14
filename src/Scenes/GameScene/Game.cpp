@@ -42,6 +42,8 @@ void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
     this->_smgr->clear();
     this->_pausegui = window->getGUIEnvironment();
     this->_pauseBg = this->_driver->getTexture("./assets/images/background.png");
+    if (this->_pauseBg == nullptr)
+        exit(84);
     this->_defaultButtons.clear();
     this->_hoverButtons.clear();
     this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 210, 1170, 370), true, "./assets/images/playDefault.png"));

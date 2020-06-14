@@ -33,11 +33,14 @@ irr::gui::IGUIButton *AScene::newButton(irr::core::rect<irr::s32> pos,
     bool visible, irr::core::string<fschar_t> path)
 {
     irr::gui::IGUIButton *button;
+    irr::video::ITexture *texture  = this->_driver->getTexture(path);
 
+    if (texture == nullptr)
+        exit (84);
     button = this->_guienv->addButton(pos, nullptr, -1, nullptr);
     button->setUseAlphaChannel(true);
     button->setDrawBorder(false);
-    button->setImage(this->_driver->getTexture(path));
+    button->setImage(texture);
     button->setVisible(visible);
     return button;
 }

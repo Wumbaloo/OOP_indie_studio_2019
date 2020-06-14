@@ -65,6 +65,8 @@ void HowToPlay::resetScene(IrrlichtDevice *, settings_t *settings, InputManager 
     this->_hoverButtons.clear();
     this->createButtons();
     this->_htpBackground = this->_driver->getTexture("./assets/images/howToPlay.png");
+    if (this->_htpBackground == nullptr)
+        exit(84);
     if (settings->isMuted)
         this->_music->muteAll();
     else
