@@ -5,6 +5,7 @@
 ** Created by Anthony ANICOTTE,
 */
 
+#include <fstream>
 #include "IndieStudio.hpp"
 
 Game::Game(IrrlichtDevice *window) : AScene(window)
@@ -19,7 +20,7 @@ void Game::display()
 {
     this->_driver->beginScene(true, true, video::SColor(255, 82, 138, 85.4));
     this->_smgr->drawAll();
-    this->_guienv->drawAll();
+    // this->_guienv->drawAll();
 }
 
 void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *im)
@@ -44,7 +45,7 @@ void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
 void Game::save()
 {
     string *buffer;
-    FILE *fileStream = fopen("bomberman.sav", "w");
+    FILE *fileStream = fopen("../bomberman.sav", "w");
 
     for (int i = 0; i < MAP_HEIGHT + 2; i++) {
         for (int j = 0; j < MAP_WIDTH; j++) {
@@ -65,34 +66,32 @@ void Game::save()
 
 void Game::load()
 {
-    string *buffer;
-    FILE *fileStream = fopen("bomberman.sav", "r");
-    size_t size_read = 0;
-    int k = 0;
-    int x = 0;
-    int y = 0;
+    std::string buffer;
+    ifstream fileStream("../bomberman.sav");
 
-    for (int i = 0; i < MAP_HEIGHT + 2; i++) {
-        size_read = fread(buffer, sizeof(char), MAP_WIDTH, fileStream);
-        std::cout << "buffer = " << std::endl << buffer;
-        for (int j = 0; j < MAP_WIDTH; j++) {
+    if (!fileStream.is_open())
+        return;
+    fileStream >> buffer;
+
+    std::cout << "*** debug ***\n" << buffer << std::endl;
+
+    for (int j = 0; j < MAP_HEIGHT; j++) {
+        for (int i = 0; i < MAP_WIDTH; i++) {
             Model *obj = NULL;
-            if (buffer->at(j) == 'o')
+
+            if (buffer.at(i + MAP_WIDTH * j) == 'o') {
                 obj = this->createObject("destructible", "Cube.obj", "Cube.jpg", {(float) 0, 0, (float) 0}, {1, 1, 1}, BREAKABLE);
-            if (buffer->at(j) == 'x')
-                obj = this->createObject("wall", "Cube.obj", "Square.jpg", {(float) 0, 0, (float) 0}, {1, 1, 1}, OBSTACLE);
-            if (buffer->at(j) != '_') {
-                this->_map[i].push_back(obj);
-                if (x >= MAP_WIDTH) {
-                    x = 0;
-                    y++;
-                }
-                this->placeInMap(obj, x, y);
+                this->_map[j].push_back(obj);
+                this->placeInMap(obj, i, j);
             }
-            x++;
+            else if (buffer.at(i + MAP_WIDTH * j) == 'x') {
+                obj = this->createObject("wall", "Cube.obj", "Square.jpg", {(float) 0, 0, (float) 0}, {1, 1, 1}, OBSTACLE);
+                this->_map[j].push_back(obj);
+                this->placeInMap(obj, i, j);
+            }
         }
     }
-    fclose(fileStream);
+    fileStream.close();
 }
 
 void Game::destroy()
