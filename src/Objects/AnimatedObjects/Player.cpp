@@ -58,7 +58,8 @@ Player::Player(int nb ,scene::IAnimatedMeshSceneNode *node, std::string name, In
 
 Player::~Player()
 {
-    this->_node->remove();
+    if (this->_node)
+        this->_node->remove();
 }
 
 bool Player::isRunning(void) const

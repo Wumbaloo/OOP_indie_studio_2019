@@ -20,16 +20,38 @@ void Game::display()
 {
     this->_driver->beginScene(true, true, video::SColor(255, 82, 138, 85.4));
     this->_smgr->drawAll();
-    // this->_guienv->drawAll();
+    if (this->_paused) {
+        if (this->_pauseBg)
+            this->_driver->draw2DImage(this->_pauseBg, irr::core::position2d<irr::s32>(0,0),
+            irr::core::rect<irr::s32>(0,0,1920,1080), 0,
+            irr::video::SColor(255, 255, 255, 255), true);
+        this->_pausegui->drawAll();
+        this->_guienv->drawAll();
+    }
 }
 
 void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *im)
 {
     printf("I'm resetting the game\n");
     this->_driver->removeAllTextures();
+    this->_paused = false;
+    if (this->_pausegui)
+        this->_pausegui->clear();
     this->_guienv->clear();
     this->_objects.clear();
     this->_smgr->clear();
+    this->_pausegui = window->getGUIEnvironment();
+    this->_pauseBg = this->_driver->getTexture("./assets/images/background.png");
+    this->_defaultButtons.clear();
+    this->_hoverButtons.clear();
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 210, 1170, 370), true, "./assets/images/playDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 410, 1170, 570), true, "./assets/images/menuDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 610, 1170, 770), true, "./assets/images/settingsDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 810, 1170, 970), true, "./assets/images/quitDefault.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 210, 1170, 370), false, "./assets/images/playHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 410, 1170, 570), false, "./assets/images/menuHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 610, 1170, 770), false, "./assets/images/settingsHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 810, 1170, 970), false, "./assets/images/quitHover.png"));
     scene::ICameraSceneNode *camera = this->_smgr->addCameraSceneNode(0, core::vector3df(0, 25, -5),
         core::vector3df(0, -12.5, -2.5));
     this->_then = window->getTimer()->getTime();
@@ -108,6 +130,10 @@ void Game::destroy()
             delete(explosions);
         delete (object);
     }
+    if (this->_pauseBg)
+        delete(this->_pauseBg);
+    this->_defaultButtons.clear();
+    this->_hoverButtons.clear();
     this->_bombObjects.clear();
     for (auto object : this->_powerUpObjects)
         delete (object);

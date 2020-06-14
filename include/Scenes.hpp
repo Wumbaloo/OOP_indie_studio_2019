@@ -161,6 +161,10 @@ class Game : public AScene
         std::vector<Player *> _playerObjects;
         std::vector<Bomb *> _bombObjects;
         std::vector<PowerUp *> _powerUpObjects;
+        gui::IGUIEnvironment *_pausegui = NULL;
+        std::vector<gui::IGUIButton *> _defaultButtons;
+        std::vector<gui::IGUIButton *> _hoverButtons;
+        video::ITexture *_pauseBg = NULL;
 
     public:
         Game(IrrlichtDevice *);
