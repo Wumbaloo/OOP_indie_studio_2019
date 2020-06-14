@@ -79,6 +79,7 @@ enum ObjectType {
     POWERUP,
     ENEMY,
     PLAYER,
+    EXPLOSION
 };
 
 enum Direction {
