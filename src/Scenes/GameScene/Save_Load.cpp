@@ -99,11 +99,11 @@ void Game::load()
             z = std::stof(str.substr(middle + 1, close - middle - 1));
             switch (type) {
                 case 'x':
-                    this->createObject("destructible", "Cube.obj", "Cube.jpg", {(float) x, 0, (float) z}, {1, 1, 1}, BREAKABLE);
+                    obj = this->createObject("destructible", "Cube.obj", "Cube.jpg", {(float) x, 0, (float) z}, {1, 1, 1}, BREAKABLE);
                     break;
                 default:
                 case 'o':
-                    this->createObject("wall", "Cube.obj", "Square.jpg", {(float) x, 0, (float) z}, {1, 1, 1}, OBSTACLE);
+                    obj = this->createObject("wall", "Cube.obj", "Square.jpg", {(float) x, 0, (float) z}, {1, 1, 1}, OBSTACLE);
                     break;
             }
             if (obj) {
