@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.11)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 project(OOP_indie_studio_2019)
 
-
 # BINARY
 include_directories(include)
 set(NAME bomberman)
@@ -31,6 +30,7 @@ file(GLOB SRC
         src/Scenes/GameScene/Event.cpp
         src/Scenes/GameScene/Get.cpp
         src/Scenes/GameScene/Map.cpp
+        src/Scenes/GameScene/Save_Load.cpp
         src/Scenes/MenuScene/Menu.cpp
         src/Scenes/SettingsScene/Settings.cpp
         src/Scenes/SettingsScene/GenerateSettings.cpp
@@ -39,12 +39,11 @@ file(GLOB SRC
         src/Scenes/HowToPlayScene/HowToPlay.cpp
         src/Scenes/WinScene/Win.cpp
         src/Scenes/LoadScene/Load.cpp
-        )
+)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/libs" ${CMAKE_MODULE_PATH})
 set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/libs")
 set(LIBS_DIRECTORY "${CMAKE_SOURCE_DIR}/libs")
-# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../")
 configure_file("${LIBS_DIRECTORY}/irrKlang/ikpFlac.dll" "${CMAKE_SOURCE_DIR}" COPYONLY)
 configure_file("${LIBS_DIRECTORY}/irrKlang/ikpFlac.so" "${CMAKE_SOURCE_DIR}" COPYONLY)
 configure_file("${LIBS_DIRECTORY}/irrKlang/ikpMP3.dll" "${CMAKE_SOURCE_DIR}" COPYONLY)

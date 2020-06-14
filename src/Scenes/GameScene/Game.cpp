@@ -18,7 +18,7 @@ Game::Game(IrrlichtDevice *window) : AScene(window)
 
 void Game::display()
 {
-    this->_driver->beginScene(true, true, video::SColor(255, 82, 138, 85.4));
+    this->_driver->beginScene(true, true, video::SColor(255, 82, 138, (u32) 85.4f));
     this->_smgr->drawAll();
     if (this->_paused) {
         this->_pausegui->drawAll();
@@ -51,61 +51,6 @@ void Game::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
         this->_music->playGameMusic();
     this->createPauseScene();
     this->createGameScene(settings, im);
-}
-
-void Game::save()
-{
-    std::string *buffer;
-    FILE *fileStream = fopen("../bomberman.sav", "w");
-
-    for (int i = 0; i < MAP_HEIGHT + 2; i++) {
-        for (int j = 0; j < MAP_WIDTH; j++) {
-            switch (this->_map[i][j]->getType()) {
-                case BREAKABLE :
-                    fwrite("x", 1, 1, fileStream);
-                    break;
-                case OBSTACLE :
-                    fwrite("o", 1, 1, fileStream);
-                    break;
-                default :
-                    fwrite("_", 1, 1, fileStream);
-            }
-        }
-    }
-    fclose(fileStream);
-}
-
-void Game::load()
-{
-    std::string buffer;
-    std::ifstream fileStream("./bomberman.sav");
-
-    if (!fileStream.is_open())
-        return;
-    fileStream >> buffer;
-
-    this->makeBorderMap();
-    for (int j = 0; j < MAP_HEIGHT; j++) {
-        for (int i = 0; i < MAP_WIDTH; i++) {
-            Model *obj = NULL;
-
-            if (buffer.at(i + MAP_WIDTH * j) == 'o') {
-                obj = this->createObject("destructible", "Cube.obj", "Cube.jpg", {(float) 0, 0, (float) 0}, {1, 1, 1}, BREAKABLE);
-                this->_map[j].push_back(obj);
-                this->placeInMap(obj, i + 1, j + 1);
-            }
-            else if (buffer.at(i + MAP_WIDTH * j) == 'x') {
-                obj = this->createObject("wall", "Cube.obj", "Square.jpg", {(float) 0, 0, (float) 0}, {1, 1, 1}, OBSTACLE);
-                this->_map[j].push_back(obj);
-                this->placeInMap(obj, i + 1, j + 1);
-            }
-            else if (buffer.at(i + MAP_WIDTH * j) == 'b') {
-                this->_powerUpObjects.push_back(this->createPowerUpObject(BOMBUP, "BombUp", {"bombUp.md3", "Rough.png",
-                {i + 1, 0, j + 1}, {.8, .8, .8}, {0, 50}, 25}));
-            }
-        }
-    }
-    fileStream.close();
 }
 
 void Game::destroy()
