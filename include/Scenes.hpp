@@ -172,7 +172,7 @@ class Game : public AScene
         // create
         Model *createObject(std::string, std::string, std::string, core::vector3df, core::vector3df, ObjectType type = NOTYPE);
         Player *createPlayerObject(int, std::string, data_animations_t, InputManager *, bool isHuman);
-        Bomb *createBombObject(std::string, data_animations_t, std::string, u32);
+        Bomb *createBombObject(std::string, data_animations_t, std::string, u32, int);
         PowerUp *createPowerUpObject(PowerUpsType, std::string, data_animations_t);
         scene::IAnimatedMeshSceneNode *createAnimatedModel(std::string, std::string, data_animations_t);
         scene::IMeshSceneNode *createModel(std::string, std::string);

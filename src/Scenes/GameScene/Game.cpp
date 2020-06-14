@@ -103,8 +103,11 @@ void Game::destroy()
     for (auto object : this->_playerObjects)
         delete (object);
     this->_playerObjects.clear();
-    for (auto object : this->_bombObjects)
+    for (auto object : this->_bombObjects) {
+        for (auto explosions : object->getBombExplosions())
+            delete(explosions);
         delete (object);
+    }
     this->_bombObjects.clear();
     for (auto object : this->_powerUpObjects)
         delete (object);

@@ -41,12 +41,14 @@ class Bomb : public AnimatedModel
         std::string _owner;
         u32 _initial_time;
         u32 _time;
+        int _range = 1;
         std::vector<Model *> _bombExplosions;
 
     public:
-        Bomb(std::string, scene::IAnimatedMeshSceneNode *, std::string, u32);
+        Bomb(std::string, scene::IAnimatedMeshSceneNode *, std::string, u32, int);
         ~Bomb();
 
+        int getRange(void) const;
         u32 getTime(void) const;
         void setTime(u32 newTime);
         void addBombExplosion(Model *explosion);

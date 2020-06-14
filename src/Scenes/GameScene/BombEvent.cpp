@@ -80,7 +80,7 @@ void Game::CheckIfNotBreakable(bool exploded[4], Bomb *bomb, int i)
 
 void Game::BombExploded(Bomb *bomb, vector<Player *> *deadPlayer)
 {
-    int range = this->getPlayerByName(bomb->getOwner())->getRange();
+    int range = bomb->getRange();
     bool exploded[4] = {0, 0, 0, 0};
     Model *obj = NULL;
 
@@ -142,27 +142,28 @@ void DeletePlayers(vector<Player *> *deadPlayer, vector<Player *> *_playerObject
 
 void Game::addExplosionsObjects(Bomb *bomb)
 {
-    Player *player = this->getPlayerByName(bomb->getOwner());
-    int range = (player) ? player->getRange() : 1;
+    int range = bomb->getRange();
     Model *obj = NULL;
 
-    for (int x = 0; x <= range; x++) {
+    obj = this->createObject("explosion", "explosion.obj", "explosion.png", {(float) bomb->getPos().X, 0, (float) bomb->getPos().Z}, {1, 1, 1}, EXPLOSION);
+    bomb->addBombExplosion(obj);
+    for (int x = 0; x < range; x++) {
         if (!this->getObjectFromGame(bomb->getBoundingPos().MaxEdge.X + (1 + x), bomb->getPos().Z)) {
             obj = this->createObject("explosion", "explosion.obj", "explosion.png", {(float) bomb->getPos().X + (1 + x), 0, (float) bomb->getPos().Z}, {1, 1, 1}, EXPLOSION);
             bomb->addBombExplosion(obj);
         }
         if (!this->getObjectFromGame(bomb->getBoundingPos().MinEdge.X - (1 + x), bomb->getPos().Z)) {
-            obj = this->createObject("explosion", "explosion.obj", "explosion.png", {(float) bomb->getPos().X + (-1 + x), 0, (float) bomb->getPos().Z}, {1, 1, 1}, EXPLOSION);
+            obj = this->createObject("explosion", "explosion.obj", "explosion.png", {(float) bomb->getPos().X - (1 + x), 0, (float) bomb->getPos().Z}, {1, 1, 1}, EXPLOSION);
             bomb->addBombExplosion(obj);
         }
     }
-    for (int y = 0; y <= range; y++) {
+    for (int y = 0; y < range; y++) {
          if (!this->getObjectFromGame(bomb->getPos().X, bomb->getPos().Z + (1 + y))) {
             obj = this->createObject("explosion", "explosion.obj", "explosion.png", {(float) bomb->getPos().X, 0 , (float) bomb->getPos().Z + (1 + y)}, {1, 1, 1}, EXPLOSION);
             bomb->addBombExplosion(obj);
          }
          if (!this->getObjectFromGame(bomb->getPos().X, bomb->getPos().Z - (1 + y))) {
-            obj = this->createObject("explosion", "explosion.obj", "explosion.png", {(float) bomb->getPos().X, 0 , (float) bomb->getPos().Z + (-1 + y)}, {1, 1, 1}, EXPLOSION);
+            obj = this->createObject("explosion", "explosion.obj", "explosion.png", {(float) bomb->getPos().X, 0 , (float) bomb->getPos().Z - (1 + y)}, {1, 1, 1}, EXPLOSION);
             bomb->addBombExplosion(obj);
          }
     }
@@ -201,7 +202,7 @@ void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Play
     if (player && (player->isHuman() && inputManager->isKeyPressed(player->getBombEvent()))) {
         if (getNbBombByOwner(player->getName()) < player->getBombUp()) {
             this->_bombObjects.push_back(this->createBombObject("bomb", {"bomb_animated.md3", "bomb.png",
-                {player->getPos()}, {.8, .8, .8}, {0, 20}, 20}, player->getName(), window->getTimer()->getTime()));
+                {player->getPos()}, {.8, .8, .8}, {0, 20}, 20}, player->getName(), window->getTimer()->getTime(), player->getRange()));
             this->_music->playBombSound();
         }
     }

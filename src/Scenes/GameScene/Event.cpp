@@ -71,7 +71,7 @@ void Game::PlayerEvents(InputManager *inputManager, IrrlichtDevice *window)
                 if (getNbBombByOwner((*player)->getName()) < (*player)->getBombUp()) {
                     this->_bombObjects.push_back(
                         this->createBombObject("bomb", {"bomb_animated.md3", "bomb.png",
-                        {(*player)->getPos()}, {.8, .8, .8}, {0, 20}, 20}, (*player)->getName(), window->getTimer()->getTime()));
+                        {(*player)->getPos()}, {.8, .8, .8}, {0, 20}, 20}, (*player)->getName(), window->getTimer()->getTime(), (*player)->getRange()));
                     this->_music->playBombSound();
                 }
             }

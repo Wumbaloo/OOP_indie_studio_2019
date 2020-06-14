@@ -76,7 +76,7 @@ Player *Game::createPlayerObject(int nb, std::string name, data_animations_t dat
     return NewObject;
 }
 
-Bomb *Game::createBombObject(std::string name, data_animations_t data, std::string launcherName, u32 time)
+Bomb *Game::createBombObject(std::string name, data_animations_t data, std::string launcherName, u32 time, int range)
 {
     Bomb *NewObject = NULL;
     scene::IAnimatedMeshSceneNode *object = NULL;
@@ -86,7 +86,7 @@ Bomb *Game::createBombObject(std::string name, data_animations_t data, std::stri
         std::cout << "Failed to create a model" << std::endl;
         exit(84);
     }
-    NewObject = new Bomb(name, object, launcherName, time);
+    NewObject = new Bomb(name, object, launcherName, time, range);
     return NewObject;
 }
 
