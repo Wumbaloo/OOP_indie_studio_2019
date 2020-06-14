@@ -73,6 +73,7 @@ void Settings::manageMute(IrrlichtDevice *window, settings_t *settings)
 
 Events Settings::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
 {
+    settings->volume = this->_volumeBox->getValue();
     this->checkHoverButton(window->getCursorControl()->getPosition(), {this->_menuButtonDefault}, {this->_menuButtonHover});
     this->manageMute(window, settings);
     for (int i = 0; settings->nbrPlayers < 2; i++) {
@@ -125,12 +126,12 @@ void Settings::display()
 
 void Settings::createButtons()
 {
-    this->_menuButtonDefault = this->newButton(core::rect<s32>(10, 850, 430, 1010), true, "../assets/images/menuDefault.png");
-    this->_menuButtonHover = this->newButton(core::rect<s32>(10, 850, 430, 1010), false, "../assets/images/menuHover.png");
-    this->_soundsDefault.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), true, "../assets/images/soundOnDefault.png"));
-    this->_soundsHover.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), false, "../assets/images/soundOnHover.png"));
-    this->_soundsDefault.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), false, "../assets/images/soundOffDefault.png"));
-    this->_soundsHover.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), false, "../assets/images/soundOffHover.png"));
+    this->_menuButtonDefault = this->newButton(core::rect<s32>(10, 850, 430, 1010), true, "./assets/images/menuDefault.png");
+    this->_menuButtonHover = this->newButton(core::rect<s32>(10, 850, 430, 1010), false, "./assets/images/menuHover.png");
+    this->_soundsDefault.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), true, "./assets/images/soundOnDefault.png"));
+    this->_soundsHover.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), false, "./assets/images/soundOnHover.png"));
+    this->_soundsDefault.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), false, "./assets/images/soundOffDefault.png"));
+    this->_soundsHover.push_back(this->newButton(core::rect<s32>(475, 850, 895, 1010), false, "./assets/images/soundOffHover.png"));
 }
 
 void Settings::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager *im)
@@ -144,11 +145,12 @@ void Settings::resetScene(IrrlichtDevice *window, settings_t *settings, InputMan
     this->_guienv->clear();
     this->_smgr->clear();
     this->_driver->removeAllTextures();
-    this->_settingsBackground = this->_driver->getTexture("../assets/images/backgroundMenu.png");
+    this->_settingsBackground = this->_driver->getTexture("./assets/images/backgroundMenu.png");
     this->createButtons();
     this->generateSettings(settings);
     if (settings->isMuted)
         this->_music->muteAll();
     else
         this->_music->demute();
+    this->_music->manageVolume(settings->volume);
 }

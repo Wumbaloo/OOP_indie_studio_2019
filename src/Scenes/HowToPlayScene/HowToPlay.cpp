@@ -24,7 +24,7 @@ void HowToPlay::display()
 
 Events HowToPlay::checkEvents(IrrlichtDevice *window, InputManager *inputManager, settings_t *settings)
 {
-    ifstream save("../bomberman.sav");
+    ifstream save("./bomberman.sav");
 
     this->checkHoverButton(window->getCursorControl()->getPosition(),
         this->_defaultButtons, this->_hoverButtons);
@@ -50,10 +50,10 @@ Events HowToPlay::checkEvents(IrrlichtDevice *window, InputManager *inputManager
 
 void HowToPlay::createButtons()
 {
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(50, 850, 470, 1010), true, "../assets/images/menuDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(1450, 850, 1870, 1010), true, "../assets/images/proceedDefault.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(50, 850, 470, 1010), false, "../assets/images/menuHover.png"));
-    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(1450, 850, 1870, 1010), false, "../assets/images/proceedHover.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(50, 850, 470, 1010), true, "./assets/images/menuDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(irr::core::rect<irr::s32>(1450, 850, 1870, 1010), true, "./assets/images/proceedDefault.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(50, 850, 470, 1010), false, "./assets/images/menuHover.png"));
+    this->_hoverButtons.push_back(this->newButton(irr::core::rect<irr::s32>(1450, 850, 1870, 1010), false, "./assets/images/proceedHover.png"));
 }
 
 void HowToPlay::resetScene(IrrlichtDevice *, settings_t *settings, InputManager *)
@@ -64,9 +64,10 @@ void HowToPlay::resetScene(IrrlichtDevice *, settings_t *settings, InputManager 
     this->_defaultButtons.clear();
     this->_hoverButtons.clear();
     this->createButtons();
-    this->_htpBackground = this->_driver->getTexture("../assets/images/howToPlay.png");
+    this->_htpBackground = this->_driver->getTexture("./assets/images/howToPlay.png");
     if (settings->isMuted)
         this->_music->muteAll();
     else
         this->_music->demute();
+    this->_music->manageVolume(settings->volume);
 }

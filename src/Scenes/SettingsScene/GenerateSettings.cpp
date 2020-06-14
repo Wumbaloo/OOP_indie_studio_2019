@@ -22,11 +22,11 @@ void Settings::generateNameBoxes(settings_t *settings)
 
 void Settings::generateSkins(settings_t *settings)
 {
-    this->_skinsEnabled.push_back(this->_driver->getTexture("../assets/images/guard1.png"));
-    this->_skinsEnabled.push_back(this->_driver->getTexture("../assets/images/guard2.png"));
-    this->_skinsEnabled.push_back(this->_driver->getTexture("../assets/images/guard3.png"));
-    this->_skinsEnabled.push_back(this->_driver->getTexture("../assets/images/guard4.png"));
-    this->_skinDisabled = this->_driver->getTexture("../assets/images/noguard.png");
+    this->_skinsEnabled.push_back(this->_driver->getTexture("./assets/images/guard1.png"));
+    this->_skinsEnabled.push_back(this->_driver->getTexture("./assets/images/guard2.png"));
+    this->_skinsEnabled.push_back(this->_driver->getTexture("./assets/images/guard3.png"));
+    this->_skinsEnabled.push_back(this->_driver->getTexture("./assets/images/guard4.png"));
+    this->_skinDisabled = this->_driver->getTexture("./assets/images/noguard.png");
 }
 
 void Settings::generateListBoxes(settings_t *settings)
@@ -51,4 +51,9 @@ void Settings::generateSettings(settings_t *settings)
     this->generateSkins(settings);
     this->generateListBoxes(settings);
     this->generateCheckBoxes(settings);
+    this->_volumeBox = this->_guienv->addSpinBox(L"Volume", core::rect<s32>(900, 920, 950, 940), true);
+    this->_volumeBox->setRange(1, 100);
+    this->_volumeBox->setDecimalPlaces(0);
+    this->_volumeBox->setValue(settings->volume);
+    this->_volumeBox->setStepSize(1);
 }

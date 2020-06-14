@@ -40,8 +40,8 @@ class Win : public AScene
     private:
         video::ITexture *_winPanel = NULL;
         video::ITexture *_playerSkin = NULL;
-        gui::IGUIButton *_menuDefault = NULL;
-        gui::IGUIButton *_menuHover = NULL;
+        std::vector<gui::IGUIButton *> _defaultButtons;
+        std::vector<gui::IGUIButton *> _hoverButtons;
         gui::IGUIStaticText *_playerName = NULL;
 
     public:
@@ -116,6 +116,7 @@ class Settings : public AScene
         video::ITexture *_skinDisabled = NULL;
         std::vector<gui::IGUIListBox *> _listBoxes;
         std::vector<gui::IGUICheckBox *> _checkboxes;
+        irr::gui::IGUISpinBox *_volumeBox;
 
     public:
         explicit Settings(IrrlichtDevice *);

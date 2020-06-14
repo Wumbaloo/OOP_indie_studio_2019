@@ -57,17 +57,18 @@ void Menu::resetScene(IrrlichtDevice *window, settings_t *settings, InputManager
         this->_music->muteAll();
     else
         this->_music->demute();
+    this->_music->manageVolume(settings->volume);
     if (!this->_music->isMusicOn())
         this->_music->playMenuMusic();
-    this->_menuBackground = this->_driver->getTexture("../assets/images/backgroundMenu.png");
+    this->_menuBackground = this->_driver->getTexture("./assets/images/backgroundMenu.png");
 }
 
 void Menu::createButtons()
 {
-    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(270, 410, 690, 570), true, "../assets/images/playDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(270, 610, 690, 770), true, "../assets/images/settingsDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(270, 810, 690, 970), true, "../assets/images/quitDefault.png"));
-    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(270, 410, 690, 570), false, "../assets/images/playHover.png"));
-    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(270, 610, 690, 770), false, "../assets/images/settingsHover.png"));
-    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(270, 810, 690, 970), false, "../assets/images/quitHover.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(270, 410, 690, 570), true, "./assets/images/playDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(270, 610, 690, 770), true, "./assets/images/settingsDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(270, 810, 690, 970), true, "./assets/images/quitDefault.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(270, 410, 690, 570), false, "./assets/images/playHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(270, 610, 690, 770), false, "./assets/images/settingsHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(270, 810, 690, 970), false, "./assets/images/quitHover.png"));
 }

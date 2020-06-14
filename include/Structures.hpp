@@ -40,6 +40,7 @@ typedef struct data_animations_s
 
 typedef struct settings_s
 {
+    float volume = 50;
     int nbrPlayers = 4;
     std::vector<PlayerType> types = {HUMAN, AI, AI, AI};
     std::vector<std::wstring> names = {L"Human", L"BotOne", L"BotTwo", L"BotThree"};
