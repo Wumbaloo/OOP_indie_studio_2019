@@ -106,6 +106,12 @@ PowerUp *Game::createPowerUpObject(PowerUpsType type, std::string name, data_ani
 
 void Game::createGameScene(settings_t *settings, InputManager *im)
 {
+    this->_grid = 2;
+    if (settings->loadFile)
+        this->load();
+    else
+        this->generateMap(time(nullptr));
+    this->generateTree({-22, 0, 11});
     for (int i = 0; i < settings->types.size(); i++) {
         if (settings->playing.at(i) == true) {
             std::string name = (settings->types.at(i) == AI ? std::string("AI ") : std::string("Player ")) + std::to_string(i + 1);
@@ -132,12 +138,6 @@ void Game::createGameScene(settings_t *settings, InputManager *im)
             this->_playerObjects.at(this->_playerObjects.size()-1)->setOriginalPos(pos);
         }
     }
-    this->_grid = 2;
-    if (settings->loadFile)
-        this->load();
-    else
-        this->generateMap(time(nullptr));
-    this->generateTree({-22, 0, 11});
 }
 
 void Game::createPauseScene(void)

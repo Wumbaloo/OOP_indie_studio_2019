@@ -19,6 +19,8 @@
 
 using namespace irr;
 
+void loadSettings(settings_t *settings);
+
 class Irrlicht : public IDisplayModule
 {
     private:
