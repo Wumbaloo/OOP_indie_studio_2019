@@ -97,10 +97,10 @@ Events Game::PauseEvents(IrrlichtDevice *window)
     return NONE;
 }
 
-Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
+Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window, settings_t *settings)
 {
     if (inputManager->isKeyPressed(SAVE_GAME)) {
-        this->save();
+        this->save(settings);
         this->_music->stopSound();
         this->destroy();
         return BACK_MENU;
@@ -146,5 +146,5 @@ Events Game::checkEvents(IrrlichtDevice *window, InputManager *inputManager, set
         this->_guienv->clear();
         return GO_WIN;
     }
-    return (KeyboardEvents(inputManager, window));
+    return (KeyboardEvents(inputManager, window, settings));
 }

@@ -12,7 +12,31 @@
 #include <time.h>
 #include "IndieStudio.hpp"
 
-void Game::save()
+void Game::saveSettings(settings_t *settings)
+{
+    std::ofstream saveFile("settings.sav");
+
+    if (saveFile.fail())
+        return;
+    saveFile << settings->volume << std::endl;
+    saveFile << settings->nbrPlayers << std::endl;
+    for (PlayerType type : settings->types)
+        saveFile << ((type == HUMAN) ? 0 : 1);
+    saveFile << std::endl;
+    for (int i = 0; i < 3; i++) {
+        std::string name(settings->names[i].begin(), settings->names[i].end());
+        saveFile << name << ";";
+    }
+    std::string pseudo(settings->names[3].begin(), settings->names[3].end());
+    saveFile << pseudo << std::endl;
+    for (bool isPlaying : settings->playing)
+        saveFile << isPlaying;
+    saveFile << std::endl;
+    saveFile << settings->isMuted << std::endl;
+    saveFile.close();
+}
+
+void Game::save(settings_t *settings)
 {
     std::string *buffer;
     bool start = false;
@@ -47,6 +71,7 @@ void Game::save()
         saveFile << std::endl;
     }
     saveFile.close();
+    this->saveSettings(settings);
 }
 
 std::vector<std::string> split(std::string& s, std::string delimiter)

@@ -184,7 +184,7 @@ class Game : public AScene
 
         // event
         bool checkColision(AnimatedModel *, std::vector<Model *>[], Direction, bool);
-        Events KeyboardEvents(InputManager *, IrrlichtDevice *);
+        Events KeyboardEvents(InputManager *, IrrlichtDevice *, settings_t *);
         void PowerUpContact(PowerUp *, Player *, IrrlichtDevice *);
         void PlayerMovements(Player *, InputManager *);
         bool AIGoToNearest(Player *, core::vector3df, core::vector2di);
@@ -224,7 +224,8 @@ class Game : public AScene
         core::vector2di getMapPosition(core::vector3df pos);
 
         // saves
-        void save(void);
+        void save(settings_t *);
+        void saveSettings(settings_t *);
         void load(void);
 
         //Unused
