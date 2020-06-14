@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <irrlicht.h>
+#include <vector>
 #include "Object.hpp"
 #include "Enums.hpp"
 #include "InputManager.hpp"
@@ -40,6 +41,7 @@ class Bomb : public AnimatedModel
         std::string _owner;
         u32 _initial_time;
         u32 _time;
+        std::vector<Model *> _bombExplosions;
 
     public:
         Bomb(std::string, scene::IAnimatedMeshSceneNode *, std::string, u32);
@@ -47,7 +49,10 @@ class Bomb : public AnimatedModel
 
         u32 getTime(void) const;
         void setTime(u32 newTime);
+        void addBombExplosion(Model *explosion);
+        std::vector<Model *> getBombExplosions(void) const;
         std::string getOwner(void) const;
+        void clearExplosionsObjects(void);
 };
 
 class Player : public AnimatedModel

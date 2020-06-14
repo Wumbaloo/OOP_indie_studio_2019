@@ -187,6 +187,7 @@ class Game : public AScene
         bool AIGoToNearest(Player *, core::vector3df, core::vector2di);
         bool AIMovements(Player *);
         void BombExploded(Bomb *, vector<Player *> *);
+        void addExplosionsObjects(Bomb *);
         void deleteWall(Model *);
         void CheckIfNotBreakable(bool *, Bomb *, int);
         void CheckIfPlayer(bool *, Bomb *, vector<Player *> *, int);

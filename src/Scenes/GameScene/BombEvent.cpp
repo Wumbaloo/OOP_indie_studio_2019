@@ -82,36 +82,37 @@ void Game::BombExploded(Bomb *bomb, vector<Player *> *deadPlayer)
 {
     int range = this->getPlayerByName(bomb->getOwner())->getRange();
     bool exploded[4] = {0, 0, 0, 0};
+    Model *obj = NULL;
 
     for (int i = 0; i <= range; i++) {
         this->CheckIfNotBreakable(exploded, bomb, i);
         this->CheckIfPlayer(exploded, bomb, deadPlayer, i);
-        if (!exploded[0] && this->getObjectFromGame(bomb->getBoundingPos().MaxEdge.X + (1 + i), bomb->getPos().Z)
-                && this->getObjectFromGame(bomb->getBoundingPos().MaxEdge.X + (1 + i), bomb->getPos().Z)->getType() == BREAKABLE) {
+        obj = this->getObjectFromGame(bomb->getBoundingPos().MaxEdge.X + (1 + i), bomb->getPos().Z);
+        if (!exploded[0] && obj && obj->getType() == BREAKABLE) {
             if (rand() % 4 == 1)
-                this->SpawnPowerUps(this->getObjectFromGame(bomb->getBoundingPos().MaxEdge.X + (1 + i), bomb->getPos().Z)->getPos());
-            this->deleteWall(this->getObjectFromGame(bomb->getBoundingPos().MaxEdge.X + (1 + i), bomb->getPos().Z));
+                this->SpawnPowerUps(obj->getPos());
+            this->deleteWall(obj);
             exploded[0] = 1;
         }
-        if (!exploded[1] && this->getObjectFromGame(bomb->getBoundingPos().MinEdge.X - (1 + i), bomb->getPos().Z)
-                && this->getObjectFromGame(bomb->getBoundingPos().MinEdge.X - (1 + i), bomb->getPos().Z)->getType() == BREAKABLE) {
+        obj = this->getObjectFromGame(bomb->getBoundingPos().MinEdge.X - (1 + i), bomb->getPos().Z);
+        if (!exploded[1] && obj && obj->getType() == BREAKABLE) {
             if (rand() % 4 == 1)
-                this->SpawnPowerUps(this->getObjectFromGame(bomb->getBoundingPos().MinEdge.X - (1 + i), bomb->getPos().Z)->getPos());
-            this->deleteWall(this->getObjectFromGame(bomb->getBoundingPos().MinEdge.X - (1 + i), bomb->getPos().Z));
+                this->SpawnPowerUps(obj->getPos());
+            this->deleteWall(obj);
             exploded[1] = 1;
         }
-        if (!exploded[2] && this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MaxEdge.Z + (1 + i))
-                && this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MaxEdge.Z + (1 + i))->getType() == BREAKABLE) {
+        obj = this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MaxEdge.Z + (1 + i));
+        if (!exploded[2] && obj && obj->getType() == BREAKABLE) {
             if (rand() % 4 == 1)
-                this->SpawnPowerUps(this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MaxEdge.Z + (1 + i))->getPos());
-            this->deleteWall(this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MaxEdge.Z + (1 + i)));
+                this->SpawnPowerUps(obj->getPos());
+            this->deleteWall(obj);
             exploded[2] = 1;
         }
-        if (!exploded[3] && this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MinEdge.Z - (1 + i))
-                && this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MinEdge.Z - (1 + i))->getType() == BREAKABLE) {
+        obj = this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MinEdge.Z - (1 + i));
+        if (!exploded[3] && obj && obj->getType() == BREAKABLE) {
             if (rand() % 4 == 1)
-                this->SpawnPowerUps(this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MinEdge.Z - (1 + i))->getPos());
-            this->deleteWall(this->getObjectFromGame(bomb->getPos().X, bomb->getBoundingPos().MinEdge.Z - (1 + i)));
+                this->SpawnPowerUps(obj->getPos());
+            this->deleteWall(obj);
             exploded[3] = 1;
         }
     }
@@ -135,7 +136,35 @@ void DeletePlayers(vector<Player *> *deadPlayer, vector<Player *> *_playerObject
                 }
             }
         }
-        deadPlayer->clear();
+    }
+    deadPlayer->clear();
+}
+
+void Game::addExplosionsObjects(Bomb *bomb)
+{
+    Player *player = this->getPlayerByName(bomb->getOwner());
+    int range = (player) ? player->getRange() : 1;
+    Model *obj = NULL;
+
+    for (int x = 0; x <= range; x++) {
+        if (!this->getObjectFromGame(bomb->getBoundingPos().MaxEdge.X + (1 + x), bomb->getPos().Z)) {
+            obj = this->createObject("explosion", "Fir_Tree.obj", "Cube.jpg", {(float) bomb->getPos().X + (1 + x), 0, (float) bomb->getPos().Z}, {1, 1, 1}, EXPLOSION);
+            bomb->addBombExplosion(obj);
+        }
+        if (!this->getObjectFromGame(bomb->getBoundingPos().MinEdge.X - (1 + x), bomb->getPos().Z)) {
+            obj = this->createObject("explosion", "Fir_Tree.obj", "Cube.jpg", {(float) bomb->getPos().X + (-1 + x), 0, (float) bomb->getPos().Z}, {1, 1, 1}, EXPLOSION);
+            bomb->addBombExplosion(obj);
+        }
+    }
+    for (int y = 0; y <= range; y++) {
+         if (!this->getObjectFromGame(bomb->getPos().X, bomb->getPos().Z + (1 + y))) {
+             obj = this->createObject("explosion", "Fir_Tree.obj", "Cube.jpg", {(float) bomb->getPos().X, 0 , (float) bomb->getPos().Z + (1 + y)}, {1, 1, 1}, EXPLOSION);
+            bomb->addBombExplosion(obj);
+         }
+         if (!this->getObjectFromGame(bomb->getPos().X, bomb->getPos().Z - (1 + y))) {
+            obj = this->createObject("explosion", "Fir_Tree.obj", "Cube.jpg", {(float) bomb->getPos().X, 0 , (float) bomb->getPos().Z + (-1 + y)}, {1, 1, 1}, EXPLOSION);
+            bomb->addBombExplosion(obj);
+         }
     }
 }
 
@@ -146,17 +175,27 @@ void Game::BombHandling(IrrlichtDevice *window, InputManager *inputManager, Play
 
     for (int i = 0; i < bombEnd; i++) {
         Bomb *obj = this->_bombObjects.at(i);
+        if (!obj)
+            continue;
         obj->setTime(window->getTimer()->getTime());
-        if (obj->getTime() >= 2000) {
-            this->_music->playBombExploSound();
+        if (obj->getTime() >= 2500) {
+            std::vector<Model *> explosions = obj->getBombExplosions();
+            int endBomb = explosions.size();
+            for (int j = 0; j < endBomb; j++)
+                delete(explosions.at(j));
+            obj->clearExplosionsObjects();
             this->_bombObjects.erase(std::remove(this->_bombObjects.begin(), this->_bombObjects.end(), obj), this->_bombObjects.end());
-            this->BombExploded(obj, &deadPlayer);
-            DeletePlayers(&deadPlayer, &this->_playerObjects, this->_music);
-            if (this->_playerObjects.size() == 1)
-                this->_winner = this->_playerObjects.at(0)->getNb();
             delete(obj);
             bombEnd--;
             i = 0;
+        } else if (obj->getTime() >= 2000 && obj->getSceneNode()->isVisible()) {
+            this->_music->playBombExploSound();
+            this->BombExploded(obj, &deadPlayer);
+            this->addExplosionsObjects(obj);
+            DeletePlayers(&deadPlayer, &this->_playerObjects, this->_music);
+            if (this->_playerObjects.size() == 1)
+                this->_winner = this->_playerObjects.at(0)->getNb();
+            obj->getSceneNode()->setVisible(false);
         }
     }
     if (player && (player->isHuman() && inputManager->isKeyPressed(player->getBombEvent()))) {

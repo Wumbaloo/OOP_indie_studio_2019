@@ -232,7 +232,7 @@ core::vector3df Player::getOriginalPos(void) const
     return this->_originalPos;
 }
 
-int Player::getNb() const
+int Player::getNb(void) const
 {
     return this->_nb;
 }

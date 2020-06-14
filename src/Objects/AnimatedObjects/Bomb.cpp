@@ -32,6 +32,21 @@ void Bomb::setTime(u32 newTime)
     this->_time += newTime - this->_time;
 }
 
+void Bomb::addBombExplosion(Model *explosion)
+{
+    this->_bombExplosions.push_back(explosion);
+}
+
+void Bomb::clearExplosionsObjects(void)
+{
+    this->_bombExplosions.clear();
+}
+
+std::vector<Model *> Bomb::getBombExplosions(void) const
+{
+    return this->_bombExplosions;
+}
+
 std::string Bomb::getOwner(void) const
 {
     return this->_owner;
