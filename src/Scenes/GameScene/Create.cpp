@@ -129,7 +129,7 @@ void Game::createGameScene(settings_t *settings, InputManager *im)
             this->_playerObjects.push_back(this->createPlayerObject(i + 1, name,
                 {"guard.md3", std::string("Guard") + std::to_string(i + 1) + std::string(".png"),
                 pos, {0.035, 0.035, 0.035}, {0, 200}, 32.5}, im, settings->types.at(i) == HUMAN));
-            this->_playerObjects.at(i)->setOriginalPos(pos);
+            this->_playerObjects.at(this->_playerObjects.size()-1)->setOriginalPos(pos);
         }
     }
     this->_grid = 2;
