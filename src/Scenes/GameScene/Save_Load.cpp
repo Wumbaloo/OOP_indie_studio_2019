@@ -77,7 +77,7 @@ void Game::load()
         std::cout << "Failed in open bomberman.sav. Please check the rights of the file." << std::endl;
         exit(84);
     }
-    this->generateMap(time(NULL));
+    this->makeBorderMap();
     for (int y = 0; !fileStream.eof(); y++) {
         fileStream >> buffer;
         std::vector<std::string> separate = split(buffer, ";");
