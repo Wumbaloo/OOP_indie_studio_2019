@@ -96,15 +96,16 @@ Events Game::KeyboardEvents(InputManager *inputManager, IrrlichtDevice *window)
         return RESTART;
     }
     if (inputManager->isKeyPressed(PAUSE)) {
-        // this->_paused = !this->_paused;
+        this->_paused = !this->_paused;
     }
-    if (this->_paused)
-        return NONE;
-    if (inputManager->isKeyPressed(BACK_MENU)) {
+    if (inputManager->isKeyPressed(BACK_MENU) ||
+        (this->_paused && this->_hoverButtons.size() >= 2 && this->_hoverButtons[1]->isPressed())) {
         this->_music->stopSound();
         this->destroy();
         return BACK_MENU;
     }
+    if (this->_paused)
+        return NONE;
     this->PlayerEvents(inputManager, window);
     return NONE;
 }
@@ -113,6 +114,19 @@ Events Game::checkEvents(IrrlichtDevice *window, InputManager *inputManager, set
 {
     const u32 now = window->getTimer()->getTime();
 
+    this->checkHoverButton(window->getCursorControl()->getPosition(),
+        this->_defaultButtons, this->_hoverButtons);
+    if (this->_paused && this->_hoverButtons.size() >= 4) {
+        if (this->_hoverButtons[0]->isPressed()) {
+            this->_paused = !this->_paused;
+            return NONE;
+        } else if (this->_hoverButtons[2]->isPressed()) {
+            this->_music->stopSound();
+            this->destroy();
+            return TO_SETTINGS;
+        } else if (this->_hoverButtons[3]->isPressed())
+            return CLOSE;
+    }
     this->_frameDeltaTime = (f32)(now - this->_then) / 1000.f;
     this->_then = now;
     if (this->_winner != -1) {
@@ -120,6 +134,7 @@ Events Game::checkEvents(IrrlichtDevice *window, InputManager *inputManager, set
         this->_music->stopSound();
         this->destroy();
         this->_winner = -1;
+        this->_guienv->clear();
         return GO_WIN;
     }
     return (KeyboardEvents(inputManager, window));

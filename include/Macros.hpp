@@ -10,6 +10,7 @@
 
 #define MODELS_PATH     "./assets/Models/"
 #define TEXTURES_PATH   "./assets/Textures/"
+#define IMAGES_PATH   "./assets/images/"
 #define PLAYER_SPEED    8.f
 #define MAP_WIDTH       13
 #define MAP_HEIGHT      13
