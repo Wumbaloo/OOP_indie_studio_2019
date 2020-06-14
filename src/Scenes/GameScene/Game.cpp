@@ -76,6 +76,7 @@ void Game::load()
 
     std::cout << "*** debug ***\n" << buffer << std::endl;
 
+    this->makeBorderMap();
     for (int j = 0; j < MAP_HEIGHT; j++) {
         for (int i = 0; i < MAP_WIDTH; i++) {
             Model *obj = NULL;
@@ -84,13 +85,16 @@ void Game::load()
                 obj = this->createObject("destructible", "Cube.obj", "Cube.jpg", {(float) 0, 0, (float) 0}, {1, 1, 1}, BREAKABLE);
                 this->_map[j].push_back(obj);
                 this->placeInMap(obj, i, j);
+                std::cout << "o";
             }
             else if (buffer.at(i + MAP_WIDTH * j) == 'x') {
                 obj = this->createObject("wall", "Cube.obj", "Square.jpg", {(float) 0, 0, (float) 0}, {1, 1, 1}, OBSTACLE);
                 this->_map[j].push_back(obj);
                 this->placeInMap(obj, i, j);
+                std::cout << "x";
             }
         }
+        std::cout << std::endl;
     }
     fileStream.close();
 }
