@@ -44,7 +44,7 @@ file(GLOB SRC
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/libs" ${CMAKE_MODULE_PATH})
 set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/libs")
 set(LIBS_DIRECTORY "${CMAKE_SOURCE_DIR}/libs")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../")
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../")
 configure_file("${LIBS_DIRECTORY}/irrKlang/ikpFlac.dll" "${CMAKE_SOURCE_DIR}" COPYONLY)
 configure_file("${LIBS_DIRECTORY}/irrKlang/ikpFlac.so" "${CMAKE_SOURCE_DIR}" COPYONLY)
 configure_file("${LIBS_DIRECTORY}/irrKlang/ikpMP3.dll" "${CMAKE_SOURCE_DIR}" COPYONLY)
@@ -56,6 +56,18 @@ configure_file("${LIBS_DIRECTORY}/irrKlang/libIrrKlang.so" "${CMAKE_SOURCE_DIR}"
 configure_file("${LIBS_DIRECTORY}/irrlicht/Irrlicht.dll" "${CMAKE_SOURCE_DIR}" COPYONLY)
 configure_file("${LIBS_DIRECTORY}/irrlicht/Irrlicht.exp" "${CMAKE_SOURCE_DIR}" COPYONLY)
 configure_file("${LIBS_DIRECTORY}/irrlicht/Irrlicht.lib" "${CMAKE_SOURCE_DIR}" COPYONLY)
+
+configure_file("${LIBS_DIRECTORY}/irrKlang/ikpFlac.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" COPYONLY)
+configure_file("${LIBS_DIRECTORY}/irrKlang/ikpFlac.so" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" COPYONLY)
+configure_file("${LIBS_DIRECTORY}/irrKlang/ikpMP3.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" COPYONLY)
+configure_file("${LIBS_DIRECTORY}/irrKlang/ikpMP3.so" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" COPYONLY)
+configure_file("${LIBS_DIRECTORY}/irrKlang/irrKlang.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" COPYONLY)
+configure_file("${LIBS_DIRECTORY}/irrKlang/irrKlang.exp" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" COPYONLY)
+configure_file("${LIBS_DIRECTORY}/irrKlang/irrKlang.lib" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" COPYONLY)
+configure_file("${LIBS_DIRECTORY}/irrKlang/libIrrKlang.so" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" COPYONLY)
+configure_file("${LIBS_DIRECTORY}/irrlicht/Irrlicht.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" COPYONLY)
+configure_file("${LIBS_DIRECTORY}/irrlicht/Irrlicht.exp" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" COPYONLY)
+configure_file("${LIBS_DIRECTORY}/irrlicht/Irrlicht.lib" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" COPYONLY)
 
 # IRRLITCH LIB
 set(Irrlicht_DIR "${CMAKE_SOURCE_DIR}/libs/irrlicht")
