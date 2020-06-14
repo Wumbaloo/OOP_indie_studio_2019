@@ -148,21 +148,21 @@ void Game::addExplosionsObjects(Bomb *bomb)
 
     for (int x = 0; x <= range; x++) {
         if (!this->getObjectFromGame(bomb->getBoundingPos().MaxEdge.X + (1 + x), bomb->getPos().Z)) {
-            obj = this->createObject("explosion", "Fir_Tree.obj", "Cube.jpg", {(float) bomb->getPos().X + (1 + x), 0, (float) bomb->getPos().Z}, {1, 1, 1}, EXPLOSION);
+            obj = this->createObject("explosion", "explosion.obj", "explosion.png", {(float) bomb->getPos().X + (1 + x), 0, (float) bomb->getPos().Z}, {1, 1, 1}, EXPLOSION);
             bomb->addBombExplosion(obj);
         }
         if (!this->getObjectFromGame(bomb->getBoundingPos().MinEdge.X - (1 + x), bomb->getPos().Z)) {
-            obj = this->createObject("explosion", "Fir_Tree.obj", "Cube.jpg", {(float) bomb->getPos().X + (-1 + x), 0, (float) bomb->getPos().Z}, {1, 1, 1}, EXPLOSION);
+            obj = this->createObject("explosion", "explosion.obj", "explosion.png", {(float) bomb->getPos().X + (-1 + x), 0, (float) bomb->getPos().Z}, {1, 1, 1}, EXPLOSION);
             bomb->addBombExplosion(obj);
         }
     }
     for (int y = 0; y <= range; y++) {
          if (!this->getObjectFromGame(bomb->getPos().X, bomb->getPos().Z + (1 + y))) {
-             obj = this->createObject("explosion", "Fir_Tree.obj", "Cube.jpg", {(float) bomb->getPos().X, 0 , (float) bomb->getPos().Z + (1 + y)}, {1, 1, 1}, EXPLOSION);
+            obj = this->createObject("explosion", "explosion.obj", "explosion.png", {(float) bomb->getPos().X, 0 , (float) bomb->getPos().Z + (1 + y)}, {1, 1, 1}, EXPLOSION);
             bomb->addBombExplosion(obj);
          }
          if (!this->getObjectFromGame(bomb->getPos().X, bomb->getPos().Z - (1 + y))) {
-            obj = this->createObject("explosion", "Fir_Tree.obj", "Cube.jpg", {(float) bomb->getPos().X, 0 , (float) bomb->getPos().Z + (-1 + y)}, {1, 1, 1}, EXPLOSION);
+            obj = this->createObject("explosion", "explosion.obj", "explosion.png", {(float) bomb->getPos().X, 0 , (float) bomb->getPos().Z + (-1 + y)}, {1, 1, 1}, EXPLOSION);
             bomb->addBombExplosion(obj);
          }
     }

@@ -10,14 +10,14 @@ Un installeur est disponible à la racine de l'OOP_indie_studio_2019 pour Window
 Sinon, lancez Git Bash, rendez-vous dans le dossier "build", et effectuez la commande :
 > cmake .. && cmake --build . --config Release
 
-Ensuite, le bomberman.exe est généré dans le dossier "build/Release", déplacez le dans le dossier "build" puis copiez-coller dans le dossier "build" l'ensemble des .lib et .exp disponible dans chacune des librairies dans le dossier :
+Ensuite, le bomberman.exe est généré dans le dossier "Release" à la **racine du projet**, déplacez le contenu de celui-ci à la racine du projet puis copiez-coller dans le dossier l'ensemble des .lib et .exp disponible dans chacune des librairies dans le dossier :
 -  **OOP_indie_studio_2019/libs/irrlicht/bin**
 - **OOP_indie_studio_2019/libs/irrlicht/lib**
 - **OOP_indie_studio_2019/libs/irrKlang/bin**
 - **OOP_indie_studio_2019/libs/irrKlang/lib**
 
 Dans les deux cas, assurez-vous que le binaire (sur Linux et .exe sur Windows)
-se trouve bien dans le dossier "build", où se trouve les assets.
+se trouve bien à la racine du projet, où se trouve les assets.
 
 # A savoir:
 Pour toutes modifications du son dans les options, celles-ci seront appliquées une fois retourné au menu principal
