@@ -142,12 +142,14 @@ void Game::createGameScene(settings_t *settings, InputManager *im)
 
 void Game::createPauseScene(void)
 {
-    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 210, 1170, 370), true, "./assets/images/playDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 410, 1170, 570), true, "./assets/images/menuDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 610, 1170, 770), true, "./assets/images/settingsDefault.png"));
-    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 810, 1170, 970), true, "./assets/images/quitDefault.png"));
-    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 210, 1170, 370), false, "./assets/images/playHover.png"));
-    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 410, 1170, 570), false, "./assets/images/menuHover.png"));
-    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 610, 1170, 770), false, "./assets/images/settingsHover.png"));
-    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 810, 1170, 970), false, "./assets/images/quitHover.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(530, 290, 950, 450), true, "./assets/images/playDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(970, 290, 1390, 450), true, "./assets/images/menuDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(530, 490, 950, 650), true, "./assets/images/settingsDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(970, 490, 1390, 650), true, "./assets/images/saveDefault.png"));
+    this->_defaultButtons.push_back(this->newButton(core::rect<s32>(750, 690, 1170, 850), true, "./assets/images/quitDefault.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(530, 290, 950, 450), false, "./assets/images/playHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(970, 290, 1390, 450), false, "./assets/images/menuHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(530, 490, 950, 650), false, "./assets/images/settingsHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(970, 490, 1390, 650), false, "./assets/images/saveHover.png"));
+    this->_hoverButtons.push_back(this->newButton(core::rect<s32>(750, 690, 1170, 850), false, "./assets/images/quitHover.png"));
 }

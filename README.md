@@ -22,6 +22,8 @@ se trouve bien à la racine du projet, où se trouve le dossier **assets**.
 # A savoir:
 Pour toutes modifications du son dans les options, celles-ci seront appliquées une fois retourné au menu principal
 
+Si vous voulez sauvegarder la carte sur laquelle vous jouez, appuyez sur **P** dans le jeu puis lancez une nouvelle partie, cela vous proposera de charger votre dernière carte sauvegardée.
+
 # Touches
 
 Il existe différentes touches pour diverses actions :
